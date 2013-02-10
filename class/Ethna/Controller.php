@@ -8,6 +8,7 @@
  *  @package    Ethna
  *  @version    $Id$
  */
+require_once(dirname(dirname(__FILE__)).'/Ethna.php');
 
 // {{{ Ethna_Controller
 /**
@@ -233,10 +234,10 @@ class Ethna_Controller
         //
         // @see Ethna_Controller#_getDefaultLanguage
         list($this->locale, $this->system_encoding, $this->client_encoding) = $this->_getDefaultLanguage();
-        if (mb_enabled()) {
-            mb_internal_encoding($this->client_encoding);
-            mb_regex_encoding($this->client_encoding);
-        }
+
+        mb_internal_encoding($this->client_encoding);
+        mb_regex_encoding($this->client_encoding);
+
         $this->config = $this->getConfig();
         $this->dsn = $this->_prepareDSN();
         $this->url = $this->config->get('url');
@@ -1203,12 +1204,6 @@ class Ethna_Controller
      */
     public function getErrorMessage($code)
     {
-        $message_list = $GLOBALS['_Ethna_error_message_list'];
-        for ($i = count($message_list)-1; $i >= 0; $i--) {
-            if (array_key_exists($code, $message_list[$i])) {
-                return $message_list[$i][$code];
-            }
-        }
         return null;
     }
 
@@ -1781,7 +1776,6 @@ class Ethna_Controller
         // if action is __ethna_info__ or __ethna_unittest__, the renderer must be Smarty2
         if ($this->action_name == '__ethna_info__'
             || $this->action_name == '__ethna_unittest__') {
-            require_once ETHNA_BASE . '/class/Renderer/Smarty.php';
             // force update delimiter setting
             $renderer_setting = $this->getConfig()->get('renderer');
             $smarty_setting = (isset($renreder_setting['smarty']) ? $renderer_setting['smarty'] : array());
@@ -2155,8 +2149,6 @@ class Ethna_Controller
             return;
         }
 
-        require_once ETHNA_BASE . '/class/InfoManager.php';
-
         // action設定
         $this->action['__ethna_info__'] = array(
             'form_name' =>  'Ethna_Form_Info',
@@ -2175,7 +2167,6 @@ class Ethna_Controller
         // see if we have simpletest
         if (file_exists_ex('simpletest/unit_tester.php', true)) {
         }
-        require_once ETHNA_BASE . '/class/UnitTestManager.php';
         // action設定
         $this->action['__ethna_unittest__'] = array(
             'form_name' =>  'Ethna_Form_UnitTest',

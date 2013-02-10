@@ -445,7 +445,7 @@ class Ethna
      */
     public static function clearErrorCallback()
     {
-        $GLOBALS['_Ethna_error_callback_list'] = array();
+        $this->error_callback_list[] = array();
     }
 
     /**
@@ -457,8 +457,8 @@ class Ethna
      */
     public static function handleError($error)
     {
-        for ($i = 0; $i < count($GLOBALS['_Ethna_error_callback_list']); $i++) {
-            $callback = $GLOBALS['_Ethna_error_callback_list'][$i];
+        for ($i = 0; $i < count($this->error_callback_list); $i++) {
+            $callback = $this->error_callback_list[$i];
             if (is_array($callback) == false) {
                 call_user_func($callback, $error);
             } else if (is_object($callback[0])) {

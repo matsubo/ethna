@@ -242,7 +242,7 @@ class Ethna_Plugin
         // Communiy based libraries
         $extlib_dir = implode(DIRECTORY_SEPARATOR, array('Ethna', 'extlib', 'Plugin'));
         // Ethna bandle
-        $class_dir = implode(DIRECTORY_SEPARATOR, array('Ethna', 'class', 'Plugin'));
+        $class_dir = implode(DIRECTORY_SEPARATOR, array('Ethna', 'class', 'Ethna', 'Plugin'));
         foreach ($include_path_list as $include_path) {
             if (is_dir($include_path . DIRECTORY_SEPARATOR . $extlib_dir)) {
                 $this->_dirlist[] = $include_path . DIRECTORY_SEPARATOR . $extlib_dir;
