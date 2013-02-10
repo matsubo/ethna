@@ -105,7 +105,7 @@ class Ethna_Plugin_Generator_Project extends Ethna_Plugin_Generator
         }
 
         // スケルトンファイル作成
-        $macro['ethna_version'] = ETHNA_VERSION;
+        $macro['ethna_version'] = Ethna_Const::ETHNA_VERSION;
         $macro['application_id'] = strtoupper($id);
         $macro['project_id'] = ucfirst($id);
         $macro['project_prefix'] = $id;
@@ -126,7 +126,7 @@ class Ethna_Plugin_Generator_Project extends Ethna_Plugin_Generator
         $macro = array_merge($macro, $user_macro);
 
         //  select locale file.
-        $locale_file = (file_exists(ETHNA_BASE . "/skel/locale/$locale/ethna_sysmsg.ini"))
+        $locale_file = (file_exists(Ethna_Util::getBaseDirectory() . "/skel/locale/$locale/ethna_sysmsg.ini"))
                      ? "locale/$locale/ethna_sysmsg.ini"
                      : 'locale/ethna_sysmsg.default.ini';
 

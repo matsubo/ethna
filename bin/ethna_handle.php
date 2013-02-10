@@ -17,7 +17,7 @@ $base = dirname(dirname(dirname(__FILE__)));
 ini_set('include_path', $base.PATH_SEPARATOR.ini_get('include_path'));
 
 require_once 'Ethna/Ethna.php';
-require_once ETHNA_BASE . '/class/Getopt.php';
+require_once Ethna_Util::getBaseDirectory() . '/class/Getopt.php';
 
 // fetch arguments
 $opt = new Ethna_Getopt();
@@ -122,5 +122,5 @@ Copyright (c) 2004-%s,
 http://ethna.jp/
 
 EOD;
-    printf($version, ETHNA_VERSION, PHP_VERSION, date('Y'));
+    printf($version, Ethna_Const::ETHNA_VERSION, PHP_VERSION, date('Y'));
 }

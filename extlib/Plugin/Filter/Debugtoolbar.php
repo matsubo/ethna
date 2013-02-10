@@ -20,25 +20,25 @@ class Ethna_Plugin_Filter_Debugtoolbar extends Ethna_Plugin_Filter
     var $version = '1.0.0 - $Id$';
 
     private $_type_mapping = array(
-        VAR_TYPE_INT      => 'VAR_TYPE_INT',
-        VAR_TYPE_FLOAT    => 'VAR_TYPE_FLOAT',
-        VAR_TYPE_STRING   => 'VAR_TYPE_STRING',
-        VAR_TYPE_DATETIME => 'VAR_TYPE_DATETIME',
-        VAR_TYPE_BOOLEAN  => 'VAR_TYPE_BOOLEAN',
-        VAR_TYPE_FILE     => 'VAR_TYPE_FILE',
+        Ethna_Const::VAR_TYPE_INT      => 'VAR_TYPE_INT',
+        Ethna_Const::VAR_TYPE_FLOAT    => 'VAR_TYPE_FLOAT',
+        Ethna_Const::VAR_TYPE_STRING   => 'VAR_TYPE_STRING',
+        Ethna_Const::VAR_TYPE_DATETIME => 'VAR_TYPE_DATETIME',
+        Ethna_Const::VAR_TYPE_BOOLEAN  => 'VAR_TYPE_BOOLEAN',
+        Ethna_Const::VAR_TYPE_FILE     => 'VAR_TYPE_FILE',
     );
 
     private $_form_type_mapping = array(
-        FORM_TYPE_TEXT     => 'FORM_TYPE_TEXT',
-        FORM_TYPE_PASSWORD => 'FORM_TYPE_PASSWORD',
-        FORM_TYPE_TEXTAREA => 'FORM_TYPE_TEXTAREA',
-        FORM_TYPE_SELECT   => 'FORM_TYPE_SELECT',
-        FORM_TYPE_RADIO    => 'FORM_TYPE_RADIO',
-        FORM_TYPE_CHECKBOX => 'FORM_TYPE_CHECKBOX',
-        FORM_TYPE_SUBMIT   => 'FORM_TYPE_SUBMIT',
-        FORM_TYPE_FILE     => 'FORM_TYPE_FILE',
-        FORM_TYPE_BUTTON   => 'FORM_TYPE_BUTTON',
-        FORM_TYPE_HIDDEN   => 'FORM_TYPE_HIDDEN',
+        Ethna_Const::FORM_TYPE_TEXT     => 'FORM_TYPE_TEXT',
+        Ethna_Const::FORM_TYPE_PASSWORD => 'FORM_TYPE_PASSWORD',
+        Ethna_Const::FORM_TYPE_TEXTAREA => 'FORM_TYPE_TEXTAREA',
+        Ethna_Const::FORM_TYPE_SELECT   => 'FORM_TYPE_SELECT',
+        Ethna_Const::FORM_TYPE_RADIO    => 'FORM_TYPE_RADIO',
+        Ethna_Const::FORM_TYPE_CHECKBOX => 'FORM_TYPE_CHECKBOX',
+        Ethna_Const::FORM_TYPE_SUBMIT   => 'FORM_TYPE_SUBMIT',
+        Ethna_Const::FORM_TYPE_FILE     => 'FORM_TYPE_FILE',
+        Ethna_Const::FORM_TYPE_BUTTON   => 'FORM_TYPE_BUTTON',
+        Ethna_Const::FORM_TYPE_HIDDEN   => 'FORM_TYPE_HIDDEN',
     );
 
     private $_stime;
@@ -518,10 +518,10 @@ EOL;
         $time   = sprintf("%.4f", $etime - $this->_stime);
 
         echo '<div class="ethna-debug" id="ethna-debug-evwindow">';
-        echo '<div class="ethna-debug-title">' . ETHNA_VERSION
+        echo '<div class="ethna-debug-title">' . Ethna_Const::ETHNA_VERSION
             . ': ' . $this->controller->getCurrentActionName()  . '</div>';
         echo "<div class=\"ethna-debug-log\">";
-        echo ETHNA_VERSION;
+        echo Ethna_Const::ETHNA_VERSION;
         echo "</div> \n";
         echo "<div class=\"ethna-debug-log\">";
         echo "Ethna_Plugin_Debugtoolbar Version" . $this->version;

@@ -31,7 +31,7 @@ class Ethna_ActionForm_Validator_Custom_Test extends Ethna_UnitTestBase
         //    エラーになる入力があるためここではfalseに
         //    設定
         $form_string = array(
-                           'type' => VAR_TYPE_STRING,
+                           'type' => Ethna_Const::VAR_TYPE_STRING,
                            'required' => false,
                            'custom' => 'checkMailaddress',
                        );
@@ -96,7 +96,7 @@ class Ethna_ActionForm_Validator_Custom_Test extends Ethna_UnitTestBase
         //    エラーになる入力があるためここではfalseに
         //    設定
         $form_boolean = array(
-                            'type' => VAR_TYPE_BOOLEAN,
+                            'type' => Ethna_Const::VAR_TYPE_BOOLEAN,
                             'required' => false,
                             'custom' => 'checkBoolean',
                         );
@@ -146,7 +146,7 @@ class Ethna_ActionForm_Validator_Custom_Test extends Ethna_UnitTestBase
         //    エラーになる入力があるためここではfalseに
         //    設定
         $form_url = array(
-                        'type' => VAR_TYPE_STRING,
+                        'type' => Ethna_Const::VAR_TYPE_STRING,
                         'required' => false,
                         'custom' => 'checkURL',
                     );
@@ -199,7 +199,7 @@ class Ethna_ActionForm_Validator_Custom_Test extends Ethna_UnitTestBase
         //    エラーになる入力があるためここではfalseに
         //    設定
         $form_string = array(
-                           'type' => VAR_TYPE_STRING,
+                           'type' => Ethna_Const::VAR_TYPE_STRING,
                            'required' => false,
                            'custom' => 'checkVendorChar',
                        );

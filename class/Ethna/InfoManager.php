@@ -37,9 +37,9 @@ class Ethna_InfoManager extends Ethna_AppManager
 
     /** @var    array   [属性]DBタイプ一覧 */
     var $db_type_list = array(
-        DB_TYPE_RW      => array('name' => 'DB_TYPE_RW'),
-        DB_TYPE_RO      => array('name' => 'DB_TYPE_RO'),
-        DB_TYPE_MISC    => array('name' => 'DB_TYPE_MISC'),
+        Ethna_Const::DB_TYPE_RW      => array('name' => 'DB_TYPE_RW'),
+        Ethna_Const::DB_TYPE_RO      => array('name' => 'DB_TYPE_RO'),
+        Ethna_Const::DB_TYPE_MISC    => array('name' => 'DB_TYPE_MISC'),
     );
 
     /** @var    array   [属性]フォーム型一覧 */
@@ -59,23 +59,23 @@ class Ethna_InfoManager extends Ethna_AppManager
     public function __construct($backend)
     {
         $this->form_type_list = array(
-            FORM_TYPE_TEXT      => array('name' => _et('TextBox')),
-            FORM_TYPE_PASSWORD  => array('name' => _et('Password')),
-            FORM_TYPE_TEXTAREA  => array('name' => _et('TextArea')),
-            FORM_TYPE_SELECT    => array('name' => _et('SelectBox')),
-            FORM_TYPE_RADIO     => array('name' => _et('RadioButton')),
-            FORM_TYPE_CHECKBOX  => array('name' => _et('CheckBox')),
-            FORM_TYPE_SUBMIT    => array('name' => _et('SubmitButton')),
-            FORM_TYPE_FILE      => array('name' => _et('File')),
+            Ethna_Const::FORM_TYPE_TEXT      => array('name' => _et('TextBox')),
+            Ethna_Const::FORM_TYPE_PASSWORD  => array('name' => _et('Password')),
+            Ethna_Const::FORM_TYPE_TEXTAREA  => array('name' => _et('TextArea')),
+            Ethna_Const::FORM_TYPE_SELECT    => array('name' => _et('SelectBox')),
+            Ethna_Const::FORM_TYPE_RADIO     => array('name' => _et('RadioButton')),
+            Ethna_Const::FORM_TYPE_CHECKBOX  => array('name' => _et('CheckBox')),
+            Ethna_Const::FORM_TYPE_SUBMIT    => array('name' => _et('SubmitButton')),
+            Ethna_Const::FORM_TYPE_FILE      => array('name' => _et('File')),
         );
 
         $this->var_type_list = array(
-            VAR_TYPE_INT        => array('name' => _et('Integer')),
-            VAR_TYPE_FLOAT      => array('name' => _et('Float')),
-            VAR_TYPE_STRING     => array('name' => _et('String')),
-            VAR_TYPE_DATETIME   => array('name' => _et('Datetime')),
-            VAR_TYPE_BOOLEAN    => array('name' => _et('Boolean')),
-            VAR_TYPE_FILE       => array('name' => _et('File')),
+            Ethna_Const::VAR_TYPE_INT        => array('name' => _et('Integer')),
+            Ethna_Const::VAR_TYPE_FLOAT      => array('name' => _et('Float')),
+            Ethna_Const::VAR_TYPE_STRING     => array('name' => _et('String')),
+            Ethna_Const::VAR_TYPE_DATETIME   => array('name' => _et('Datetime')),
+            Ethna_Const::VAR_TYPE_BOOLEAN    => array('name' => _et('Boolean')),
+            Ethna_Const::VAR_TYPE_FILE       => array('name' => _et('File')),
         );
 
         parent::__construct($backend);
@@ -638,8 +638,8 @@ class Ethna_InfoManager extends Ethna_AppManager
         $elts = array();
         $elts[_et('Application ID')] = $this->ctl->getAppId();
         $elts[_et('Application URL')] = $this->ctl->getURL();
-        $elts[_et('Ethna Version')] = ETHNA_VERSION;
-        $elts[_et('Ethna Base Directory')] = ETHNA_BASE;
+        $elts[_et('Ethna Version')] = Ethna_Const::ETHNA_VERSION;
+        $elts[_et('Ethna Base Directory')] = Ethna_Util::getBaseDirectory();
         $r['Core'] = $elts;
 
         // class

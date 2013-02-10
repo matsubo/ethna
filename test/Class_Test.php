@@ -47,12 +47,12 @@ class Ethna_Class_Test extends Ethna_UnitTestBase
         $error = 'this is not object, but string.';
         $this->assertFalse(Ethna::isError($error));
 
-        $error = new Dummy_Ethna_Error('Error Message', E_CACHE_GENERAL,
-                                 ETHNA_ERROR_DUMMY, E_USER_ERROR,
+        $error = new Dummy_Ethna_Error('Error Message', E_CACHEthna_Const::E_GENERAL,
+                                 Ethna_Const::ETHNA_ERROR_DUMMY, E_USER_ERROR,
                                  NULL, 'Ethna_Error'
                  );
-        $this->assertFalse(Ethna::isError($error, E_FORM_REQUIRED));
-        $this->assertTrue(Ethna::isError($error, E_CACHE_GENERAL));
+        $this->assertFalse(Ethna::isError($error, Ethna_Const::E_FORM_REQUIRED));
+        $this->assertTrue(Ethna::isError($error, E_CACHEthna_Const::E_GENERAL));
 
         $error = new stdClass();
         $this->assertFalse(Ethna::isError($error));
@@ -78,10 +78,10 @@ class Ethna_Class_Test extends Ethna_UnitTestBase
         $error = Ethna::raiseError('Error!!!!!');
         $this->assertEqual('Error!!!!!', $error->getMessage());
         $this->assertEqual(E_USER_ERROR, $error->getLevel());
-        $this->assertEqual(E_GENERAL, $error->getCode());     
+        $this->assertEqual(Ethna_Const::E_GENERAL, $error->getCode());     
 
-        $error = Ethna::raiseError('Error', E_CACHE_GENERAL);
-        $this->assertEqual(E_CACHE_GENERAL, $error->getCode());     
+        $error = Ethna::raiseError('Error', E_CACHEthna_Const::E_GENERAL);
+        $this->assertEqual(E_CACHEthna_Const::E_GENERAL, $error->getCode());     
     }
     // }}}
 
@@ -91,10 +91,10 @@ class Ethna_Class_Test extends Ethna_UnitTestBase
         $error = Ethna::raiseWarning('Error!!!!!');
         $this->assertEqual('Error!!!!!', $error->getMessage());
         $this->assertEqual(E_USER_WARNING, $error->getLevel());
-        $this->assertEqual(E_GENERAL, $error->getCode());     
+        $this->assertEqual(Ethna_Const::E_GENERAL, $error->getCode());     
 
-        $error = Ethna::raiseWarning('Error!!!!!', E_CACHE_GENERAL);
-        $this->assertEqual(E_CACHE_GENERAL, $error->getCode());     
+        $error = Ethna::raiseWarning('Error!!!!!', E_CACHEthna_Const::E_GENERAL);
+        $this->assertEqual(E_CACHEthna_Const::E_GENERAL, $error->getCode());     
     }
     // }}}
 
@@ -104,10 +104,10 @@ class Ethna_Class_Test extends Ethna_UnitTestBase
         $error = Ethna::raiseNotice('Error!!!!!');
         $this->assertEqual('Error!!!!!', $error->getMessage());
         $this->assertEqual(E_USER_NOTICE, $error->getLevel());
-        $this->assertEqual(E_GENERAL, $error->getCode());     
+        $this->assertEqual(Ethna_Const::E_GENERAL, $error->getCode());     
 
-        $error = Ethna::raiseNotice('Error!!!!!', E_CACHE_GENERAL);
-        $this->assertEqual(E_CACHE_GENERAL, $error->getCode());     
+        $error = Ethna::raiseNotice('Error!!!!!', E_CACHEthna_Const::E_GENERAL);
+        $this->assertEqual(E_CACHEthna_Const::E_GENERAL, $error->getCode());     
     }
     // }}}
 

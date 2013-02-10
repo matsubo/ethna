@@ -54,7 +54,7 @@ class Ethna_Plugin_Validator_Strmaxcompat extends Ethna_Plugin_Validator
             $var = mb_convert_encoding($var, 'EUC-JP', $client_enc);
         }
 
-        if ($type == VAR_TYPE_STRING) {
+        if ($type == Ethna_Const::VAR_TYPE_STRING) {
             $max_param = $params['strmaxcompat'];
             if (strlen($var) > $max_param) {
                 if (isset($params['error'])) {
@@ -62,7 +62,7 @@ class Ethna_Plugin_Validator_Strmaxcompat extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Please input less than %d full-size (%d half-size) characters to {form}.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_MAX_STRING,
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_MAX_STRING,
                             array(intval($max_param/2), $max_param));
             }
         }

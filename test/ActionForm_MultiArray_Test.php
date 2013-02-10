@@ -19,39 +19,39 @@ class Ethna_MultiArrayTest_ActionForm extends Ethna_ActionForm
         //  多次元配列(値はスカラー)
         'User[name]' => array(
             'name'          => '名前',
-            'type'          => VAR_TYPE_STRING,
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => Ethna_Const::VAR_TYPE_STRING,
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
         'User[phone][home]' => array(
             'name'          => '自宅電話番号',
-            'type'          => VAR_TYPE_STRING,
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => Ethna_Const::VAR_TYPE_STRING,
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
         'User[phone][mobile]' => array(
             'name'          => '携帯電話番号',
-            'type'          => VAR_TYPE_STRING,
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => Ethna_Const::VAR_TYPE_STRING,
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
 
         //  多次元配列(値は配列)
         'Artist[name]' => array(
             'name'          => '好きなキャラクター',
-            'type'          => array(VAR_TYPE_STRING),
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => array(Ethna_Const::VAR_TYPE_STRING),
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
 
         //  10階層(1番上の "a" も含む)
         'a[b][c][d][e][f][g][h][i][j]' => array(
             'name'          => '10階層の多次元配列',
-            'type'          => VAR_TYPE_STRING,
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => Ethna_Const::VAR_TYPE_STRING,
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
 
         //  11階層(1番上の "a" も含む)
         'a[b][c][d][e][f][g][h][i][j][k]' => array(
             'name'          => '11階層の多次元配列',
-            'type'          => VAR_TYPE_STRING,
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => Ethna_Const::VAR_TYPE_STRING,
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
 
         //  自動で番号を割り当てるフォームには
@@ -65,8 +65,8 @@ class Ethna_MultiArrayTest_ActionForm extends Ethna_ActionForm
         'invalid[][data1][data2]' => array(
             'name'          => '対応していない多次元フォーム定義',
             'required'      => true,
-            'type'          => VAR_TYPE_INT,
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => Ethna_Const::VAR_TYPE_INT,
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
 
         //  重複したフォーム定義
@@ -83,14 +83,14 @@ class Ethna_MultiArrayTest_ActionForm extends Ethna_ActionForm
         'duplicate' => array(
             'name'          => '文字列(一次元)',
             'required'      => true,
-            'type'          => VAR_TYPE_STRING,
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => Ethna_Const::VAR_TYPE_STRING,
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
         'duplicate[abc]' => array(
             'name'          => '文字列(多次元)',
             'required'      => true,
-            'type'          => VAR_TYPE_STRING,
-            'form_type'     => FORM_TYPE_TEXT,
+            'type'          => Ethna_Const::VAR_TYPE_STRING,
+            'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
         ),
     );
 }

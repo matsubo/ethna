@@ -244,9 +244,9 @@ class Ethna_I18N
             $this->logger->log(LOG_NOTICE,
                                "Message directory was not found!! : $msg_dir,"
                              . " Use skelton file Instead"); 
-            $msg_dir = sprintf("%s/skel/locale/%s", ETHNA_BASE, $this->locale);
+            $msg_dir = sprintf("%s/skel/locale/%s", Ethna_Util::getBaseDirectory(), $this->locale);
             if (!file_exists($msg_dir)) {  // last fallback.
-                $msg_dir = sprintf("%s/skel/locale", ETHNA_BASE);
+                $msg_dir = sprintf("%s/skel/locale", Ethna_Util::getBaseDirectory());
             }
         }
                      

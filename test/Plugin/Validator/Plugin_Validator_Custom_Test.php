@@ -28,7 +28,7 @@ class Ethna_Plugin_Validator_Custom_Test extends Ethna_UnitTestBase
     {
         // mailaddressカスタムチェックのテスト
         $form_string = array(
-                             'type'          => VAR_TYPE_STRING,
+                             'type'          => Ethna_Const::VAR_TYPE_STRING,
                              'required'      => true,
                              'custom' => 'checkMailaddress',
                              );
@@ -79,7 +79,7 @@ class Ethna_Plugin_Validator_Custom_Test extends Ethna_UnitTestBase
         //
         //    @see http://php.benscom.com/manual/ja/types.comparisons.php
         $form_boolean = array(
-                              'type'          => VAR_TYPE_BOOLEAN,
+                              'type'          => Ethna_Const::VAR_TYPE_BOOLEAN,
                               'required'      => true,
                               'custom' => 'checkBoolean',
                               );
@@ -116,7 +116,7 @@ class Ethna_Plugin_Validator_Custom_Test extends Ethna_UnitTestBase
         //    通すと、'required' => true という設定の時点でエラーと判定さ
         //    れる。
         $form_url = array(
-                          'type'          => VAR_TYPE_STRING,
+                          'type'          => Ethna_Const::VAR_TYPE_STRING,
                           'required'      => true,
                           'custom' => 'checkURL',
                           );
@@ -151,7 +151,7 @@ class Ethna_Plugin_Validator_Custom_Test extends Ethna_UnitTestBase
     function test_checkVendorChar()
     {
         $form_string = array(
-                             'type'          => VAR_TYPE_STRING,
+                             'type'          => Ethna_Const::VAR_TYPE_STRING,
                              'required'      => true,
                              'custom' => 'checkVendorChar',
                              );

@@ -32,13 +32,13 @@ class Ethna_ActionError_Test extends Ethna_UnitTestBase
         $this->error_obj = new Ethna_Error(
                                $this->message1,
                                E_NOTICE,
-                               E_GENERAL
+                               Ethna_Const::E_GENERAL
                            );
 
         //    add dummy error object.
         $this->ae->add($this->error_form_name,
                        $this->message,
-                       E_GENERAL
+                       Ethna_Const::E_GENERAL
         );
         $this->ae->addObject($this->error_form_name1,
                              $this->error_obj

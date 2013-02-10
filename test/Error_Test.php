@@ -29,7 +29,7 @@ class Ethna_Error_Test extends Ethna_UnitTestBase
     //{{{ getCode
     function test_getcode()
     {
-        $this->assertEqual(E_GENERAL, $this->error->getCode());
+        $this->assertEqual(Ethna_Const::E_GENERAL, $this->error->getCode());
     }
     //}}}
 

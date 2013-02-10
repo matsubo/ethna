@@ -149,7 +149,7 @@ class Ethna_Plugin
         // null のときはロードに失敗している
         if (is_null($this->obj_registry[$type][$name])) {
             return Ethna::raiseWarning('plugin [type=%s, name=%s] is not found',
-                E_PLUGIN_NOTFOUND, $type, $name);
+                Ethna_Const::E_PLUGIN_NOTFOUND, $type, $name);
         }
 
         // プラグインのインスタンスを返す
@@ -167,7 +167,7 @@ class Ethna_Plugin
     {
         if (isset($this->{$plugin_alias_name})) {
             return Ethna::raiseWarning('preload plugin alias name is conflicted [alias=%s], It doesn\'t loaded.',
-                E_PLUGIN_GENERAL, $plugin_alias_name);
+                Ethna_Const::E_PLUGIN_GENERAL, $plugin_alias_name);
         }
 
         $this->{$plugin_alias_name} = $this->getPlugin($plugin[0], $plugin[1]);
@@ -332,7 +332,7 @@ class Ethna_Plugin
         if (file_exists_ex($file) === false) {
             if ($parent === false) {
                 return Ethna::raiseWarning('plugin file is not found: [%s]',
-                                           E_PLUGIN_NOTFOUND, $file);
+                                           Ethna_Const::E_PLUGIN_NOTFOUND, $file);
             } else {
                 return $true;
             }
@@ -343,7 +343,7 @@ class Ethna_Plugin
         if (class_exists($class) === false) {
             if ($parent === false) {
                 return Ethna::raiseWarning('plugin class [%s] is not defined',
-                    E_PLUGIN_NOTFOUND, $class);
+                    Ethna_Const::E_PLUGIN_NOTFOUND, $class);
             } else {
                 return $true;
             }
@@ -383,7 +383,7 @@ class Ethna_Plugin
         }
 
         return Ethna::raiseWarning('plugin file is not found in search directories: [%s]',
-                                   E_PLUGIN_NOTFOUND, $file);
+                                   Ethna_Const::E_PLUGIN_NOTFOUND, $file);
     }
 
     /**

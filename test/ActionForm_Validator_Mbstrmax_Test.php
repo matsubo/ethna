@@ -27,8 +27,8 @@ class Ethna_ActionForm_Validator_Mbstrmax_Test extends Ethna_UnitTestBase
     function test_Validate_MbMax_String()
     {
         $form_def = array(
-                          'type'          => VAR_TYPE_STRING,
-                          'form_type'     => FORM_TYPE_TEXT,
+                          'type'          => Ethna_Const::VAR_TYPE_STRING,
+                          'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
                           'required'      => true,
                           'mbstrmax'      => '3',
                     );        

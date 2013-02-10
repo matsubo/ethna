@@ -29,8 +29,8 @@ class {$action_form} extends {$project_id}_ActionForm
         *
         *  'sample' => array(
         *      // Form definition
-        *      'type'        => VAR_TYPE_INT,    // Input type
-        *      'form_type'   => FORM_TYPE_TEXT,  // Form type
+        *      'type'        => Ethna_Const::VAR_TYPE_INT,    // Input type
+        *      'form_type'   => Ethna_Const::FORM_TYPE_TEXT,  // Form type
         *      'name'        => 'Sample',        // Display name
         *  
         *      //  Validator (executes Validator by written order.)

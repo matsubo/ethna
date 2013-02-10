@@ -31,8 +31,8 @@ class Ethna_Plugin_Validator_Mbregexp_Test extends Ethna_UnitTestBase
     function test_Validate_Mbregexp()
     {
         $form_def = array(
-            'type' => VAR_TYPE_STRING,
-            'form_type' => FORM_TYPE_TEXT,
+            'type' => Ethna_Const::VAR_TYPE_STRING,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXT,
             'required' => true,
             'mbregexp' => '^[あ-ん]+$',  // 全角ひらがなonly
             'mbregexp_encoding' => 'UTF-8',

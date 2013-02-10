@@ -3,7 +3,7 @@
  *  Plugin_Abstract_Test.php
  */
 
-require_once ETHNA_BASE . '/class/Plugin/Abstract.php';
+require_once Ethna_Util::getBaseDirectory() . '/class/Plugin/Abstract.php';
 
 /**
  *  Ethna_Plugin_Abstract クラスのテストケース

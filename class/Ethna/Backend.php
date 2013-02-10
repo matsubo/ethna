@@ -477,7 +477,7 @@ class Ethna_Backend
     {
         $r = $this->controller->getDBType($db_key);
         if (is_null($r)) {
-            return Ethna::raiseError("Undefined DB Type [%s]", E_DB_INVALIDTYPE, $db_key);
+            return Ethna::raiseError("Undefined DB Type [%s]", Ethna_Const::E_DB_INVALIDTYPE, $db_key);
         }
 
         if ($db_key == "") {

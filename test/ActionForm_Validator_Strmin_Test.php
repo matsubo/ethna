@@ -27,8 +27,8 @@ class Ethna_ActionForm_Validator_Strmin_Test extends Ethna_UnitTestBase
     function test_Validate_SingleByteMin_String()
     {
         $form_def = array(
-                          'type'          => VAR_TYPE_STRING,
-                          'form_type'     => FORM_TYPE_TEXT,
+                          'type'          => Ethna_Const::VAR_TYPE_STRING,
+                          'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
                           'required'      => true,
                           'strmin'      => '3',
                     );        

@@ -90,7 +90,7 @@ class Ethna_Plugin_Generator_I18n extends Ethna_Plugin_Generator
         //  ディレクトリを走査
         foreach ($scan_dir as $dir) {
             if (is_dir($dir) === false) {
-                Ethna::raiseNotice("$dir is not Directory.", E_GENERAL);
+                Ethna::raiseNotice("$dir is not Directory.", Ethna_Const::E_GENERAL);
                 continue;
             }
             $r = $this->_analyzeDirectory($dir);
@@ -149,7 +149,7 @@ class Ethna_Plugin_Generator_I18n extends Ethna_Plugin_Generator
         $dh = opendir($dir);
         if ($dh == false) {
             return Ethna::raiseWarning(
-                       "unable to open Directory: $dir", E_GENERAL
+                       "unable to open Directory: $dir", Ethna_Const::E_GENERAL
                    );
         }
 
@@ -203,7 +203,7 @@ class Ethna_Plugin_Generator_I18n extends Ethna_Plugin_Generator
         $fp = @fopen($file_path, 'r');
         if ($fp === false) {
             return Ethna::raiseWarning(
-                       "unable to open file: $file", E_GENERAL
+                       "unable to open file: $file", Ethna_Const::E_GENERAL
                    );
         }
         fclose($fp);
@@ -217,7 +217,7 @@ class Ethna_Plugin_Generator_I18n extends Ethna_Plugin_Generator
 
         //  アクションディレクトリは特別扱いするため、それ
         //  を取得
-        $action_dir = $this->ctl->getActionDir(GATEWAY_WWW);
+        $action_dir = $this->ctl->getActionDir(Ethna_Const::GATEWAY_WWW);
 
         //  トークンを走査し、関数呼び出しを解析する
         for ($i = 0; $i < $token_num; $i++) {
@@ -265,7 +265,7 @@ class Ethna_Plugin_Generator_I18n extends Ethna_Plugin_Generator
         //  ActionForm の $form メンバ解析
         $php_ext = $this->ctl->getExt('php');
         $action_dir_regex = $action_dir;
-        if (ETHNA_OS_WINDOWS) {
+        if (Ethna_Util::isWindows()) {
             $action_dir_regex = str_replace('\\', '\\\\', $action_dir);
             $action_dir_regex = str_replace('/', '\\\\', $action_dir_regex);
         }

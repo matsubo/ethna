@@ -27,7 +27,7 @@ class Ethna_Plugin_Validator_Regexp_Test extends Ethna_UnitTestBase
     function test_regexp_string()
     {
         $form_string = array(
-                             'type'          => VAR_TYPE_STRING,
+                             'type'          => Ethna_Const::VAR_TYPE_STRING,
                              'required'      => true,
                              'regexp'        => '/^[a-zA-Z]+$/',
                              'error'         => '{form}を正しく入力してください'
@@ -41,7 +41,7 @@ class Ethna_Plugin_Validator_Regexp_Test extends Ethna_UnitTestBase
         // 許されていない文字列
         $pear_error = $this->vld->validate('namae_string', '7.6', $form_string);
         $this->assertTrue(is_a($pear_error, 'Ethna_Error'));
-        $this->assertEqual(E_FORM_REGEXP, $pear_error->getCode());
+        $this->assertEqual(Ethna_Const::E_FORM_REGEXP, $pear_error->getCode());
         $this->assertEqual($form_string['error'], $pear_error->getMessage());
 
         $pear_error = $this->vld->validate('namae_string', '', $form_string);

@@ -180,7 +180,7 @@ class Ethna_ViewClass
                 $content = $renderer->perform($this->forward_path, true);
 
                 if (Ethna::isError($content)) {
-                    if ($content->getCode() == E_GENERAL) {
+                    if ($content->getCode() == Ethna_Const::E_GENERAL) {
                         $error = 404;
                     }
                     else {
@@ -562,7 +562,7 @@ class Ethna_ViewClass
         }
 
         if (isset($def['form_type']) === false) {
-            $def['form_type'] = FORM_TYPE_TEXT;
+            $def['form_type'] = Ethna_Const::FORM_TYPE_TEXT;
         }
 
         // 配列フォームが何回呼ばれたかを保存するカウンタ
@@ -583,46 +583,46 @@ class Ethna_ViewClass
         }
 
         switch ($def['form_type']) {
-        case FORM_TYPE_BUTTON:
+        case Ethna_Const::FORM_TYPE_BUTTON:
             $input = $this->_getFormInput_Button($name, $def, $params);
             break;
 
-        case FORM_TYPE_CHECKBOX:
+        case Ethna_Const::FORM_TYPE_CHECKBOX:
             $def['option'] = $this->_getSelectorOptions($af, $def, $params);
             $input = $this->_getFormInput_Checkbox($name, $def, $params);
             break;
 
-        case FORM_TYPE_FILE:
+        case Ethna_Const::FORM_TYPE_FILE:
             $input = $this->_getFormInput_File($name, $def, $params);
             break;
 
-        case FORM_TYPE_HIDDEN:
+        case Ethna_Const::FORM_TYPE_HIDDEN:
             $input = $this->_getFormInput_Hidden($name, $def, $params);
             break;
 
-        case FORM_TYPE_PASSWORD:
+        case Ethna_Const::FORM_TYPE_PASSWORD:
             $input = $this->_getFormInput_Password($name, $def, $params);
             break;
 
-        case FORM_TYPE_RADIO:
+        case Ethna_Const::FORM_TYPE_RADIO:
             $def['option'] = $this->_getSelectorOptions($af, $def, $params);
             $input = $this->_getFormInput_Radio($name, $def, $params);
             break;
 
-        case FORM_TYPE_SELECT:
+        case Ethna_Const::FORM_TYPE_SELECT:
             $def['option'] = $this->_getSelectorOptions($af, $def, $params);
             $input = $this->_getFormInput_Select($name, $def, $params);
             break;
 
-        case FORM_TYPE_SUBMIT:
+        case Ethna_Const::FORM_TYPE_SUBMIT:
             $input = $this->_getFormInput_Submit($name, $def, $params);
             break;
 
-        case FORM_TYPE_TEXTAREA:
+        case Ethna_Const::FORM_TYPE_TEXTAREA:
             $input = $this->_getFormInput_Textarea($name, $def, $params);
             break;
 
-        case FORM_TYPE_TEXT:
+        case Ethna_Const::FORM_TYPE_TEXT:
         default:
             $input = $this->_getFormInput_Text($name, $def, $params);
             break;

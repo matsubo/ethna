@@ -22,46 +22,46 @@ class {$action_form} extends {$project_id}_ActionForm
      */
     protected $form = array(
 
-        /**  FORM_TYPE_TEXT のテスト  */
+        /**  Ethna_Const::FORM_TYPE_TEXT のテスト  */
 
         'text_noval' => array(
-            'type' => VAR_TYPE_INT,
+            'type' => Ethna_Const::VAR_TYPE_INT,
             'name' => 'textarea_noval',
-            'form_type' => FORM_TYPE_TEXT,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXT,
         ),
         'text_setactval' => array(
-            'type' => VAR_TYPE_STRING,
+            'type' => Ethna_Const::VAR_TYPE_STRING,
             'name' => 'text_setval',
-            'form_type' => FORM_TYPE_TEXT,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXT,
             'max' => 10,  // maxlength は無視されなければならない
         ),
         'text_settplval' => array(
-            'type' => VAR_TYPE_STRING,
+            'type' => Ethna_Const::VAR_TYPE_STRING,
             'name' => 'text_settplval',
-            'form_type' => FORM_TYPE_TEXT,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXT,
             'max' => 10,  // maxlength は無視されなければならない
         ),
 
-        /**  FORM_TYPE_TEXTAREA のテスト  */
+        /**  Ethna_Const::FORM_TYPE_TEXTAREA のテスト  */
 
         //   テンプレートでvalue属性を設定しない場合
         'textarea_noval' => array(
-            'type' => VAR_TYPE_INT,
+            'type' => Ethna_Const::VAR_TYPE_INT,
             'name' => 'textarea_noval',
-            'form_type' => FORM_TYPE_TEXTAREA,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXTAREA,
         ),
         //   アクションフォームに値が設定されており、
         //   テンプレートでvalue属性を設定しない場合
         'textarea_setactval' => array(
-            'type' => VAR_TYPE_INT,
+            'type' => Ethna_Const::VAR_TYPE_INT,
             'name' => 'textarea_setactval',
-            'form_type' => FORM_TYPE_TEXTAREA,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXTAREA,
         ),
         //   テンプレートでvalue属性を設定した場合
         'textarea_settplval' => array(
-            'type' => VAR_TYPE_INT,
+            'type' => Ethna_Const::VAR_TYPE_INT,
             'name' => 'textarea_settplval',
-            'form_type' => FORM_TYPE_TEXTAREA,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXTAREA,
         ),
    );
 }

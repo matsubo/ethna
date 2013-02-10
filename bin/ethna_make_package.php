@@ -40,7 +40,7 @@ $package = 'Ethna';
 
 require_once dirname(__FILE__) . '/../Ethna.php';
 
-$version_array = explode('.', ETHNA_VERSION);
+$version_array = explode('.', Ethna_Const::ETHNA_VERSION);
 $major_version = implode('.', array_slice($version_array, 0, 2));
 $minor_version = implode('', array_slice(explode('-', $version_array[2]), 0, 1));
 

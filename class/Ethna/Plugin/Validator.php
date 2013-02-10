@@ -86,7 +86,7 @@ class Ethna_Plugin_Validator extends Ethna_Plugin_Abstract
      */
     protected function isEmpty($var, $type)
     {
-        if ($type == VAR_TYPE_FILE) {
+        if ($type == Ethna_Const::VAR_TYPE_FILE) {
             if (isset($var['error']) == false || $var['error'] != UPLOAD_ERR_OK) {
                 return true;
             }

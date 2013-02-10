@@ -19,14 +19,14 @@ class Ethna_FormTemplate_ActionForm extends Ethna_ActionForm
        'normal' => array(
            'name'      => '通常のフォームテンプレート用定義',
            'required'  => false,
-           'form_type' => FORM_TYPE_SELECT,
-           'type'      => VAR_TYPE_INT,
+           'form_type' => Ethna_Const::FORM_TYPE_SELECT,
+           'type'      => Ethna_Const::VAR_TYPE_INT,
        ),
        'syntax_sugar' => array(
            'name'      => 'シンタックスシュガー用定義',
            'required'  => true,
-           'form_type' => FORM_TYPE_TEXT,
-           'type'      => VAR_TYPE_STRING,
+           'form_type' => Ethna_Const::FORM_TYPE_TEXT,
+           'type'      => Ethna_Const::VAR_TYPE_STRING,
        ),
     );
 }
@@ -77,8 +77,8 @@ class Ethna_ActionForm_FormTemplate_Test extends Ethna_UnitTestBase
         $normal_def = $this->local_af->getDef('normal');
         $this->assertEqual($normal_def['name'], '通常のフォームテンプレート用定義');
         $this->assertEqual($normal_def['required'], false);
-        $this->assertEqual($normal_def['form_type'], FORM_TYPE_SELECT);
-        $this->assertEqual($normal_def['type'], VAR_TYPE_INT);
+        $this->assertEqual($normal_def['form_type'], Ethna_Const::FORM_TYPE_SELECT);
+        $this->assertEqual($normal_def['type'], Ethna_Const::VAR_TYPE_INT);
     }
     // }}}
 
@@ -88,8 +88,8 @@ class Ethna_ActionForm_FormTemplate_Test extends Ethna_UnitTestBase
         $syntax_sugar_def = $this->local_af->getDef('syntax_sugar');
         $this->assertEqual($syntax_sugar_def['name'], 'シンタックスシュガー用定義');
         $this->assertEqual($syntax_sugar_def['required'], true);
-        $this->assertEqual($syntax_sugar_def['form_type'], FORM_TYPE_TEXT);
-        $this->assertEqual($syntax_sugar_def['type'], VAR_TYPE_STRING);
+        $this->assertEqual($syntax_sugar_def['form_type'], Ethna_Const::FORM_TYPE_TEXT);
+        $this->assertEqual($syntax_sugar_def['type'], Ethna_Const::VAR_TYPE_STRING);
     }
     // }}}
 }

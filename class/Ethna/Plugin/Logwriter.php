@@ -191,8 +191,8 @@ class Ethna_Plugin_Logwriter extends Ethna_Plugin_Abstract
         if (strncmp($file, $basedir, strlen($basedir)) == 0) {
             $file = substr($file, strlen($basedir));
         }
-        if (strncmp($file, ETHNA_BASE, strlen(ETHNA_BASE)) == 0) {
-            $file = preg_replace('#^/+#', '', substr($file, strlen(ETHNA_BASE)));
+        if (strncmp($file, Ethna_Util::getBaseDirectory(), strlen(ETHNA_BASE)) == 0) {
+            $file = preg_replace('#^/+#', '', substr($file, strlen(Ethna_Util::getBaseDirectory())));
         }
         $line = $bt[$i]['line'];
         return array('function' => $function, 'pos' => sprintf('%s:%s', $file, $line));

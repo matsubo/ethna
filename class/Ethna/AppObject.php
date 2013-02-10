@@ -100,7 +100,7 @@ class Ethna_AppObject
         } else if (is_null($db_list['rw'])) {
             return Ethna::raiseError(
                 "Ethna_AppObjectを利用するにはデータベース設定が必要です",
-                E_DB_NODSN);
+                Ethna_Const::E_DB_NODSN);
         }
         $this->my_db_rw = $db_list['rw'];
         $this->my_db_ro = $db_list['ro'];
@@ -353,7 +353,7 @@ class Ethna_AppObject
     {
         $method = "_dump_$type";
         if (method_exists($this, $method) == false) {
-            return Ethna::raiseError("Undefined Method [%s]", E_APP_NOMETHOD, $method);
+            return Ethna::raiseError("Undefined Method [%s]", Ethna_Const::E_APP_NOMETHOD, $method);
         }
 
         return $this->$method();
@@ -434,7 +434,7 @@ class Ethna_AppObject
             $r = $this->my_db_rw->query($sql);
             //   エラーの場合 -> 重複キーエラーの場合はリトライ
             if (Ethna::isError($r)) {
-                if ($r->getCode() == E_DB_DUPENT) {
+                if ($r->getCode() == Ethna_Const::E_DB_DUPENT) {
                     // 重複エラーキーの判別
                     $duplicate_key_list = $this->_getDuplicateKeyList();
                     if (Ethna::isError($duplicate_key_list)) {
@@ -444,7 +444,7 @@ class Ethna_AppObject
                         && count($duplicate_key_list) > 0) {
                         foreach ($duplicate_key_list as $k) {
                             return Ethna::raiseNotice('Duplicate Key Error [%s]',
-                                                      E_APP_DUPENT, $k);
+                                                      Ethna_Const::E_APP_DUPENT, $k);
                         }
                     }
                 } else {
@@ -456,7 +456,7 @@ class Ethna_AppObject
         }
         if ($i == 4) {
             // cannot be reached
-            return Ethna::raiseError('Cannot detect Duplicate key Error', E_GENERAL);
+            return Ethna::raiseError('Cannot detect Duplicate key Error', Ethna_Const::E_GENERAL);
         }
 
         // last insert idの取得: (mysql, sqliteのみ)
@@ -507,7 +507,7 @@ class Ethna_AppObject
         for ($i = 0; $i < 4; $i++) {  //  magic number
             $r = $this->my_db_rw->query($sql);
             if (Ethna::isError($r)) {
-                if ($r->getCode() == E_DB_DUPENT) {
+                if ($r->getCode() == Ethna_Const::E_DB_DUPENT) {
                     // 重複エラーキーの判別
                     $duplicate_key_list = $this->_getDuplicateKeyList();
                     if (Ethna::isError($duplicate_key_list)) {
@@ -517,7 +517,7 @@ class Ethna_AppObject
                         && count($duplicate_key_list) > 0) {
                         foreach ($duplicate_key_list as $k) {
                             return Ethna::raiseNotice('Duplicate Key Error [%s]',
-                                                      E_APP_DUPENT, $k);
+                                                      Ethna_Const::E_APP_DUPENT, $k);
                         }
                     }
                 } else {
@@ -529,7 +529,7 @@ class Ethna_AppObject
         }
         if ($i == 4) {
             // cannot be reached
-            return Ethna::raiseError('Cannot detect Duplicate key Error', E_GENERAL);
+            return Ethna::raiseError('Cannot detect Duplicate key Error', Ethna_Const::E_GENERAL);
         }
 
         $affected_rows = $this->my_db_rw->affectedRows();
@@ -575,7 +575,7 @@ class Ethna_AppObject
                 $r = $this->add();
                 if (Ethna::isError($r) == false) {
                     return $r;
-                } else if ($r->getCode() != E_APP_DUPENT) {
+                } else if ($r->getCode() != Ethna_Const::E_APP_DUPENT) {
                     return $r;
                 }
             }
@@ -1353,7 +1353,7 @@ class Ethna_AppObject
                         .'.'. $this->my_db_ro->quoteIdentifier($k));
                     $n++;
                 }
-            } else if ($prop_def[$k]['type'] == VAR_TYPE_STRING) {
+            } else if ($prop_def[$k]['type'] == Ethna_Const::VAR_TYPE_STRING) {
                 // 省略形(文字列)
                 Ethna_AppSQL::escapeSQL($v, $this->my_db_type);
                 $condition .= Ethna_AppSQL::getCondition(
@@ -1400,7 +1400,7 @@ class Ethna_AppObject
      *  <code>
      *  $search_prop_def = array(
      *    'group_id' => array(
-     *      'primary' => true, 'key' => true, 'type' => VAR_TYPE_INT,
+     *      'primary' => true, 'key' => true, 'type' => Ethna_Const::VAR_TYPE_INT,
      *      'form_name' => 'group_id', 'table' => 'group_user_tbl',
      *    ),
      *  );
@@ -1523,9 +1523,9 @@ class Ethna_AppObject
             // for B.C.
             $this->$varname = $elt['db'];
 
-            if ($elt['type'] == DB_TYPE_RW) {
+            if ($elt['type'] == Ethna_Const::DB_TYPE_RW) {
                 $r['rw'] = $elt['db'];
-            } else if ($elt['type'] == DB_TYPE_RO) {
+            } else if ($elt['type'] == Ethna_Const::DB_TYPE_RO) {
                 $r['ro'] = $elt['db'];
             }
         }
@@ -1611,16 +1611,16 @@ class Ethna_AppObject
 
             switch ($field_def['type']) {
             case 'int':
-                $type = VAR_TYPE_INT;
+                $type = Ethna_Const::VAR_TYPE_INT;
                 break;
             case 'boolean':
-                $type = VAR_TYPE_BOOLEAN;
+                $type = Ethna_Const::VAR_TYPE_BOOLEAN;
                 break;
             case 'datetime':
-                $type = VAR_TYPE_DATETIME;
+                $type = Ethna_Const::VAR_TYPE_DATETIME;
                 break;
             default:
-                $type = VAR_TYPE_STRING;
+                $type = Ethna_Const::VAR_TYPE_STRING;
                 break;
             }
 

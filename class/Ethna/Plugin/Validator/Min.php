@@ -39,29 +39,29 @@ class Ethna_Plugin_Validator_Min extends Ethna_Plugin_Validator
         }
 
         switch ($type) {
-            case VAR_TYPE_INT:
+            case Ethna_Const::VAR_TYPE_INT:
                 if ($var < $params['min']) {
                     if (isset($params['error'])) {
                         $msg = $params['error'];
                     } else {
                         $msg = _et('Please input more than %d(int) to {form}.');
                     }
-                    return Ethna::raiseNotice($msg, E_FORM_MIN_INT, array($params['min']));
+                    return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_MIN_INT, array($params['min']));
                 }
                 break;
 
-            case VAR_TYPE_FLOAT:
+            case Ethna_Const::VAR_TYPE_FLOAT:
                 if ($var < $params['min']) {
                     if (isset($params['error'])) {
                         $msg = $params['error'];
                     } else {
                         $msg = _et('Please input more than %f(float) to {form}.');
                     }
-                    return Ethna::raiseNotice($msg, E_FORM_MIN_FLOAT, array($params['min']));
+                    return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_MIN_FLOAT, array($params['min']));
                 }
                 break;
 
-            case VAR_TYPE_DATETIME:
+            case Ethna_Const::VAR_TYPE_DATETIME:
                 $t_min = strtotime($params['min']);
                 $t_var = strtotime($var);
                 if ($t_var < $t_min) {
@@ -70,11 +70,11 @@ class Ethna_Plugin_Validator_Min extends Ethna_Plugin_Validator
                     } else {
                         $msg = _et('Please input datetime value %s or later to {form}.');
                     }
-                    return Ethna::raiseNotice($msg, E_FORM_MIN_DATETIME, array($params['min']));
+                    return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_MIN_DATETIME, array($params['min']));
                 }
                 break;
 
-            case VAR_TYPE_FILE:
+            case Ethna_Const::VAR_TYPE_FILE:
                 $st = stat($var['tmp_name']);
                 if ($st[7] < $params['min'] * 1024) {
                     if (isset($params['error'])) {
@@ -82,11 +82,11 @@ class Ethna_Plugin_Validator_Min extends Ethna_Plugin_Validator
                     } else {
                         $msg = _et('Please specify file whose size is more than %d KB.');
                     }
-                    return Ethna::raiseNotice($msg, E_FORM_MIN_FILE, array($params['min']));
+                    return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_MIN_FILE, array($params['min']));
                 }
                 break;
 
-            case VAR_TYPE_STRING:
+            case Ethna_Const::VAR_TYPE_STRING:
 
                 //
                 //  マルチバイトエンコーディングと、そうでない場合で

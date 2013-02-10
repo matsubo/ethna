@@ -27,8 +27,8 @@ class Ethna_ActionForm_Validator_Min_Test extends Ethna_UnitTestBase
     function test_Validate_Min_Integer()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_INT,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_INT,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                         'min' => 5,
                     );        
@@ -54,8 +54,8 @@ class Ethna_ActionForm_Validator_Min_Test extends Ethna_UnitTestBase
     function test_Validate_Min_Float()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_FLOAT,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_FLOAT,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                         'min' => 5,
                     );        
@@ -86,8 +86,8 @@ class Ethna_ActionForm_Validator_Min_Test extends Ethna_UnitTestBase
     function test_Validate_Min_DateTime()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_DATETIME,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_DATETIME,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                         'min' => '2000-01-01',
                     );        
@@ -115,8 +115,8 @@ class Ethna_ActionForm_Validator_Min_Test extends Ethna_UnitTestBase
     function test_Validate_Min_String_UTF8()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_STRING,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_STRING,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                         'min' => 5,
                     );        
@@ -151,8 +151,8 @@ class Ethna_ActionForm_Validator_Min_Test extends Ethna_UnitTestBase
         $this->ctl->setClientEncoding('EUC-JP');
  
         $form_def = array(
-                        'type' => VAR_TYPE_STRING,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_STRING,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                         'min' => 4,  //  全角2文字、半角4文字
                     );        
@@ -200,8 +200,8 @@ class Ethna_ActionForm_Validator_Min_Test extends Ethna_UnitTestBase
         $this->ctl->setClientEncoding('ASCII');
  
         $form_def = array(
-                        'type' => VAR_TYPE_STRING,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_STRING,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                         'min' => 4,  //  ascii 4文字 
                     );        

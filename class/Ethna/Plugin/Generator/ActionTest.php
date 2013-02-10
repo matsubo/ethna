@@ -21,7 +21,7 @@ class Ethna_Plugin_Generator_ActionTest extends Ethna_Plugin_Generator
 {
     /**
      *  アクション用テストのスケルトンを生成する
-     *  (現在のところ GATEWAY_WWW のみ対応)
+     *  (現在のところ Ethna_Const::GATEWAY_WWW のみ対応)
      *
      *  @access public
      *  @param  string  $action_name    アクション名
@@ -29,7 +29,7 @@ class Ethna_Plugin_Generator_ActionTest extends Ethna_Plugin_Generator
      *  @param  int     $gateway        ゲートウェイ
      *  @return true|Ethna_Error        true:成功 Ethna_Error:失敗
      */
-    function generate($action_name, $skelton = null, $gateway = GATEWAY_WWW)
+    function generate($action_name, $skelton = null, $gateway = Ethna_Const::GATEWAY_WWW)
     {
         $action_dir = $this->ctl->getActiondir($gateway);
         $action_class = $this->ctl->getDefaultActionClass($action_name, $gateway);

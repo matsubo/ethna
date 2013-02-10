@@ -43,10 +43,10 @@ class Ethna_Plugin_Validator_Required extends Ethna_Plugin_Validator
 
         // 選択型のフォームかどうか
         switch ($form_def['form_type']) {
-        case FORM_TYPE_SELECT:
-        case FORM_TYPE_RADIO:
-        case FORM_TYPE_CHECKBOX:
-        case FORM_TYPE_FILE:
+        case Ethna_Const::FORM_TYPE_SELECT:
+        case Ethna_Const::FORM_TYPE_RADIO:
+        case Ethna_Const::FORM_TYPE_CHECKBOX:
+        case Ethna_Const::FORM_TYPE_FILE:
             $choice = true;
             break;
         default:
@@ -63,7 +63,7 @@ class Ethna_Plugin_Validator_Required extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('no input to {form}.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_REQUIRED);
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_REQUIRED);
             } else {
                 return $true;
             }
@@ -91,7 +91,7 @@ class Ethna_Plugin_Validator_Required extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Required item of {form} was not submitted.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_REQUIRED);
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_REQUIRED);
             }
         }
 
@@ -106,7 +106,7 @@ class Ethna_Plugin_Validator_Required extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Required numbers of {form} was not submitted.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_REQUIRED);
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_REQUIRED);
             }
         }
 
@@ -121,7 +121,7 @@ class Ethna_Plugin_Validator_Required extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Please input {form}.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_REQUIRED);
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_REQUIRED);
             }
         }
 

@@ -57,7 +57,7 @@ class Ethna_Plugin_Validator_File extends Ethna_Plugin_Validator
     public function validate($name, $var, $params)
     {
         $true = true;
-        if ($this->getFormType($name) != VAR_TYPE_FILE) {
+        if ($this->getFormType($name) != Ethna_Const::VAR_TYPE_FILE) {
             return $true;
         }
 
@@ -93,7 +93,7 @@ class Ethna_Plugin_Validator_File extends Ethna_Plugin_Validator
             if (isset($params['error'])) {
                 $msg = $params['error'];
             }
-            return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_FILE);
+            return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_FILE);
         }
 
 
@@ -104,7 +104,7 @@ class Ethna_Plugin_Validator_File extends Ethna_Plugin_Validator
             } else {
                 $msg = _et('invalid tmp_name.');
             }
-            return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_FILE);
+            return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_FILE);
         }
 
         // size の検査
@@ -116,7 +116,7 @@ class Ethna_Plugin_Validator_File extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Uploaded file size must be less than %s.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_FILE, array($params['size_max']));
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_FILE, array($params['size_max']));
             }
         }
         if (isset($params['size_min'])) {
@@ -127,7 +127,7 @@ class Ethna_Plugin_Validator_File extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Uploaded file size must be more than %s.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_FILE, array($params['size_min']));
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_FILE, array($params['size_min']));
             }
         }
 
@@ -151,7 +151,7 @@ class Ethna_Plugin_Validator_File extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Invalid file type.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_FILE);
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_FILE);
             }
         }
 
@@ -166,7 +166,7 @@ class Ethna_Plugin_Validator_File extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Invalid file name.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_FILE);
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_FILE);
             }
         }
 

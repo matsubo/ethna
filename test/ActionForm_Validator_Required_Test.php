@@ -27,8 +27,8 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
     function test_Validate_Required_Integer()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_INT,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_INT,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                     );        
         $this->af->setDef('input', $form_def);
@@ -62,8 +62,8 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
     function test_Validate_Required_Float()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_FLOAT,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_FLOAT,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                     );        
         $this->af->setDef('input', $form_def);
@@ -92,8 +92,8 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
     function test_Validate_Required_DateTime()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_DATETIME,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_DATETIME,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                     );        
         $this->af->setDef('input', $form_def);
@@ -122,8 +122,8 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
     function test_Validate_Min_String()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_STRING,
-                        'form_type' => FORM_TYPE_TEXT,
+                        'type' => Ethna_Const::VAR_TYPE_STRING,
+                        'form_type' => Ethna_Const::FORM_TYPE_TEXT,
                         'required' => true,
                     );        
         $this->af->setDef('input', $form_def);
@@ -165,14 +165,14 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
     function test_Validate_Required_Integer_Array()
     {
         $test_form_type = array(
-                              FORM_TYPE_TEXT,
-                              FORM_TYPE_PASSWORD,
-                              FORM_TYPE_TEXTAREA,
-                              FORM_TYPE_SELECT,
-                              FORM_TYPE_RADIO,
-                              FORM_TYPE_CHECKBOX,
-                              FORM_TYPE_BUTTON,
-                              FORM_TYPE_HIDDEN,
+                              Ethna_Const::FORM_TYPE_TEXT,
+                              Ethna_Const::FORM_TYPE_PASSWORD,
+                              Ethna_Const::FORM_TYPE_TEXTAREA,
+                              Ethna_Const::FORM_TYPE_SELECT,
+                              Ethna_Const::FORM_TYPE_RADIO,
+                              Ethna_Const::FORM_TYPE_CHECKBOX,
+                              Ethna_Const::FORM_TYPE_BUTTON,
+                              Ethna_Const::FORM_TYPE_HIDDEN,
                           );
 
         //
@@ -181,7 +181,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
         foreach ($test_form_type as $form_type) {
 
             $form_def = array(
-                            'type' => array(VAR_TYPE_INT),
+                            'type' => array(Ethna_Const::VAR_TYPE_INT),
                             'form_type' => $form_type,
                             'required' => true,
                         );        
@@ -212,7 +212,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
             //   required_num が指定された場合
             //   指定された数だけvalidな値が入力されなければならない
             $form_def = array(
-                            'type' => array(VAR_TYPE_INT),
+                            'type' => array(Ethna_Const::VAR_TYPE_INT),
                             'form_type' => $form_type,
                             'required' => true,
                             'required_num' => 2,
@@ -232,7 +232,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
             //   required_key が指定された場合
             //   指定されたキーの要素にはvalidな値が入力されなければならない
             $form_def = array(
-                            'type' => array(VAR_TYPE_INT),
+                            'type' => array(Ethna_Const::VAR_TYPE_INT),
                             'form_type' => $form_type,
                             'required' => true,
                             'required_key' => array(1),
@@ -256,14 +256,14 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
     function test_Validate_Required_Float_Array()
     {
         $test_form_type = array(
-                              FORM_TYPE_TEXT,
-                              FORM_TYPE_PASSWORD,
-                              FORM_TYPE_TEXTAREA,
-                              FORM_TYPE_SELECT,
-                              FORM_TYPE_RADIO,
-                              FORM_TYPE_CHECKBOX,
-                              FORM_TYPE_BUTTON,
-                              FORM_TYPE_HIDDEN,
+                              Ethna_Const::FORM_TYPE_TEXT,
+                              Ethna_Const::FORM_TYPE_PASSWORD,
+                              Ethna_Const::FORM_TYPE_TEXTAREA,
+                              Ethna_Const::FORM_TYPE_SELECT,
+                              Ethna_Const::FORM_TYPE_RADIO,
+                              Ethna_Const::FORM_TYPE_CHECKBOX,
+                              Ethna_Const::FORM_TYPE_BUTTON,
+                              Ethna_Const::FORM_TYPE_HIDDEN,
                           );
 
         //
@@ -272,7 +272,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
         foreach ($test_form_type as $form_type) {
 
             $form_def = array(
-                            'type' => array(VAR_TYPE_FLOAT),
+                            'type' => array(Ethna_Const::VAR_TYPE_FLOAT),
                             'form_type' => $form_type,
                             'required' => true,
                         );        
@@ -303,7 +303,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
             //   required_num が指定された場合
             //   指定された数だけvalidな値が入力されなければならない
             $form_def = array(
-                            'type' => array(VAR_TYPE_FLOAT),
+                            'type' => array(Ethna_Const::VAR_TYPE_FLOAT),
                             'form_type' => $form_type,
                             'required' => true,
                             'required_num' => 2,
@@ -323,7 +323,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
             //   required_key が指定された場合
             //   指定されたキーの要素にはvalidな値が入力されなければならない
             $form_def = array(
-                            'type' => array(VAR_TYPE_FLOAT),
+                            'type' => array(Ethna_Const::VAR_TYPE_FLOAT),
                             'form_type' => $form_type,
                             'required' => true,
                             'required_key' => array(1),
@@ -347,14 +347,14 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
     function test_Validate_Required_Datetime_Array()
     {
         $test_form_type = array(
-                              FORM_TYPE_TEXT,
-                              FORM_TYPE_PASSWORD,
-                              FORM_TYPE_TEXTAREA,
-                              FORM_TYPE_SELECT,
-                              FORM_TYPE_RADIO,
-                              FORM_TYPE_CHECKBOX,
-                              FORM_TYPE_BUTTON,
-                              FORM_TYPE_HIDDEN,
+                              Ethna_Const::FORM_TYPE_TEXT,
+                              Ethna_Const::FORM_TYPE_PASSWORD,
+                              Ethna_Const::FORM_TYPE_TEXTAREA,
+                              Ethna_Const::FORM_TYPE_SELECT,
+                              Ethna_Const::FORM_TYPE_RADIO,
+                              Ethna_Const::FORM_TYPE_CHECKBOX,
+                              Ethna_Const::FORM_TYPE_BUTTON,
+                              Ethna_Const::FORM_TYPE_HIDDEN,
                           );
 
         //
@@ -363,7 +363,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
         foreach ($test_form_type as $form_type) {
 
             $form_def = array(
-                            'type' => array(VAR_TYPE_DATETIME),
+                            'type' => array(Ethna_Const::VAR_TYPE_DATETIME),
                             'form_type' => $form_type,
                             'required' => true,
                         );        
@@ -394,7 +394,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
             //   required_num が指定された場合
             //   指定された数だけvalidな値が入力されなければならない
             $form_def = array(
-                            'type' => array(VAR_TYPE_DATETIME),
+                            'type' => array(Ethna_Const::VAR_TYPE_DATETIME),
                             'form_type' => $form_type,
                             'required' => true,
                             'required_num' => 2,
@@ -414,7 +414,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
             //   required_key が指定された場合
             //   指定されたキーの要素にはvalidな値が入力されなければならない
             $form_def = array(
-                            'type' => array(VAR_TYPE_DATETIME),
+                            'type' => array(Ethna_Const::VAR_TYPE_DATETIME),
                             'form_type' => $form_type,
                             'required' => true,
                             'required_key' => array(1),
@@ -438,14 +438,14 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
     function test_Validate_Required_String_Array()
     {
         $test_form_type = array(
-                              FORM_TYPE_TEXT,
-                              FORM_TYPE_PASSWORD,
-                              FORM_TYPE_TEXTAREA,
-                              FORM_TYPE_SELECT,
-                              FORM_TYPE_RADIO,
-                              FORM_TYPE_CHECKBOX,
-                              FORM_TYPE_BUTTON,
-                              FORM_TYPE_HIDDEN,
+                              Ethna_Const::FORM_TYPE_TEXT,
+                              Ethna_Const::FORM_TYPE_PASSWORD,
+                              Ethna_Const::FORM_TYPE_TEXTAREA,
+                              Ethna_Const::FORM_TYPE_SELECT,
+                              Ethna_Const::FORM_TYPE_RADIO,
+                              Ethna_Const::FORM_TYPE_CHECKBOX,
+                              Ethna_Const::FORM_TYPE_BUTTON,
+                              Ethna_Const::FORM_TYPE_HIDDEN,
                           );
 
         //
@@ -454,7 +454,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
         foreach ($test_form_type as $form_type) {
 
             $form_def = array(
-                            'type' => array(VAR_TYPE_STRING),
+                            'type' => array(Ethna_Const::VAR_TYPE_STRING),
                             'form_type' => $form_type,
                             'required' => true,
                         );        
@@ -485,7 +485,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
             //   required_num が指定された場合
             //   指定された数だけvalidな値が入力されなければならない
             $form_def = array(
-                            'type' => array(VAR_TYPE_STRING),
+                            'type' => array(Ethna_Const::VAR_TYPE_STRING),
                             'form_type' => $form_type,
                             'required' => true,
                             'required_num' => 2,
@@ -505,7 +505,7 @@ class Ethna_ActionForm_Validator_Required_Test extends Ethna_UnitTestBase
             //   required_key が指定された場合
             //   指定されたキーの要素にはvalidな値が入力されなければならない
             $form_def = array(
-                            'type' => array(VAR_TYPE_STRING),
+                            'type' => array(Ethna_Const::VAR_TYPE_STRING),
                             'form_type' => $form_type,
                             'required' => true,
                             'required_key' => array(1),

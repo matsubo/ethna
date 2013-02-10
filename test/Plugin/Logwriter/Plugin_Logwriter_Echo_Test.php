@@ -43,7 +43,7 @@ class Ethna_Plugin_Logwriter_Echo_Test extends Ethna_UnitTestBase
 
             // 関数が返す文字列に改行タグ付与の是非
             $funcout = $this->lw->log($level, $message)
-                . sprintf("%s", $this->ctl->getGateway() != GATEWAY_WWW ? "" : "<br />");
+                . sprintf("%s", $this->ctl->getGateway() != Ethna_Const::GATEWAY_WWW ? "" : "<br />");
 
             $stdout = trim(ob_get_contents());
             $this->assertEqual($funcout, $stdout);
@@ -66,7 +66,7 @@ class Ethna_Plugin_Logwriter_Echo_Test extends Ethna_UnitTestBase
 
         // 関数が返す文字列に改行タグ付与の是非
         $funcout = $this->lw->log($level, $message)
-            . sprintf("%s", $this->ctl->getGateway() != GATEWAY_WWW ? "" : "<br />");
+            . sprintf("%s", $this->ctl->getGateway() != Ethna_Const::GATEWAY_WWW ? "" : "<br />");
 
         $stdout = trim(ob_get_contents());
         $this->assertEqual($funcout, $stdout);

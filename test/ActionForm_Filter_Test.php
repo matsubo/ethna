@@ -17,8 +17,8 @@ class Ethna_FilterTest_ActionForm extends Ethna_ActionForm
 {
     var $form = array(
         'test' => array(
-            'type' => VAR_TYPE_STRING,
-            'form_type' => FORM_TYPE_TEXT,
+            'type' => Ethna_Const::VAR_TYPE_STRING,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXT,
             'name' => 'test',
         ),
     );

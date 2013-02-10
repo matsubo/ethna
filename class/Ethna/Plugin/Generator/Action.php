@@ -28,7 +28,7 @@ class Ethna_Plugin_Generator_Action extends Ethna_Plugin_Generator
      *  @param  int     $gateway        ゲートウェイ
      *  @return true|Ethna_Error        true:成功 Ethna_Error:失敗
      */
-    function generate($action_name, $skelton = null, $gateway = GATEWAY_WWW)
+    function generate($action_name, $skelton = null, $gateway = Ethna_Const::GATEWAY_WWW)
     {
         $action_dir = $this->ctl->getActiondir($gateway);
         $action_class = $this->ctl->getDefaultActionClass($action_name, $gateway);
@@ -42,13 +42,13 @@ class Ethna_Plugin_Generator_Action extends Ethna_Plugin_Generator
         // skelton
         if ($skelton === null) {
             switch ($gateway) {
-            case GATEWAY_WWW:
+            case Ethna_Const::GATEWAY_WWW:
                 $skelton = "skel.action.php";
                 break;
-            case GATEWAY_CLI:
+            case Ethna_Const::GATEWAY_CLI:
                 $skelton = "skel.action_cli.php";
                 break;
-            case GATEWAY_XMLRPC:
+            case Ethna_Const::GATEWAY_XMLRPC:
                 $skelton = "skel.action_xmlrpc.php";
                 break;
             default:

@@ -42,7 +42,7 @@ class Ethna_Handle
      */
     public function __construct()
     {
-        $this->controller = new Ethna_Controller(GATEWAY_CLI);
+        $this->controller = new Ethna_Controller(Ethna_Const::GATEWAY_CLI);
         Ethna::clearErrorCallback();
         Ethna::setErrorCallback(array('Ethna_Handle', 'handleError'));
 
@@ -158,7 +158,7 @@ class Ethna_Handle
         }
 
         $global_controller = $GLOBALS['_Ethna_controller'];
-        $app_controller[$app_dir] = new $class(GATEWAY_CLI);
+        $app_controller[$app_dir] = new $class(Ethna_Const::GATEWAY_CLI);
         $GLOBALS['_Ethna_controller'] = $global_controller;
         Ethna::clearErrorCallback();
         Ethna::setErrorCallback(array('Ethna_Handle', 'handleError'));
@@ -178,7 +178,7 @@ class Ethna_Handle
     {
         static $setting = null;
         if ($setting === null) {
-            $ini_file = ETHNA_BASE . "/.ethna";
+            $ini_file = Ethna_Util::getBaseDirectory() . "/.ethna";
             if (is_file($ini_file) && is_readable($ini_file)) {
                 $setting = parse_ini_file($ini_file, true);
             } else {

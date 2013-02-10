@@ -34,46 +34,46 @@ class Ethna_Plugin_Validator_Type extends Ethna_Plugin_Validator
     {
         $true = true;
         $type = $params['type'];
-        if ($type == VAR_TYPE_FILE || $this->isEmpty($var, $type)) {
+        if ($type == Ethna_Const::VAR_TYPE_FILE || $this->isEmpty($var, $type)) {
             return $true;
         }
 
         foreach (array_keys(to_array($var)) as $key) {
             switch ($type) {
-                case VAR_TYPE_INT:
+                case Ethna_Const::VAR_TYPE_INT:
                     if (!preg_match('/^-?\d+$/', $var)) {
                         if (isset($params['error'])) {
                             $msg = $params['error'];
                         } else {
                             $msg = _et('Please input integer value to {form}.');
                         }
-                        return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_INT);
+                        return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_INT);
                     }
                     break;
 
-                case VAR_TYPE_FLOAT:
+                case Ethna_Const::VAR_TYPE_FLOAT:
                     if (!preg_match('/^-?\d+$/', $var) && !preg_match('/^-?\d+\.\d+$/', $var)) {
                         if (isset($params['error'])) {
                             $msg = $params['error'];
                         } else {
                             $msg = _et('Please input float value to {form}.');
                         }
-                        return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_FLOAT);
+                        return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_FLOAT);
                     }
                     break;
 
-                case VAR_TYPE_BOOLEAN:
+                case Ethna_Const::VAR_TYPE_BOOLEAN:
                     if ($var != "1" && $var != "0") {
                         if (isset($params['error'])) {
                             $msg = $params['error'];
                         } else {
                             $msg = _et('You can input 0 or 1 to {form}.');
                         }
-                        return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_BOOLEAN);
+                        return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_BOOLEAN);
                     }
                     break;
 
-                case VAR_TYPE_DATETIME:
+                case Ethna_Const::VAR_TYPE_DATETIME:
                     $r = strtotime($var);
                     if ($r == -1 || $r === false) {
                         if (isset($params['error'])) {
@@ -81,7 +81,7 @@ class Ethna_Plugin_Validator_Type extends Ethna_Plugin_Validator
                         } else {
                             $msg = _et('Please input valid datetime to {form}.');
                         }
-                        return Ethna::raiseNotice($msg, E_FORM_WRONGTYPE_DATETIME);
+                        return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_WRONGTYPE_DATETIME);
                     }
                     break;
             }

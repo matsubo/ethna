@@ -114,7 +114,7 @@ class {$project_id}_Controller extends Ethna_Controller
      *  @var    array       database access definition.
      */
     protected $db = array(
-        ''              => DB_TYPE_RW,
+        ''              => Ethna_Const::DB_TYPE_RW,
     );
 
     /**

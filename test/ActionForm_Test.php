@@ -17,19 +17,19 @@ class Ethna_Test_ActionForm extends Ethna_ActionForm
 {
     var $form = array(
         'test' => array(
-            'type' => VAR_TYPE_STRING,
-            'form_type' => FORM_TYPE_TEXT,
+            'type' => Ethna_Const::VAR_TYPE_STRING,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXT,
             'name' => 'test',
         ),
 
         'no_name' => array(
-            'type' => VAR_TYPE_STRING,
-            'form_type' => FORM_TYPE_TEXT,
+            'type' => Ethna_Const::VAR_TYPE_STRING,
+            'form_type' => Ethna_Const::FORM_TYPE_TEXT,
         ),
 
         'test_array' => array(
-            'type' => array(VAR_TYPE_STRING),
-            'form_type' => FORM_TYPE_TEXT,
+            'type' => array(Ethna_Const::VAR_TYPE_STRING),
+            'form_type' => Ethna_Const::FORM_TYPE_TEXT,
             'name' => 'test array',
         ),
 
@@ -189,8 +189,8 @@ class Ethna_ActionForm_Test extends Ethna_UnitTestBase
 
         $def = array(
             'name' => 'hoge test',
-            'type' => VAR_TYPE_STRING,
-            'form_type'=> FORM_TYPE_TEXT,
+            'type' => Ethna_Const::VAR_TYPE_STRING,
+            'form_type'=> Ethna_Const::FORM_TYPE_TEXT,
             'required' => true,
         );
         $this->local_af->setDef('hoge', $def);

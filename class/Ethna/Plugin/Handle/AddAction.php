@@ -87,7 +87,7 @@ class Ethna_Plugin_Handle_AddAction extends Ethna_Plugin_Handle
                 return Ethna::raiseError('unknown gateway', 'usage');
             }
         } else {
-            $gateway = GATEWAY_WWW;
+            $gateway = Ethna_Const::GATEWAY_WWW;
         }
         
         //  possible target is Action, View.

@@ -40,7 +40,7 @@ class Ethna_Plugin_Logwriter_Echo extends Ethna_Plugin_Logwriter
         if (array_key_exists("pid", $this->option)) {
             $prefix .= sprintf('[%d]', getmypid());
         }
-        $prefix .= sprintf($c->getGateway() != GATEWAY_WWW ? '(%s): ' : '(<b>%s</b>): ',
+        $prefix .= sprintf($c->getGateway() != Ethna_Const::GATEWAY_WWW ? '(%s): ' : '(<b>%s</b>): ',
             $this->_getLogLevelName($level)
         );
         if (array_key_exists("function", $this->option) ||
@@ -58,7 +58,7 @@ class Ethna_Plugin_Logwriter_Echo extends Ethna_Plugin_Logwriter
             }
         }
 
-        $br = $c->getGateway() != GATEWAY_WWW ? "" : "<br />";
+        $br = $c->getGateway() != Ethna_Const::GATEWAY_WWW ? "" : "<br />";
         echo($prefix . $message . $br . "\n");
 
         return $prefix . $message;

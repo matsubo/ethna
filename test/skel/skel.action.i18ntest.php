@@ -22,31 +22,31 @@ class {$action_form} extends {$project_id}_ActionForm
      */
     protected $form = array(
        'i18n_sample_name' => array(
-           'type' => VAR_TYPE_STRING,
+           'type' => Ethna_Const::VAR_TYPE_STRING,
            'name' => 'name_i18n',
        ),
        'i18n_sample_required_error' => array(
-           'type' => VAR_TYPE_STRING,
+           'type' => Ethna_Const::VAR_TYPE_STRING,
            'required_error' => 'required_error_i18n',
        ),
        'i18n_sample_type_error' => array(
-           'type' => VAR_TYPE_STRING,
+           'type' => Ethna_Const::VAR_TYPE_STRING,
            'type_error' => 'type_error_i18n',
        ),
        'i18n_sample_min_error' => array(
-           'type' => VAR_TYPE_STRING,
+           'type' => Ethna_Const::VAR_TYPE_STRING,
            'min_error' => 'min_error_i18n',
        ),
        'i18n_sample_max_error' => array(
-           'type' => VAR_TYPE_STRING,
+           'type' => Ethna_Const::VAR_TYPE_STRING,
            'max_error' => 'max_error_i18n',
        ),
        'i18n_sample_regexp_error' => array(
-           'type' => VAR_TYPE_STRING,
+           'type' => Ethna_Const::VAR_TYPE_STRING,
            'regexp_error' => 'regexp_error_i18n',
        ),
        'i18n_sample_all' => array(
-           'type' => VAR_TYPE_STRING,
+           'type' => Ethna_Const::VAR_TYPE_STRING,
            'name' => 'name_i18n_all',
            'required_error' => 'required_error_i18n_all',
            'type_error' => 'type_error_i18n_all',

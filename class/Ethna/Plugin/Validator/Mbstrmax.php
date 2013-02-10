@@ -43,7 +43,7 @@ class Ethna_Plugin_Validator_Mbstrmax extends Ethna_Plugin_Validator
             return $true;
         }
 
-        if ($type == VAR_TYPE_STRING) {
+        if ($type == Ethna_Const::VAR_TYPE_STRING) {
             $max_param = $params['mbstrmax'];
             if (mb_strlen($var) > $max_param) {
                 if (isset($params['error'])) {
@@ -51,7 +51,7 @@ class Ethna_Plugin_Validator_Mbstrmax extends Ethna_Plugin_Validator
                 } else {
                     $msg = _et('Please input less than %d characters to {form}.');
                 }
-                return Ethna::raiseNotice($msg, E_FORM_MAX_STRING,
+                return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_MAX_STRING,
                         array($max_param));
             }
         }

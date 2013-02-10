@@ -26,7 +26,7 @@ class Ethna_Plugin_Logwriter_Debugtoolbar extends Ethna_Plugin_Logwriter
             $prefix .= sprintf('[%d]', getmypid());
         }
         $pre_prefix = '<div class="ethna-debug-log ethna-debug-log-' . $this->_getLogLevelName($level) . '">';
-        $prefix .= sprintf($c->getGateway() != GATEWAY_WWW ? '(%s): ' : '(<span class="ethna-debug-log-loglevel ethna-debug-log-loglevel-' . $this->_getLogLevelName($level) . ' ">%s</span>): ',
+        $prefix .= sprintf($c->getGateway() != Ethna_Const::GATEWAY_WWW ? '(%s): ' : '(<span class="ethna-debug-log-loglevel ethna-debug-log-loglevel-' . $this->_getLogLevelName($level) . ' ">%s</span>): ',
             $this->_getLogLevelName($level)
         );
         $post_prefix = '</div>';
@@ -37,7 +37,7 @@ class Ethna_Plugin_Logwriter_Debugtoolbar extends Ethna_Plugin_Logwriter
             list(, , $file, ,$line) = $match;
             $line = intval($line);
             if (file_exists($file)) {
-                $tracer .= ($c->getGateway() != GATEWAY_WWW ? "" : '<pre class="ethna-debug-pre">');
+                $tracer .= ($c->getGateway() != Ethna_Const::GATEWAY_WWW ? "" : '<pre class="ethna-debug-pre">');
                 $f = new SplFileObject($file);
                 $min = ($line - 4 < 0) ? 0 : $line - 4;
                 $i = $min;
@@ -46,12 +46,12 @@ class Ethna_Plugin_Logwriter_Debugtoolbar extends Ethna_Plugin_Logwriter
                     if ($l == $line) {
                         $tracer .= '<span class="ethna-debug-pre-blink">';
                     }
-                    $tracer .= $l . ': ' . htmlspecialchars($line_str) . ($c->getGateway() != GATEWAY_WWW ? "" : '<br />');
+                    $tracer .= $l . ': ' . htmlspecialchars($line_str) . ($c->getGateway() != Ethna_Const::GATEWAY_WWW ? "" : '<br />');
                     if ($l == $line) {
                         $tracer .= '</span>';
                     }
                 }
-                $tracer .= ($c->getGateway() != GATEWAY_WWW ? "" : '</pre>');
+                $tracer .= ($c->getGateway() != Ethna_Const::GATEWAY_WWW ? "" : '</pre>');
             }
         }
 
@@ -70,7 +70,7 @@ class Ethna_Plugin_Logwriter_Debugtoolbar extends Ethna_Plugin_Logwriter
             }
         }
 
-        $br = $c->getGateway() != GATEWAY_WWW ? "" : "<br />";
+        $br = $c->getGateway() != Ethna_Const::GATEWAY_WWW ? "" : "<br />";
 
         $log_content = ($pre_prefix . $prefix . $message . $tracer . $post_prefix . "\n");
         $this->log_array[] = $log_content;
@@ -82,7 +82,7 @@ class Ethna_Plugin_Logwriter_Debugtoolbar extends Ethna_Plugin_Logwriter
     {
         $ctl = Ethna_Controller::getInstance();
         if ((!is_null($view = $ctl->getView()) && !$view->has_default_header)
-            || $ctl->getGateway() != GATEWAY_WWW) {
+            || $ctl->getGateway() != Ethna_Const::GATEWAY_WWW) {
             $this->log_array = array();
             return null;
         }
@@ -102,7 +102,7 @@ class Ethna_Plugin_Logwriter_Debugtoolbar extends Ethna_Plugin_Logwriter
         if (!empty($this->log_array)) {
             $ctl = Ethna_Controller::getInstance();
             if ((!is_null($view = $ctl->getView()) && !$view->has_default_header)
-                || $ctl->getGateway() != GATEWAY_WWW) {
+                || $ctl->getGateway() != Ethna_Const::GATEWAY_WWW) {
                 $this->log_array = array();
                 return null;
             }
@@ -187,8 +187,8 @@ class Ethna_Plugin_Logwriter_Debugtoolbar extends Ethna_Plugin_Logwriter
         if (strncmp($file, $basedir, strlen($basedir)) == 0) {
             $file = substr($file, strlen($basedir));
         }
-        if (strncmp($file, ETHNA_BASE, strlen(ETHNA_BASE)) == 0) {
-            $file = preg_replace('#^/+#', '', substr($file, strlen(ETHNA_BASE)));
+        if (strncmp($file, Ethna_Util::getBaseDirectory(), strlen(ETHNA_BASE)) == 0) {
+            $file = preg_replace('#^/+#', '', substr($file, strlen(Ethna_Util::getBaseDirectory())));
         }
         $line = $bt[$i]['line'];
         return array('function' => $function, 'pos' => sprintf('%s:%s', $file, $line), 'file' => $orig_file);

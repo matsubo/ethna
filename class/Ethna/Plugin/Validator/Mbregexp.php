@@ -25,7 +25,7 @@ class Ethna_Plugin_Validator_Mbregexp extends Ethna_Plugin_Validator
         $true = true;
         $type = $this->getFormType($name);
         if (isset($params['mbregexp']) == false
-            || $type == VAR_TYPE_FILE || $this->isEmpty($var, $type)) {
+            || $type == Ethna_Const::VAR_TYPE_FILE || $this->isEmpty($var, $type)) {
             return $true;
         }
 
@@ -42,7 +42,7 @@ class Ethna_Plugin_Validator_Mbregexp extends Ethna_Plugin_Validator
             } else {
                 $msg = _et('Please input {form} properly.');
             }
-            return Ethna::raiseNotice($msg, E_FORM_REGEXP);
+            return Ethna::raiseNotice($msg, Ethna_Const::E_FORM_REGEXP);
         }
 
         return $true;

@@ -122,23 +122,23 @@ class Ethna_Plugin_Cachemanager_Localfile_Test extends Ethna_UnitTestBase
         $nocache_key = 'nocache_key';
         $this->cm->clear($nocache_key);
         $pear_error = $this->cm->get($nocache_key);
-        $this->assertEqual(E_CACHE_NO_VALUE, $pear_error->getCode());
+        $this->assertEqual(Ethna_Const::E_CACHE_NO_VALUE, $pear_error->getCode());
 
         // ファイルに読み込み権限がない場合
         // PHP 4, PHP5 ともに、Windows上ではmodeをどのように設定しても
         // read権限が残るためskip.(PHP 4.4.8, 5.2.6 on Windows XP)
-        if (!ETHNA_OS_WINDOWS) {
+        if (!Ethna_Util::isWindows()) {
             $ref = new ReflectionMethod($this->cm, '_getCacheFile');
             $ref->setAccessible(true);
             Ethna_Util::chmod($ref->invoke($this->cm, $this->cm->getNamespace(), $string_key), 0222);
             $pear_error = $this->cm->get($string_key);
-            $this->assertEqual(E_CACHE_NO_VALUE, $pear_error->getCode());
+            $this->assertEqual(Ethna_Const::E_CACHE_NO_VALUE, $pear_error->getCode());
             Ethna_Util::chmod($ref->invoke($this->cm, $this->cm->getNamespace(), $string_key), 0666);
         }
 
         // lifetime切れの場合
         $pear_error = $this->cm->get($string_key, 1);
-        $this->assertEqual(E_CACHE_EXPIRED, $pear_error->getCode());
+        $this->assertEqual(Ethna_Const::E_CACHE_EXPIRED, $pear_error->getCode());
 
         // ディレクトリ名と同じファイルがあってディレクトリが作成できない場合
         $ref = new ReflectionMethod($this->cm, '_getCacheDir');

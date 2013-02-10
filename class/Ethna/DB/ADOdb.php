@@ -193,7 +193,7 @@ class Ethna_DB_ADOdb extends Ethna_DB
         if ($r === false) {
 
             $error = Ethna::raiseError('エラー SQL[%s] CODE[%d] MESSAGE[%s]',
-                E_DB_QUERY,
+                Ethna_Const::E_DB_QUERY,
                 $query,
                 $this->db->ErrorNo(),
                 $this->db->ErrorMsg());

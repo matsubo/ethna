@@ -7,7 +7,7 @@
  *  @version    $Id$
  */
 
-require_once ETHNA_BASE . '/class/Getopt.php';
+require_once Ethna_Util::getBaseDirectory() . '/class/Getopt.php';
 
 /**
  *  Test Case For Ethna_Getopt

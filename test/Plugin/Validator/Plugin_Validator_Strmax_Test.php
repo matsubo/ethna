@@ -27,7 +27,7 @@ class Ethna_Plugin_Validator_Strmax_Test extends Ethna_UnitTestBase
     function test_max_str()
     {
         $form_str = array(
-                          'type'          => VAR_TYPE_STRING,
+                          'type'          => Ethna_Const::VAR_TYPE_STRING,
                           'required'      => true,
                           'strmax'      => '3',
                           );
@@ -39,7 +39,7 @@ class Ethna_Plugin_Validator_Strmax_Test extends Ethna_UnitTestBase
 
         $pear_error = $this->vld->validate('namae_mbstr', 'abcd', $form_str);
         $this->assertTrue(is_a($pear_error, 'Ethna_Error'));
-        $this->assertEqual(E_FORM_MAX_STRING,$pear_error->getCode());
+        $this->assertEqual(Ethna_Const::E_FORM_MAX_STRING,$pear_error->getCode());
 
         //  TODO: Error Message Test.
     } 

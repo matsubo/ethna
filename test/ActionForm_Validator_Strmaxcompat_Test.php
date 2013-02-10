@@ -27,8 +27,8 @@ class Ethna_ActionForm_Validator_Strmaxcompat_Test extends Ethna_UnitTestBase
     function test_Validate_Max_String_Compatible()
     {
         $form_def = array(
-                          'type'          => VAR_TYPE_STRING,
-                          'form_type'     => FORM_TYPE_TEXT,
+                          'type'          => Ethna_Const::VAR_TYPE_STRING,
+                          'form_type'     => Ethna_Const::FORM_TYPE_TEXT,
                           'required'      => true,
                           'strmaxcompat'  => '4',  // 半角4文字、全角2文字
                     );        

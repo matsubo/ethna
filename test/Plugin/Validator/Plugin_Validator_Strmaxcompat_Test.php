@@ -35,7 +35,7 @@ class Ethna_Plugin_Validator_Strmaxcompat_Test extends Ethna_UnitTestBase
     {
         if (extension_loaded('mbstring')) {
             $form_str = array(
-                              'type'          => VAR_TYPE_STRING,
+                              'type'          => Ethna_Const::VAR_TYPE_STRING,
                               'required'      => true,
                               'strmaxcompat'  => '4',  // 半角4、全角2文字
                         );
@@ -50,7 +50,7 @@ class Ethna_Plugin_Validator_Strmaxcompat_Test extends Ethna_UnitTestBase
             $error_str = 'abcde';
             $pear_error = $this->vld->validate('namae_str', $error_str, $form_str);
             $this->assertTrue(is_a($pear_error, 'Ethna_Error'));
-            $this->assertEqual(E_FORM_MAX_STRING,$pear_error->getCode());
+            $this->assertEqual(Ethna_Const::E_FORM_MAX_STRING,$pear_error->getCode());
 
             //    multibyte string
             $input_str = 'あい';
@@ -62,7 +62,7 @@ class Ethna_Plugin_Validator_Strmaxcompat_Test extends Ethna_UnitTestBase
             $error_str_euc = mb_convert_encoding($error_str, 'EUC-JP', 'UTF-8');
             $pear_error = $this->vld->validate('namae_str', $error_str_euc, $form_str);
             $this->assertTrue(is_a($pear_error, 'Ethna_Error'));
-            $this->assertEqual(E_FORM_MAX_STRING,$pear_error->getCode());
+            $this->assertEqual(Ethna_Const::E_FORM_MAX_STRING,$pear_error->getCode());
 
         } else {
             echo " ... skipped because mbstring extension is not installed.";
@@ -79,7 +79,7 @@ class Ethna_Plugin_Validator_Strmaxcompat_Test extends Ethna_UnitTestBase
 
             $this->ctl->setClientEncoding('SJIS');
             $form_str = array(
-                              'type'          => VAR_TYPE_STRING,
+                              'type'          => Ethna_Const::VAR_TYPE_STRING,
                               'required'      => true,
                               'strmaxcompat'  => '4',  // 半角4、全角2文字
                         );
@@ -94,7 +94,7 @@ class Ethna_Plugin_Validator_Strmaxcompat_Test extends Ethna_UnitTestBase
             $error_str = 'abcde';
             $pear_error = $this->vld->validate('namae_str', $error_str, $form_str);
             $this->assertTrue(is_a($pear_error, 'Ethna_Error'));
-            $this->assertEqual(E_FORM_MAX_STRING,$pear_error->getCode());
+            $this->assertEqual(Ethna_Const::E_FORM_MAX_STRING,$pear_error->getCode());
 
             //    multibyte string
             $input_str = 'あい';
@@ -106,7 +106,7 @@ class Ethna_Plugin_Validator_Strmaxcompat_Test extends Ethna_UnitTestBase
             $error_str_sjis = mb_convert_encoding($error_str, 'SJIS', 'UTF-8');
             $pear_error = $this->vld->validate('namae_str', $error_str_sjis, $form_str);
             $this->assertTrue(is_a($pear_error, 'Ethna_Error'));
-            $this->assertEqual(E_FORM_MAX_STRING,$pear_error->getCode());
+            $this->assertEqual(Ethna_Const::E_FORM_MAX_STRING,$pear_error->getCode());
 
         } else {
             echo " ... skipped because mbstring extension is not installed.";

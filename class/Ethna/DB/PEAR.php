@@ -92,7 +92,7 @@ class Ethna_DB_PEAR extends Ethna_DB
         $this->db = DB::connect($this->dsninfo, $this->persistent);
         if (DB::isError($this->db)) {
             $error = Ethna::raiseError('DB Connection Error: %s',
-                E_DB_CONNECT,
+                Ethna_Const::E_DB_CONNECT,
                 $this->db->getUserInfo());
             $error->addUserInfo($this->db);
             $this->db = null;
@@ -521,13 +521,13 @@ class Ethna_DB_PEAR extends Ethna_DB
         if (DB::isError($r)) {
             if ($r->getCode() == DB_ERROR_ALREADY_EXISTS) {
                 $error = Ethna::raiseNotice('Unique Constraint Error SQL[%s]',
-                    E_DB_DUPENT,
+                    Ethna_Const::E_DB_DUPENT,
                     $query,
                     $this->db->errorNative(),
                     $r->getUserInfo());
             } else {
                 $error = Ethna::raiseError('Query Error SQL[%s] CODE[%d] MESSAGE[%s]',
-                    E_DB_QUERY,
+                    Ethna_Const::E_DB_QUERY,
                     $query,
                     $this->db->errorNative(),
                     $r->getUserInfo());

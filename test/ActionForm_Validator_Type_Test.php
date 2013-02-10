@@ -27,7 +27,7 @@ class Ethna_ActionForm_Validator_Type_Test extends Ethna_UnitTestBase
     function test_Validate_Type_Integer()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_INT,
+                        'type' => Ethna_Const::VAR_TYPE_INT,
                     );        
         $this->af->setDef('input', $form_def);
         
@@ -57,7 +57,7 @@ class Ethna_ActionForm_Validator_Type_Test extends Ethna_UnitTestBase
     function test_Validate_Type_Float()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_FLOAT,
+                        'type' => Ethna_Const::VAR_TYPE_FLOAT,
                     );        
         $this->af->setDef('input', $form_def);
         
@@ -87,7 +87,7 @@ class Ethna_ActionForm_Validator_Type_Test extends Ethna_UnitTestBase
     function test_Validate_Type_DateTime()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_DATETIME,
+                        'type' => Ethna_Const::VAR_TYPE_DATETIME,
                     );        
         $this->af->setDef('input', $form_def);
         
@@ -118,7 +118,7 @@ class Ethna_ActionForm_Validator_Type_Test extends Ethna_UnitTestBase
     function test_Validate_Min_String()
     {
         $form_def = array(
-                        'type' => VAR_TYPE_STRING,
+                        'type' => Ethna_Const::VAR_TYPE_STRING,
                     );        
         $this->af->setDef('input', $form_def);
         

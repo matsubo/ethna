@@ -27,33 +27,33 @@ class Ethna_Plugin_Generator_EntryPoint extends Ethna_Plugin_Generator
      *  @param  int     $gateway    ゲートウェイ
      *  @return true|Ethna_Error    true:成功 Ethna_Error:失敗
      */
-    function generate($action_name, $skelton = null, $gateway = GATEWAY_WWW)
+    function generate($action_name, $skelton = null, $gateway = Ethna_Const::GATEWAY_WWW)
     {
         $true = true;
 
         // entity
         switch ($gateway) {
-        case GATEWAY_WWW:
+        case Ethna_Const::GATEWAY_WWW:
             $entity = sprintf("%s/%s.%s", $this->ctl->getDirectory('www'),
                               $action_name, $this->ctl->getExt('php'));
             break;
-        case GATEWAY_CLI:
+        case Ethna_Const::GATEWAY_CLI:
             $entity = sprintf("%s/%s.%s", $this->ctl->getDirectory('bin'),
                               $action_name, $this->ctl->getExt('php'));
             break;
         default:
             $ret = Ethna::raiseError(
-                'add-entry-point accepts only GATEWAY_WWW or GATEWAY_CLI.');
+                'add-entry-point accepts only Ethna_Const::GATEWAY_WWW or Ethna_Const::GATEWAY_CLI.');
             return $ret;
         }
 
         // skelton
         if ($skelton === null) {
             switch ($gateway) {
-            case GATEWAY_WWW:
+            case Ethna_Const::GATEWAY_WWW:
                 $skelton = 'skel.entry_www.php';
                 break;
-            case GATEWAY_CLI:
+            case Ethna_Const::GATEWAY_CLI:
                 $skelton = 'skel.entry_cli.php';
                 break;
             }
@@ -83,7 +83,7 @@ class Ethna_Plugin_Generator_EntryPoint extends Ethna_Plugin_Generator
         }
 
         // chmod
-        if ($gateway === GATEWAY_CLI) {
+        if ($gateway === Ethna_Const::GATEWAY_CLI) {
             // is needed?
             //$ret = Ethna_Util::chmod($entity, 0777);
         }

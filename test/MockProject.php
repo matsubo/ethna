@@ -7,7 +7,7 @@
  *  @version    $Id$
  */
 
-define('ETHNA_TEST_DIR', ETHNA_BASE . '/test');
+define('ETHNA_TEST_DIR', Ethna_Util::getBaseDirectory() . '/test');
 define('ETHNA_TEST_PROJECT', 'mockproject');
 define('ETHNA_TEST_SKELDIR', ETHNA_TEST_DIR . '/skel/');
 define('ETHNA_TEST_SKELTPLDIR', ETHNA_TEST_SKELDIR . '/template/');
@@ -152,7 +152,7 @@ class Ethna_MockProject
         $_POST = array_merge($_POST, $submit_value);
 
         $c = $this->getController();
-        $c->setGateway(GATEWAY_WWW);
+        $c->setGateway(Ethna_Const::GATEWAY_WWW);
         ob_start();
         @$c->trigger($action_name, "");  // suppress header related error.
         $result = ob_get_contents();

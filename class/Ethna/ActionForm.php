@@ -327,7 +327,7 @@ class Ethna_ActionForm
 
         foreach ($this->form as $name => $def) {
             $type = is_array($def['type']) ? $def['type'][0] : $def['type'];
-            if ($type == VAR_TYPE_FILE) {
+            if ($type == Ethna_Const::VAR_TYPE_FILE) {
                 // ファイルの場合
 
                 // 値の有無の検査
@@ -339,13 +339,13 @@ class Ethna_ActionForm
                 // 配列構造の検査
                 if (is_array($def['type'])) {
                     if (is_array($this->_getFilesInfoByFormName($_FILES, $name, 'tmp_name')) == false) {
-                        $this->handleError($name, E_FORM_WRONGTYPE_ARRAY);
+                        $this->handleError($name, Ethna_Const::E_FORM_WRONGTYPE_ARRAY);
                         $this->set($name, null);
                         continue;
                     }
                 } else {
                     if (is_array($this->_getFilesInfoByFormName($_FILES, $name, 'tmp_name'))) {
-                        $this->handleError($name, E_FORM_WRONGTYPE_SCALAR);
+                        $this->handleError($name, Ethna_Const::E_FORM_WRONGTYPE_SCALAR);
                         $this->set($name, null);
                         continue;
                     }
@@ -405,13 +405,13 @@ class Ethna_ActionForm
                 if (is_array($def['type'])) {
                     if (is_array($target_var) == false) {
                         // 厳密には、この配列の各要素はスカラーであるべき
-                        $this->handleError($name, E_FORM_WRONGTYPE_ARRAY);
+                        $this->handleError($name, Ethna_Const::E_FORM_WRONGTYPE_ARRAY);
                         $this->set($name, null);
                         continue;
                     }
                 } else {
                     if (is_array($target_var)) {
-                        $this->handleError($name, E_FORM_WRONGTYPE_SCALAR);
+                        $this->handleError($name, Ethna_Const::E_FORM_WRONGTYPE_SCALAR);
                         $this->set($name, null);
                         continue;
                     }
@@ -638,7 +638,7 @@ class Ethna_ActionForm
     private function _validateWithPlugin($form_name)
     {
         // (pre) filter
-        if ($this->form[$form_name]['type'] != VAR_TYPE_FILE) {
+        if ($this->form[$form_name]['type'] != Ethna_Const::VAR_TYPE_FILE) {
 
             //    入力値とフィルタ定義を取り出す
             $form_var = $this->get($form_name);
@@ -800,7 +800,7 @@ class Ethna_ActionForm
             } else if ($c == 0xad || ($c >= 0xf9 && $c <= 0xfc)) {
                 /* IBM拡張文字 / NEC選定IBM拡張文字 */
                 return $this->ae->add($name,
-                    _et('{form} contains machine dependent code.'), E_FORM_INVALIDCHAR);
+                    _et('{form} contains machine dependent code.'), Ethna_Const::E_FORM_INVALIDCHAR);
             } else {
                 $i++;
             }
@@ -831,7 +831,7 @@ class Ethna_ActionForm
             }
             if ($v != "0" && $v != "1") {
                 return $this->ae->add($name,
-                    _et('Please input {form} properly.'), E_FORM_INVALIDCHAR);
+                    _et('Please input {form} properly.'), Ethna_Const::E_FORM_INVALIDCHAR);
             }
         }
 
@@ -860,7 +860,7 @@ class Ethna_ActionForm
             }
             if (Ethna_Util::checkMailaddress($v) == false) {
                 return $this->ae->add($name,
-                    _et('Please input {form} properly.'), E_FORM_INVALIDCHAR);
+                    _et('Please input {form} properly.'), Ethna_Const::E_FORM_INVALIDCHAR);
             }
         }
 
@@ -889,7 +889,7 @@ class Ethna_ActionForm
             }
             if (preg_match('/^(http:\/\/|https:\/\/|ftp:\/\/)/', $v) == 0) {
                 return $this->ae->add($name,
-                    _et('Please input {form} properly.'), E_FORM_INVALIDCHAR);
+                    _et('Please input {form} properly.'), Ethna_Const::E_FORM_INVALIDCHAR);
             }
         }
 
@@ -918,7 +918,7 @@ class Ethna_ActionForm
             }
 
             $type = is_array($value['type']) ? $value['type'][0] : $value['type'];
-            if ($type == VAR_TYPE_FILE) {
+            if ($type == Ethna_Const::VAR_TYPE_FILE) {
                 continue;
             }
 
@@ -935,7 +935,7 @@ class Ethna_ActionForm
                 //  フォーム定義がスカラーなのに配列が渡ってきた
                 //  場合は救いようがないのでNOTICE扱いとし、タグも出力しない
                 if (is_array($form_value)) {
-                    $this->handleError($key, E_FORM_WRONGTYPE_ARRAY);
+                    $this->handleError($key, Ethna_Const::E_FORM_WRONGTYPE_ARRAY);
                     continue;
                 }
                 $form_value = array($form_value);
@@ -976,24 +976,24 @@ class Ethna_ActionForm
 
         // ユーザ定義エラーメッセージ
         $code_map = array(
-            E_FORM_REQUIRED     => 'required_error',
-            E_FORM_WRONGTYPE_SCALAR => 'type_error',
-            E_FORM_WRONGTYPE_ARRAY  => 'type_error',
-            E_FORM_WRONGTYPE_INT    => 'type_error',
-            E_FORM_WRONGTYPE_FLOAT  => 'type_error',
-            E_FORM_WRONGTYPE_DATETIME   => 'type_error',
-            E_FORM_WRONGTYPE_BOOLEAN    => 'type_error',
-            E_FORM_MIN_INT      => 'min_error',
-            E_FORM_MIN_FLOAT    => 'min_error',
-            E_FORM_MIN_DATETIME => 'min_error',
-            E_FORM_MIN_FILE     => 'min_error',
-            E_FORM_MIN_STRING   => 'min_error',
-            E_FORM_MAX_INT      => 'max_error',
-            E_FORM_MAX_FLOAT    => 'max_error',
-            E_FORM_MAX_DATETIME => 'max_error',
-            E_FORM_MAX_FILE     => 'max_error',
-            E_FORM_MAX_STRING   => 'max_error',
-            E_FORM_REGEXP       => 'regexp_error',
+            Ethna_Const::E_FORM_REQUIRED     => 'required_error',
+            Ethna_Const::E_FORM_WRONGTYPE_SCALAR => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_ARRAY  => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_INT    => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_FLOAT  => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_DATETIME   => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_BOOLEAN    => 'type_error',
+            Ethna_Const::E_FORM_MIN_INT      => 'min_error',
+            Ethna_Const::E_FORM_MIN_FLOAT    => 'min_error',
+            Ethna_Const::E_FORM_MIN_DATETIME => 'min_error',
+            Ethna_Const::E_FORM_MIN_FILE     => 'min_error',
+            Ethna_Const::E_FORM_MIN_STRING   => 'min_error',
+            Ethna_Const::E_FORM_MAX_INT      => 'max_error',
+            Ethna_Const::E_FORM_MAX_FLOAT    => 'max_error',
+            Ethna_Const::E_FORM_MAX_DATETIME => 'max_error',
+            Ethna_Const::E_FORM_MAX_FILE     => 'max_error',
+            Ethna_Const::E_FORM_MAX_STRING   => 'max_error',
+            Ethna_Const::E_FORM_REGEXP       => 'regexp_error',
         );
         //   フォーム定義にエラーメッセージが定義されていれば
         //   それを使う
@@ -1003,87 +1003,87 @@ class Ethna_ActionForm
         }
 
         //   定義されていない場合は、内部のメッセージを使う
-        if ($code == E_FORM_REQUIRED) {
+        if ($code == Ethna_Const::E_FORM_REQUIRED) {
             switch ($def['form_type']) {
-            case FORM_TYPE_TEXT:
-            case FORM_TYPE_PASSWORD:
-            case FORM_TYPE_TEXTAREA:
-            case FORM_TYPE_SUBMIT:
+            case Ethna_Const::FORM_TYPE_TEXT:
+            case Ethna_Const::FORM_TYPE_PASSWORD:
+            case Ethna_Const::FORM_TYPE_TEXTAREA:
+            case Ethna_Const::FORM_TYPE_SUBMIT:
                 $message = _et('Please input {form}.');
                 break;
-            case FORM_TYPE_SELECT:
-            case FORM_TYPE_RADIO:
-            case FORM_TYPE_CHECKBOX:
-            case FORM_TYPE_FILE:
+            case Ethna_Const::FORM_TYPE_SELECT:
+            case Ethna_Const::FORM_TYPE_RADIO:
+            case Ethna_Const::FORM_TYPE_CHECKBOX:
+            case Ethna_Const::FORM_TYPE_FILE:
                 $message = _et('Please select {form}.');
                 break;
             default:
                 $message = _et('Please input {form}.');
                 break;
             }
-        } else if ($code == E_FORM_WRONGTYPE_SCALAR) {
+        } else if ($code == Ethna_Const::E_FORM_WRONGTYPE_SCALAR) {
             $message = _et('Please input scalar value to {form}.');
-        } else if ($code == E_FORM_WRONGTYPE_ARRAY) {
+        } else if ($code == Ethna_Const::E_FORM_WRONGTYPE_ARRAY) {
             $message = _et('Please input array value to {form}.');
-        } else if ($code == E_FORM_WRONGTYPE_INT) {
+        } else if ($code == Ethna_Const::E_FORM_WRONGTYPE_INT) {
             $message = _et('Please input integer value to {form}.');
-        } else if ($code == E_FORM_WRONGTYPE_FLOAT) {
+        } else if ($code == Ethna_Const::E_FORM_WRONGTYPE_FLOAT) {
             $message = _et('Please input float value to {form}.');
-        } else if ($code == E_FORM_WRONGTYPE_DATETIME) {
+        } else if ($code == Ethna_Const::E_FORM_WRONGTYPE_DATETIME) {
             $message = _et('Please input valid datetime to {form}.');
-        } else if ($code == E_FORM_WRONGTYPE_BOOLEAN) {
+        } else if ($code == Ethna_Const::E_FORM_WRONGTYPE_BOOLEAN) {
             $message = _et('You can input 0 or 1 to {form}.');
-        } else if ($code == E_FORM_MIN_INT) {
+        } else if ($code == Ethna_Const::E_FORM_MIN_INT) {
             $this->ae->add($name,
                 _et('Please input more than %d(int) to {form}.'),
                 $code, $def['min']);
             return;
-        } else if ($code == E_FORM_MIN_FLOAT) {
+        } else if ($code == Ethna_Const::E_FORM_MIN_FLOAT) {
             $this->ae->add($name,
                 _et('Please input more than %f(float) to {form}.'),
                 $code, $def['min']);
             return;
-        } else if ($code == E_FORM_MIN_DATETIME) {
+        } else if ($code == Ethna_Const::E_FORM_MIN_DATETIME) {
             $this->ae->add($name,
                 _et('Please input datetime value %s or later to {form}.'),
                 $code, $def['min']);
             return;
-        } else if ($code == E_FORM_MIN_FILE) {
+        } else if ($code == Ethna_Const::E_FORM_MIN_FILE) {
             $this->ae->add($name,
                 _et('Please specify file whose size is more than %d KB.'), 
                 $code, $def['min']);
             return;
-        } else if ($code == E_FORM_MIN_STRING) {
+        } else if ($code == Ethna_Const::E_FORM_MIN_STRING) {
             $this->ae->add($name,
                 _et('Please input more than %d full-size (%d half-size) characters to {form}.'),
                 $code, intval($def['min']/2), $def['min']);
             return;
-        } else if ($code == E_FORM_MAX_INT) {
+        } else if ($code == Ethna_Const::E_FORM_MAX_INT) {
             $this->ae->add($name,
                 _et('Please input less than %d(int) to {form}.'),
                 $code, $def['max']);
             return;
-        } else if ($code == E_FORM_MAX_FLOAT) {
+        } else if ($code == Ethna_Const::E_FORM_MAX_FLOAT) {
             $this->ae->add($name,
                 _et('Please input less than %f(float) to {form}.'),
                 $code, $def['max']);
             return;
-        } else if ($code == E_FORM_MAX_DATETIME) {
+        } else if ($code == Ethna_Const::E_FORM_MAX_DATETIME) {
             $this->ae->add($name,
                 _et('Please input datetime value before %s to {form}.'),
                 $code, $def['max']);
             return;
-        } else if ($code == E_FORM_MAX_FILE) {
+        } else if ($code == Ethna_Const::E_FORM_MAX_FILE) {
             $this->ae->add($name,
                 _et('Please specify file whose size is less than %d KB to {form}.'), 
                 $code, $def['max']);
             return;
-        } else if ($code == E_FORM_MAX_STRING) {
+        } else if ($code == Ethna_Const::E_FORM_MAX_STRING) {
             $this->ae->add($name,
                 _et('Please input less than %d full-size (%d half-size) characters to {form}.'),
                 $code, intval($def['max']/2), $def['max']);
             return;
-        } else if ($code == E_FORM_REGEXP) {
+        } else if ($code == Ethna_Const::E_FORM_REGEXP) {
             $message = _et('Please input {form} properly.');
         }
 
@@ -1303,7 +1303,7 @@ class Ethna_ActionForm
                     $this->form_template[$form_key]['required'] = $value['required'];
                 }
 
-                if ($value['type'] == VAR_TYPE_STRING && isset($value['length'])) {
+                if ($value['type'] == Ethna_Const::VAR_TYPE_STRING && isset($value['length'])) {
                     $this->form_template[$form_key]['max'] = $value['length'];
                 }
 
