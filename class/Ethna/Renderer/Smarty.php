@@ -92,7 +92,7 @@ class Ethna_Renderer_Smarty extends Ethna_Renderer
             $this->template = $template;
         }
 
-        if ((is_absolute_path($this->template) && is_readable($this->template))
+        if ((Ethna_Util::is_absolute_path($this->template) && is_readable($this->template))
             || is_readable($this->template_dir . $this->template)) {
                 if ($capture === true) {
                     $captured = $this->engine->fetch($this->template);

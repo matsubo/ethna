@@ -96,8 +96,8 @@ class Ethna_Plugin_Handle_MakePluginPackage extends Ethna_Plugin_Handle
     function perform()
     {
         //    required package check.
-        if (!file_exists_ex('PEAR/PackageFileManager2.php')
-         || !file_exists_ex('PEAR/PackageFileManager/File.php')) {
+        if (!Ethna_Util::file_exists_ex('PEAR/PackageFileManager2.php')
+         || !Ethna_Util::file_exists_ex('PEAR/PackageFileManager/File.php')) {
             return Ethna::raiseError(
                 "ERROR: PEAR_PackageFileManager2 is not installed! please install it.\n"
               . "usage: pear install -a pear/PackageFileManager2 "

@@ -226,6 +226,58 @@ class Ethna_Const
     /** エラーコード: プラグインエラー(その他) */
     const E_PLUGIN_GENERAL = 197;
 
+    /** 定型フィルタ: 半角入力 */
+    const FILTER_HW = 'numeric_zentohan,alphabet_zentohan,ltrim,rtrim,ntrim';
+
+    /** 定型フィルタ: 全角入力 */
+    const FILTER_FW = 'kana_hantozen,ntrim';
+
+
+    /** アプリケーションオブジェクト状態: 使用可能 */
+    const OBJECT_STATE_ACTIVE =  0;
+
+
+    /** アプリケーションオブジェクトソートフラグ: 昇順 */
+    const OBJECT_SORT_ASC = 0;
+    /** アプリケーションオブジェクトソートフラグ: 降順 */
+    const OBJECT_SORT_DESC = 1;
+
+
+    /** アプリケーションオブジェクトインポートオプション: NULLプロパティ無変換 */
+    const OBJECT_IMPORT_IGNORE_NULL = 1;
+
+    /** アプリケーションオブジェクトインポートオプション: NULLプロパティ→空文字列変換 */
+    const OBJECT_IMPORT_CONVERT_NULL = 1;
+
+
+    /** アプリケーションオブジェクト検索条件: != */
+    const OBJECT_CONDITION_NE = 0;
+
+    /** アプリケーションオブジェクト検索条件: == */
+    const OBJECT_CONDITION_EQ = 1;
+
+    /** アプリケーションオブジェクト検索条件: LIKE */
+    const OBJECT_CONDITION_LIKE = 2;
+
+    /** アプリケーションオブジェクト検索条件: > */
+    const OBJECT_CONDITION_GT = 3;
+
+    /** アプリケーションオブジェクト検索条件: < */
+    const OBJECT_CONDITION_LT = 4;
+
+    /** アプリケーションオブジェクト検索条件: >= */
+    const OBJECT_CONDITION_GE = 5;
+
+    /** アプリケーションオブジェクト検索条件: <= */
+    const OBJECT_CONDITION_LE = 6;
+
+    /** アプリケーションオブジェクト検索条件: AND */
+    const OBJECT_CONDITION_AND = 7;
+
+    /** アプリケーションオブジェクト検索条件: OR */
+    const OBJECT_CONDITION_OR = 8;
+
+
 
 }
 

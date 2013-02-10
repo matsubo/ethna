@@ -9,34 +9,6 @@
  *  @version    $Id$
  */
 
-/** アプリケーションオブジェクト検索条件: != */
-define('OBJECT_CONDITION_NE', 0);
-
-/** アプリケーションオブジェクト検索条件: == */
-define('OBJECT_CONDITION_EQ', 1);
-
-/** アプリケーションオブジェクト検索条件: LIKE */
-define('OBJECT_CONDITION_LIKE', 2);
-
-/** アプリケーションオブジェクト検索条件: > */
-define('OBJECT_CONDITION_GT', 3);
-
-/** アプリケーションオブジェクト検索条件: < */
-define('OBJECT_CONDITION_LT', 4);
-
-/** アプリケーションオブジェクト検索条件: >= */
-define('OBJECT_CONDITION_GE', 5);
-
-/** アプリケーションオブジェクト検索条件: <= */
-define('OBJECT_CONDITION_LE', 6);
-
-/** アプリケーションオブジェクト検索条件: AND */
-define('OBJECT_CONDITION_AND', 7);
-
-/** アプリケーションオブジェクト検索条件: OR */
-define('OBJECT_CONDITION_OR', 8);
-
-
 
 // {{{ Ethna_AppSearchObject
 /**
@@ -71,7 +43,7 @@ class Ethna_AppSearchObject
      *
      *  @access public
      *  @param  string  $value      検索値
-     *  @param  int     $condition  検索条件(OBJECT_CONDITION_NE,...)
+     *  @param  int     $condition  検索条件(Ethna_Const::_NE,...)
      */
     public function __construct($value, $condition)
     {
@@ -132,7 +104,7 @@ class Ethna_AppSearchObject
         $condition .= Ethna_AppSQL::getCondition("$column", $tmp_value, $this->condition);
 
         foreach ($this->object_list as $elt) {
-            if ($elt['condition'] == OBJECT_CONDITION_OR) {
+            if ($elt['condition'] == Ethna_Const::_OR) {
                 $condition .= " OR ";
             } else {
                 $condition .= " AND ";

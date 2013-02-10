@@ -93,7 +93,7 @@ class Ethna_Plugin_Handle extends Ethna_Plugin_Abstract
     {
         // create opts
         // ex: $lopts = array('foo', 'bar=');
-        $lopts = to_array($lopts);
+        $lopts = Ethna_Util::to_array($lopts);
         $sopts = '';
         $opt_def = array();
         foreach ($lopts as $lopt) {

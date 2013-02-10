@@ -329,7 +329,7 @@ class Ethna_Plugin
         }
 
         $file = $dir . '/' . $file;
-        if (file_exists_ex($file) === false) {
+        if (Ethna_Util::file_exists_ex($file) === false) {
             if ($parent === false) {
                 return Ethna::raiseWarning('plugin file is not found: [%s]',
                                            Ethna_Const::E_PLUGIN_NOTFOUND, $file);

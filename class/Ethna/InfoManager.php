@@ -681,7 +681,7 @@ class Ethna_InfoManager extends Ethna_AppManager
             }
             $dsn = $this->config->get($config_key);
             if ($dsn) {
-                $elts[$name] = implode("\n", to_array($dsn));
+                $elts[$name] = implode("\n", Ethna_Util::to_array($dsn));
             }
         }
         $r['DSN'] = $elts;

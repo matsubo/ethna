@@ -210,7 +210,7 @@ class Ethna_Controller
             if ($key == 'plugins') {
                 // Smartyプラグインディレクトリは配列で指定する
                 $tmp = array();
-                foreach (to_array($value) as $elt) {
+                foreach (Ethna_Util::to_array($value) as $elt) {
                     if (Ethna_Util::isAbsolute($elt) == false) {
                         $tmp[] = $this->base . (empty($this->base) ? '' : '/') . $elt;
                     }
@@ -1452,7 +1452,7 @@ class Ethna_Controller
      */
     private function _isAcceptableActionName($action_name, $default_action_name)
     {
-        foreach (to_array($default_action_name) as $name) {
+        foreach (Ethna_Util::to_array($default_action_name) as $name) {
             if ($action_name == $name) {
                 return true;
             } else if ($name{strlen($name)-1} == '*') {
@@ -2164,7 +2164,7 @@ class Ethna_Controller
         );
 
         // see if we have simpletest
-        if (file_exists_ex('simpletest/unit_tester.php', true)) {
+        if (Ethna_Util::file_exists_ex('simpletest/unit_tester.php', true)) {
         }
         // action設定
         $this->action['__ethna_unittest__'] = array(

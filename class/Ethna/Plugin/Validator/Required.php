@@ -82,7 +82,7 @@ class Ethna_Plugin_Validator_Required extends Ethna_Plugin_Validator
         // 配列の required_key のチェック
         // 'required_key' => array(xx) に設定された配列の要素値がなければエラー。
         if (isset($params['key'])) {
-            $invalid_keys = array_diff(to_array($params['key']), $valid_keys);
+            $invalid_keys = array_diff(Ethna_Util::to_array($params['key']), $valid_keys);
             if (count($invalid_keys) > 0) {
                 if (isset($params['error'])) {
                     $msg = $params['error'];

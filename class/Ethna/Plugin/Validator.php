@@ -9,11 +9,6 @@
  *  @version    $Id$
  */
 
-// UPLOAD_ERR_* が未定義の場合 (PHP 4.3.0 以前)
-if (defined('UPLOAD_ERR_OK') == false) {
-    define('UPLOAD_ERR_OK', 0);
-}
-
 // {{{ Ethna_Plugin_Validator
 /**
  *  バリデータプラグインの基底クラス

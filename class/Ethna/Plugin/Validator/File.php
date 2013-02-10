@@ -9,29 +9,6 @@
  *  @version    $Id$
  */
 
-// UPLOAD_ERR_* が未定義の場合
-if (defined('UPLOAD_ERR_OK') == false) { // PHP 4.3.0
-    define('UPLOAD_ERR_OK', 0);
-}
-if (defined('UPLOAD_ERR_INI_SIZE') == false) { // PHP 4.3.0
-    define('UPLOAD_ERR_INI_SIZE', 1);
-}
-if (defined('UPLOAD_ERR_FORM_SIZE') == false) { // PHP 4.3.0
-    define('UPLOAD_ERR_FORM_SIZE', 2);
-}
-if (defined('UPLOAD_ERR_PARTIAL') == false) { // PHP 4.3.0
-    define('UPLOAD_ERR_PARTIAL', 3);
-}
-if (defined('UPLOAD_ERR_NO_FILE') == false) { // PHP 4.3.0
-    define('UPLOAD_ERR_NO_FILE', 4);
-}
-if (defined('UPLOAD_ERR_NO_TMP_DIR') == false) { // PHP 4.3.10, 5.0.3
-    define('UPLOAD_ERR_NO_TMP_DIR', 6);
-}
-if (defined('UPLOAD_ERR_CANT_WRITE') == false) { // PHP 5.1.0
-    define('UPLOAD_ERR_CANT_WRITE', 7);
-}
-
 // {{{ Ethna_Plugin_Validator_File
 /**
  *  ファイルチェックプラグイン
@@ -134,7 +111,7 @@ class Ethna_Plugin_Validator_File extends Ethna_Plugin_Validator
 
         // type の検査
         if (isset($params['type'])) {
-            $type_list = to_array($params['type']);
+            $type_list = Ethna_Util::to_array($params['type']);
             $posted_mime = explode('/', $var['type'], 2);
             foreach ($type_list as $type) {
                 $wanted_mime = explode('/', $type, 2);

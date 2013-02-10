@@ -151,7 +151,7 @@ class Ethna_ClassFactory
     {
         $object = null;
 
-        $ext = to_array($ext);
+        $ext = Ethna_Util::to_array($ext);
         if (isset($this->class[$key]) == false) {
             // app object
             $class_name = $this->controller->getObjectClassName($key);
@@ -348,7 +348,7 @@ class Ethna_ClassFactory
     function _include($class_name)
     {
         $file = sprintf("%s.%s", $class_name, $this->controller->getExt('php'));
-        if (file_exists_ex($file)) {
+        if (Ethna_Util::file_exists_ex($file)) {
             include_once $file;
             return true;
         }
@@ -361,7 +361,7 @@ class Ethna_ClassFactory
             $file = sprintf('%s.%s',
                             implode(DIRECTORY_SEPARATOR, $tmp),
                             $this->controller->getExt('php'));
-            if (file_exists_ex($file)) {
+            if (Ethna_Util::file_exists_ex($file)) {
                 include_once $file;
                 return true;
             }
@@ -371,7 +371,7 @@ class Ethna_ClassFactory
             $file = sprintf('%s.%s',
                             str_replace('_', DIRECTORY_SEPARATOR, $match[2]),
                             $this->controller->getExt('php'));
-            if (file_exists_ex($file)) {
+            if (Ethna_Util::file_exists_ex($file)) {
                 include_once $file;
                 return true;
             }
@@ -383,7 +383,7 @@ class Ethna_ClassFactory
             $file = sprintf('%s.%s',
                             implode(DIRECTORY_SEPARATOR, $tmp),
                             $this->controller->getExt('php'));
-            if (file_exists_ex($file)) {
+            if (Ethna_Util::file_exists_ex($file)) {
                 include_once $file;
                 return true;
             }
@@ -393,7 +393,7 @@ class Ethna_ClassFactory
             $file = sprintf('%s.%s',
                             str_replace('_', DIRECTORY_SEPARATOR, $class_name),
                             $this->controller->getExt('php'));
-            if (file_exists_ex($file)) {
+            if (Ethna_Util::file_exists_ex($file)) {
                 include_once $file;
                 return true;
             }

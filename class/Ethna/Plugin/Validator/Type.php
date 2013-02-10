@@ -38,7 +38,7 @@ class Ethna_Plugin_Validator_Type extends Ethna_Plugin_Validator
             return $true;
         }
 
-        foreach (array_keys(to_array($var)) as $key) {
+        foreach (array_keys(Ethna_Util::to_array($var)) as $key) {
             switch ($type) {
                 case Ethna_Const::VAR_TYPE_INT:
                     if (!preg_match('/^-?\d+$/', $var)) {

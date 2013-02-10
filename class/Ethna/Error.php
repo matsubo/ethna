@@ -229,7 +229,7 @@ class Ethna_Error
     public function getMessage()
     {
         $tmp_message = $this->i18n ? $this->i18n->get($this->message) : $this->message;
-        $tmp_userinfo = to_array($this->userinfo);
+        $tmp_userinfo = Ethna_Util::to_array($this->userinfo);
         $tmp_message_arg_list = array();
         for ($i = 0; $i < count($tmp_userinfo); $i++) {
             $tmp_message_arg_list[] = $this->i18n ? $this->i18n->get($tmp_userinfo[$i]) : $tmp_userinfo[$i];

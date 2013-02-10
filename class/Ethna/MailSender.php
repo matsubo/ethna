@@ -9,10 +9,6 @@
  *  @version    $Id$
  */
 
-/** メールテンプレートタイプ: 直接送信 */
-define('MAILSENDER_TYPE_DIRECT', 0);
-
-
 // {{{ Ethna_MailSender
 /**
  *  メール送信クラス
@@ -23,6 +19,9 @@ define('MAILSENDER_TYPE_DIRECT', 0);
  */
 class Ethna_MailSender
 {
+    /** メールテンプレートタイプ: 直接送信 */
+    const MAILSENDER_TYPE_DIRECT = 0;
+
     /**#@+
      *  @access private
      */
@@ -95,7 +94,7 @@ class Ethna_MailSender
     function send($to, $template, $macro, $attach = null)
     {
         // メール内容を作成
-        if ($template === MAILSENDER_TYPE_DIRECT) {
+        if ($template === self::MAILSENDER_TYPE_DIRECT) {
             $mail = $macro;
         } else {
             $renderer = $this->getTemplateEngine();
@@ -213,7 +212,7 @@ class Ethna_MailSender
         }
 
         // 送信
-        foreach (to_array($to) as $rcpt) {
+        foreach (Ethna_Util::to_array($to) as $rcpt) {
             if (is_string($this->option)) {
                 mail($rcpt, $header['subject'][1], $body, $header_line, $this->option);
             } else {

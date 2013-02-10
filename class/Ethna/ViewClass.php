@@ -763,7 +763,7 @@ class Ethna_ViewClass
         } else {
             $current_value = array();
         }
-        $current_value = array_map('strval', to_array($current_value));
+        $current_value = array_map('strval', Ethna_Util::to_array($current_value));
 
         // タグのセパレータ
         if (isset($params['separator'])) {
@@ -988,7 +988,7 @@ class Ethna_ViewClass
         } else {
             $current_value = array(0 => 0,);
         }
-        $current_value = array_map('strval', to_array($current_value));
+        $current_value = array_map('strval', Ethna_Util::to_array($current_value));
 
         // タグのセパレータ
         if (isset($params['separator'])) {

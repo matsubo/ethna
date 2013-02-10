@@ -323,7 +323,7 @@ class Ethna_Renderer
             ? $config['path']
             : $this->engine_path;
         if ($engine_path) {
-            if (file_exists_ex($engine_path)) {
+            if (Ethna_Util::file_exists_ex($engine_path)) {
                 require_once $engine_path;
             }
             else {

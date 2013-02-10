@@ -375,10 +375,10 @@ class Ethna_AppObject
             $value = $this->af->get($def['form_name']);
             if (is_null($value)) {
                 // フォームから値が送信されていない場合の振舞い
-                if ($option == OBJECT_IMPORT_IGNORE_NULL) {
+                if ($option == Ethna_Const::OBJECT_IMPORT_IGNORE_NULL) {
                     // nullはスキップ
                     continue;
-                } else if ($option == OBJECT_IMPORT_CONVERT_NULL) {
+                } else if ($option == Ethna_Const::OBJECT_IMPORT_CONVERT_NULL) {
                     // 空文字列に変換
                     $value = '';
                 }
@@ -415,7 +415,7 @@ class Ethna_AppObject
         // primary key 定義が sequence の場合、
         // next idの取得: (pgsqlの場合のみ)
         // 取得できた場合はこのidを使う
-        foreach (to_array($this->id_def) as $id_def) {
+        foreach (Ethna_Util::to_array($this->id_def) as $id_def) {
             if (isset($this->prop_def[$id_def]['seq'])
                 && $this->prop_def[$id_def]['seq']) {
                 // NOTE: このapp object以外からinsertがないことが前提
@@ -463,7 +463,7 @@ class Ethna_AppObject
         // primary key の 'seq' フラグがある(最初の)プロパティに入れる
         $insert_id = $this->my_db_rw->getInsertId(); 
         if ($insert_id !== null && $insert_id >= 0) {
-            foreach (to_array($this->id_def) as $id_def) {
+            foreach (Ethna_Util::to_array($this->id_def) as $id_def) {
                 if (isset($this->prop_def[$id_def]['seq'])
                     && $this->prop_def[$id_def]['seq']) {
                     $this->prop[$id_def] = $insert_id;
@@ -745,8 +745,8 @@ class Ethna_AppObject
     {
         global $_ETHNA_APP_OBJECT_CACHE;
 
-        $key_type = to_array($key_type);
-        $key = to_array($key);
+        $key_type = Ethna_Util::to_array($key_type);
+        $key = Ethna_Util::to_array($key);
         if (count($key_type) != count($key)) {
             trigger_error(sprintf("Unmatched key_type & key length [%d-%d]",
                           count($key_type), count($key)), E_USER_ERROR);
@@ -847,7 +847,7 @@ class Ethna_AppObject
 
         // 現在設定されているプライマリキーにNULLが含まれる場合は検索しない
         $check_pkey = true;
-        foreach (to_array($this->id_def) as $k) {
+        foreach (Ethna_Util::to_array($this->id_def) as $k) {
             if (isset($this->prop[$k]) == false || is_null($this->prop[$k])) {
                 $check_pkey = false;
                 break;
@@ -862,7 +862,7 @@ class Ethna_AppObject
                 return $r;
             } else if ($r->numRows() > 0) {
                 // we can overwrite $key_list here
-                $duplicate_key_list = to_array($this->id_def);
+                $duplicate_key_list = Ethna_Util::to_array($this->id_def);
             }
         }
 
@@ -899,7 +899,7 @@ class Ethna_AppObject
      */
     function _getSQL_Select($key_type, $key)
     {
-        $key_type = to_array($key_type);
+        $key_type = Ethna_Util::to_array($key_type);
         if (is_null($key)) {
             // add()前
             $key = array();
@@ -907,7 +907,7 @@ class Ethna_AppObject
                 $key[$i] = null;
             }
         } else {
-            $key = to_array($key);
+            $key = Ethna_Util::to_array($key);
         }
 
         // SQLエスケープ
@@ -996,7 +996,7 @@ class Ethna_AppObject
 
         // 検索条件(primary key)
         $condition = null;
-        foreach (to_array($this->id_def) as $k) {
+        foreach (Ethna_Util::to_array($this->id_def) as $k) {
             if (is_null($condition)) {
                 $condition = "WHERE ";
             } else {
@@ -1028,7 +1028,7 @@ class Ethna_AppObject
 
         // 検索条件(primary key)
         $condition = null;
-        foreach (to_array($this->id_def) as $k) {
+        foreach (Ethna_Util::to_array($this->id_def) as $k) {
             if (is_null($condition)) {
                 $condition = "WHERE ";
             } else {
@@ -1068,9 +1068,9 @@ class Ethna_AppObject
         $condition = null;
         // 検索条件(現在設定されているプライマリキーは検索対象から除く)
         if (is_null($this->id) == false) {
-            $primary_value = to_array($this->getId());
+            $primary_value = Ethna_Util::to_array($this->getId());
             $n = 0;
-            foreach (to_array($this->id_def) as $k) {
+            foreach (Ethna_Util::to_array($this->id_def) as $k) {
                 if (is_null($condition)) {
                     $condition = "WHERE ";
                 } else {
@@ -1079,12 +1079,12 @@ class Ethna_AppObject
                 $value = $primary_value[$n];
                 Ethna_AppSQL::escapeSQL($value, $this->my_db_type);
                 $condition .= Ethna_AppSQL::getCondition(
-                    $this->my_db_ro->quoteIdentifier($k), $value, OBJECT_CONDITION_NE);
+                    $this->my_db_ro->quoteIdentifier($k), $value, Ethna_Const::_NE);
                 $n++;
             }
         }
 
-        foreach (to_array($key) as $k) {
+        foreach (Ethna_Util::to_array($key) as $k) {
             if (is_null($condition)) {
                 $condition = "WHERE ";
             } else {
@@ -1124,7 +1124,7 @@ class Ethna_AppObject
             $tables .= " " . $this->_SQLPlugin_SearchTable();
         }
 
-        $id_def = to_array($this->id_def);
+        $id_def = Ethna_Util::to_array($this->id_def);
 
         //  テーブル名.プライマリーキー名
         //  複数あった場合ははじめのものを使う
@@ -1168,7 +1168,7 @@ class Ethna_AppObject
         }
 
         $column_id = "";
-        foreach (to_array($this->id_def) as $id) {
+        foreach (Ethna_Util::to_array($this->id_def) as $id) {
             if ($column_id != "") {
                 $column_id .= ",";
             }
@@ -1186,7 +1186,7 @@ class Ethna_AppObject
                     $sort .= ", ";
                 }
                 $sort .= sprintf("%s %s", $this->my_db_ro->quoteIdentifier($k),
-                                 $v == OBJECT_SORT_ASC ? "ASC" : "DESC");
+                                 $v == Ethna_Const::OBJECT_SORT_ASC ? "ASC" : "DESC");
             }
         }
 
@@ -1244,7 +1244,7 @@ class Ethna_AppObject
 
         // カラム
         $column = "";
-        $keys = $keys === null ? array_keys($def) : to_array($keys);
+        $keys = $keys === null ? array_keys($def) : Ethna_Util::to_array($keys);
         foreach ($keys as $key) {
             if ($column != "") {
                 $column .= ", ";
@@ -1270,7 +1270,7 @@ class Ethna_AppObject
                 }
                 $sort .= sprintf("%s %s",
                                  $this->my_db_ro->quoteIdentifier($k),
-                                 $v == OBJECT_SORT_ASC ? "ASC" : "DESC");
+                                 $v == Ethna_Const::OBJECT_SORT_ASC ? "ASC" : "DESC");
             }
         }
 
@@ -1359,14 +1359,14 @@ class Ethna_AppObject
                 $condition .= Ethna_AppSQL::getCondition(
                     $this->my_db_ro->quoteIdentifier($t)
                     .'.'. $this->my_db_ro->quoteIdentifier($k),
-                    $v, OBJECT_CONDITION_LIKE);
+                    $v, Ethna_Const::_LIKE);
             } else {
                 // 省略形(数値)
                 Ethna_AppSQL::escapeSQL($v, $this->my_db_type);
                 $condition .= Ethna_AppSQL::getCondition(
                     $this->my_db_ro->quoteIdentifier($t)
                     .'.'. $this->my_db_ro->quoteIdentifier($k),
-                    $v, OBJECT_CONDITION_EQ);
+                    $v, Ethna_Const::_EQ);
             }
         }
 

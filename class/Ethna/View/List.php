@@ -64,7 +64,7 @@ class Ethna_View_List extends Ethna_ViewClass
                 $filter[$key] = $this->af->get("s_$key");
             }
             if ($this->af->get("sort") == $key) {
-                $order = $this->af->get("order") == "desc" ? OBJECT_SORT_DESC : OBJECT_SORT_ASC;
+                $order = $this->af->get("order") == "desc" ? Ethna_Const::OBJECT_SORT_DESC : Ethna_Const::OBJECT_SORT_ASC;
                 $sort = array(
                     $key => $order,
                 );

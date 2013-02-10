@@ -8,7 +8,6 @@
  *  @package    Ethna
  *  @version    $Id$
  */
-require_once 'DB.php';
 
 // {{{ Ethna_DB_PEAR
 /**
@@ -481,7 +480,7 @@ class Ethna_DB_PEAR extends Ethna_DB
         $this->message = null;
 
         $sql = "";
-        foreach (to_array($tables) as $table) {
+        foreach (Ethna_Util::to_array($tables) as $table) {
             if ($sql != "") {
                 $sql .= ", ";
             }

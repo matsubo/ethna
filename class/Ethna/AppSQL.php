@@ -108,26 +108,26 @@ class Ethna_AppSQL
      *  @access public
      *  @param  string  $field      検索対象のフィールド
      *  @param  mixed   $value      検索値
-     *  @param  int     $condition  検索条件(OBJECT_CONDITION_NE,...)
+     *  @param  int     $condition  検索条件(Ethna_Const::_NE,...)
      *  @return string  検索条件文
      *  @static
      */
-    public static function getCondition($field, $value, $condition = OBJECT_CONDITION_EQ)
+    public static function getCondition($field, $value, $condition = Ethna_Const::_EQ)
     {
         switch ($condition) {
-        case OBJECT_CONDITION_EQ:
+        case Ethna_Const::_EQ:
             $op = "="; break;
-        case OBJECT_CONDITION_NE:
+        case Ethna_Const::_NE:
             $op = "!="; break;
-        case OBJECT_CONDITION_LIKE:
+        case Ethna_Const::_LIKE:
             $op = "LIKE"; break;
-        case OBJECT_CONDITION_GT:
+        case Ethna_Const::_GT:
             $op = ">"; break;
-        case OBJECT_CONDITION_LT:
+        case Ethna_Const::_LT:
             $op = "<"; break;
-        case OBJECT_CONDITION_GE:
+        case Ethna_Const::_GE:
             $op = ">="; break;
-        case OBJECT_CONDITION_LE:
+        case Ethna_Const::_LE:
             $op = "<="; break;
         }
 
@@ -137,9 +137,9 @@ class Ethna_AppSQL
         if (is_array($value)) {
             if (count($value) > 0) {
                 switch ($condition) {
-                case OBJECT_CONDITION_EQ:
+                case Ethna_Const::_EQ:
                     $op = "IN"; break;
-                case OBJECT_CONDITION_NE:
+                case Ethna_Const::_NE:
                     $op = "NOT IN"; break;
                 }
                 $operand = sprintf("(%s)", implode(',', $value));
@@ -151,13 +151,13 @@ class Ethna_AppSQL
         } else {
             if ($value == 'NULL') {
                 switch ($condition) {
-                case OBJECT_CONDITION_EQ:
+                case Ethna_Const::_EQ:
                     $op = "IS"; break;
-                case OBJECT_CONDITION_NE:
+                case Ethna_Const::_NE:
                     $op = "IS NOT"; break;
                 }
             }
-            if ($condition == OBJECT_CONDITION_LIKE) {
+            if ($condition == Ethna_Const::_LIKE) {
                 Ethna_AppSQL::unescapeSQL($value);
                 $value = '%' . str_replace('%', '\\%', $value) . '%';
                 Ethna_AppSQL::escapeSQL($value);

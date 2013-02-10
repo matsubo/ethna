@@ -57,7 +57,7 @@ class Ethna_ActionForm_Filter_Test extends Ethna_UnitTestBase
     function test_filter_fw()
     {
         //   半角カナ -> 全角カナ + ntrim 
-        $this->local_af->form['test']['filter'] = FILTER_FW;
+        $this->local_af->form['test']['filter'] = Ethna_Const::FILTER_FW;
         $this->local_af->set('test', "\x00ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾝ\x00");
         $this->local_af->validate();
         $filtered_value = $this->local_af->get('test');
@@ -70,7 +70,7 @@ class Ethna_ActionForm_Filter_Test extends Ethna_UnitTestBase
     function test_filter_hw()
     {
         //   全角英数字 -> 半角英数字 + ntrim + rtrim + ltrim
-        $this->local_af->form['test']['filter'] = FILTER_HW;
+        $this->local_af->form['test']['filter'] = Ethna_Const::FILTER_HW;
         $this->local_af->set('test', " \t\n\r\0\x0B ＡＢ\x00ＣＤＥＦＧ０１２３\x00４５６７８９\t\n\r\0\x0B ");
         $this->local_af->validate();
         $filtered_value = $this->local_af->get('test');

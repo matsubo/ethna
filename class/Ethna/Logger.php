@@ -9,16 +9,6 @@
  *  @version    $Id$
  */
 
-/**
- *  拡張ログプロパティ: ファイル出力
- */
-define('LOG_FILE', 1 << 16);
-
-/**
- *  拡張ログプロパティ: 標準出力
- */
-define('LOG_ECHO', 1 << 17);
-
 // {{{ Ethna_Logger
 /**
  *  ログ管理クラス
@@ -29,6 +19,18 @@ define('LOG_ECHO', 1 << 17);
  */
 class Ethna_Logger extends Ethna_AppManager
 {
+    /**
+     *  拡張ログプロパティ: ファイル出力
+     */
+    const LOG_FILE = 65536; //  1 << 16;
+
+    /**
+     *  拡張ログプロパティ: 標準出力
+     */
+    const LOG_ECHO = 131072; // 1 << 17;
+
+
+
     // {{{ properties
     /**#@+
      *  @access private
@@ -46,8 +48,8 @@ class Ethna_Logger extends Ethna_AppManager
         'syslog'    => array('name' => 'LOG_SYSLOG'),
         'user'      => array('name' => 'LOG_USER'),
         'uucp'      => array('name' => 'LOG_UUCP'),
-        'file'      => array('name' => 'LOG_FILE'),
-        'echo'      => array('name' => 'LOG_ECHO'),
+        'file'      => array('name' => 'self::LOG_FILE'),
+        'echo'      => array('name' => 'self::LOG_ECHO'),
     );
 
     /** @protected    array   ログレベル一覧 */
