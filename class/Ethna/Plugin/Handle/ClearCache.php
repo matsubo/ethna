@@ -9,7 +9,6 @@
  *  @version    $Id$
  */
 
-require_once Ethna_Util::getBaseDirectory() . '/class/PearWrapper.php';
 
 // {{{ Ethna_Plugin_Handle_ClearCache
 /**

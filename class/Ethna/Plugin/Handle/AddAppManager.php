@@ -8,8 +8,6 @@
  *  @version    $Id$
  */
 
-require_once 'Ethna/class/Plugin/Handle/AddAppObject.php';
-
 // {{{ Ethna_Plugin_Handle_AddAppManager
 /**
  *  add-app-manager handler

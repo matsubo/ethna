@@ -9,8 +9,6 @@
  *  @version    $Id$
  */
 
-require_once Ethna_Util::getBaseDirectory() . '/class/Getopt.php';
-
 // {{{ Ethna_Plugin_Handle
 /**
  *  コマンドラインハンドラプラグインの基底クラス

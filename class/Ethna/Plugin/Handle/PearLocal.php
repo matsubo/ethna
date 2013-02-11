@@ -8,9 +8,7 @@
  *  @package    Ethna
  *  @version    $Id$
  */
-
 require_once 'PEAR/Config.php';
-require_once Ethna_Util::getBaseDirectory() . '/class/PearWrapper.php';
 
 // {{{ Ethna_PearConfig_Local
 /**

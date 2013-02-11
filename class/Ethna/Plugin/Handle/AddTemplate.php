@@ -8,7 +8,6 @@
  *  @package    Ethna
  */
 
-require_once 'Ethna/class/Plugin/Handle/AddView.php';
 
 // {{{ Ethna_Plugin_Handle_AddTemplate
 /**

@@ -8,7 +8,7 @@
  *  @version    $Id$
  */
 
-require_once 'simpletest/scorer.php';
+// require_once 'simpletest/scorer.php';
 
 /**
  *  Ethnaマネージャクラス
