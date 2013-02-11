@@ -57,7 +57,7 @@ class Ethna_Controller
 
     /** @var    array       DBアクセス定義 */
     var $db = array(
-        ''              => DB_TYPE_RW,
+        ''              => Ethna_Const::DB_TYPE_RW,
     );
 
     /** @var    array       拡張子設定 */
@@ -152,7 +152,7 @@ class Ethna_Controller
     var $logger = null;
 
     /** @var    string  リクエストのゲートウェイ(www/cli/rest/xmlrpc/soap...) */
-    var $gateway = GATEWAY_WWW;
+    var $gateway = Ethna_Const::GATEWAY_WWW;
 
     /**#@-*/
 
@@ -162,7 +162,7 @@ class Ethna_Controller
      *
      *  @access     public
      */
-    function Ethna_Controller($gateway = GATEWAY_WWW)
+    function Ethna_Controller($gateway = Ethna_Const::GATEWAY_WWW)
     {
         $GLOBALS['_Ethna_controller'] =& $this;
         if ($this->base == "") {
@@ -362,13 +362,13 @@ class Ethna_Controller
         $key = 'action';
         $gateway = is_null($gateway) ? $this->getGateway() : $gateway;
         switch ($gateway) {
-        case GATEWAY_WWW:
+        case Ethna_Const::GATEWAY_WWW:
             $key = 'action';
             break;
-        case GATEWAY_CLI:
+        case Ethna_Const::GATEWAY_CLI:
             $key = 'action_cli';
             break;
-        case GATEWAY_XMLRPC:
+        case Ethna_Const::GATEWAY_XMLRPC:
             $key = 'action_xmlrpc';
             break;
         }
@@ -624,7 +624,7 @@ class Ethna_Controller
      */
     function main_CLI($class_name, $action_name, $enable_filter = true)
     {
-        $c = new $class_name(GATEWAY_CLI);
+        $c = new $class_name(Ethna_Const::GATEWAY_CLI);
         $c->action_cli[$action_name] = array();
         $c->trigger($action_name, "", $enable_filter);
     }
@@ -643,7 +643,7 @@ class Ethna_Controller
             die("always_populate_raw_post_data ini variable should be true to enable this gateway");
         }
 
-        $c = new $class_name(GATEWAY_XMLRPC);
+        $c = new $class_name(Ethna_Const::GATEWAY_XMLRPC);
         $c->trigger("", "", false);
     }
 
@@ -658,7 +658,7 @@ class Ethna_Controller
      */
     function main_SOAP($class_name, $action_name = "", $fallback_action_name = "")
     {
-        $c = new $class_name(GATEWAY_SOAP);
+        $c = new $class_name(Ethna_Const::GATEWAY_SOAP);
         $c->trigger($action_name, $fallback_action_name);
     }
 
@@ -688,16 +688,16 @@ class Ethna_Controller
 
         // trigger
         switch ($this->getGateway()) {
-        case GATEWAY_WWW:
+        case Ethna_Const::GATEWAY_WWW:
             $this->_trigger_WWW($default_action_name, $fallback_action_name);
             break;
-        case GATEWAY_CLI:
+        case Ethna_Const::GATEWAY_CLI:
             $this->_trigger_CLI($default_action_name);
             break;
-        case GATEWAY_XMLRPC:
+        case Ethna_Const::GATEWAY_XMLRPC:
             $this->_trigger_XMLRPC();
             break;
-        case GATEWAY_SOAP:
+        case Ethna_Const::GATEWAY_SOAP:
             $this->_trigger_SOAP();
             break;
         }
@@ -736,7 +736,7 @@ class Ethna_Controller
                 $action_obj =& $this->_getAction($fallback_action_name);
             }
             if (is_null($action_obj)) {
-                return Ethna::raiseError("undefined action [%s]", E_APP_UNDEFINED_ACTION, $action_name);
+                return Ethna::raiseError("undefined action [%s]", Ethna_Const::E_APP_UNDEFINED_ACTION, $action_name);
             } else {
                 $action_name = $fallback_action_name;
             }
@@ -837,7 +837,7 @@ class Ethna_Controller
         // アクション定義の取得
         $action_obj =& $this->_getAction($method);
         if (is_null($action_obj)) {
-            return Ethna::raiseError("undefined xmlrpc method [%s]", E_APP_UNDEFINED_ACTION, $method);
+            return Ethna::raiseError("undefined xmlrpc method [%s]", Ethna_Const::E_APP_UNDEFINED_ACTION, $method);
         }
 
         // オブジェクト生成
@@ -1049,13 +1049,13 @@ class Ethna_Controller
         $action = array();
         $gateway = is_null($gateway) ? $this->getGateway() : $gateway;
         switch ($gateway) {
-        case GATEWAY_WWW:
+        case Ethna_Const::GATEWAY_WWW:
             $action =& $this->action;
             break;
-        case GATEWAY_CLI:
+        case Ethna_Const::GATEWAY_CLI:
             $action =& $this->action_cli;
             break;
-        case GATEWAY_XMLRPC:
+        case Ethna_Const::GATEWAY_XMLRPC:
             $action =& $this->action_xmlrpc;
             break;
         }
@@ -1564,7 +1564,7 @@ class Ethna_Controller
      *  将来への拡張のためのみに存在しています。現在は特にオーバーライドの必要はありません。
      *
      *  @access protected
-     *  @param  string  $language           言語定義(LANG_JA, LANG_EN...)
+     *  @param  string  $language           言語定義(Ethna_Const::LANG_JA, Ethna_Const::LANG_EN...)
      *  @param  string  $system_encoding    システムエンコーディング名
      *  @param  string  $client_encoding    クライアントエンコーディング
      */
@@ -1586,21 +1586,21 @@ class Ethna_Controller
      */
     function _getDefaultLanguage()
     {
-        return array(LANG_JA, null, null);
+        return array(Ethna_Const::LANG_JA, null, null);
     }
 
     /**
      *  デフォルト状態でのゲートウェイを取得する
      *
      *  @access protected
-     *  @return int     ゲートウェイ定義(GATEWAY_WWW, GATEWAY_CLI...)
+     *  @return int     ゲートウェイ定義(Ethna_Const::GATEWAY_WWW, Ethna_Const::GATEWAY_CLI...)
      */
     function _getDefaultGateway($gateway)
     {
         if (is_null($GLOBALS['_Ethna_gateway']) == false) {
             return $GLOBALS['_Ethna_gateway'];
         }
-        return GATEWAY_WWW;
+        return Ethna_Const::GATEWAY_WWW;
     }
 
     /**
@@ -1614,13 +1614,13 @@ class Ethna_Controller
     {
         $gateway = is_null($gateway) ? $this->getGateway() : $gateway;
         switch ($gateway) {
-        case GATEWAY_WWW:
+        case Ethna_Const::GATEWAY_WWW:
             $prefix = '';
             break;
-        case GATEWAY_CLI:
+        case Ethna_Const::GATEWAY_CLI:
             $prefix = 'Cli';
             break;
-        case GATEWAY_XMLRPC:
+        case Ethna_Const::GATEWAY_XMLRPC:
             $prefix = 'Xmlrpc';
             break;
         default:
@@ -1906,7 +1906,7 @@ class Ethna_Controller
      */
     function getCLI()
     {
-        return $this->gateway == GATEWAY_CLI ? true : false;
+        return $this->gateway == Ethna_Const::GATEWAY_CLI ? true : false;
     }
 
     /**
@@ -1918,7 +1918,7 @@ class Ethna_Controller
      */
     function setCLI($cli)
     {
-        $this->gateway = $cli ? GATEWAY_CLI : $this->_getDefaultGateway();
+        $this->gateway = $cli ? Ethna_Const::GATEWAY_CLI : $this->_getDefaultGateway();
     }
 }
 // }}}

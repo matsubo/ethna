@@ -41,7 +41,7 @@ class Ethna_View_UnitTest extends Ethna_ViewClass
 
         // cores
         $this->af->setApp('app_id', $ctl->getAppId());
-        $this->af->setApp('ethna_version', ETHNA_VERSION);
+        $this->af->setApp('ethna_version', Ethna_Const::ETHNA_VERSION);
 
         // include
         $inc = sprintf("%s/%s_UnitTestManager.php",

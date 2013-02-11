@@ -53,7 +53,7 @@ class Ethna_I18N
 		$this->appid = strtoupper($appid);
 		$this->have_gettext = extension_loaded("gettext") ? true : false;
 
-		$this->setLanguage(LANG_JA);
+		$this->setLanguage(Ethna_Const::LANG_JA);
 	}
 
 	/**
@@ -68,10 +68,10 @@ class Ethna_I18N
 	function setLanguage($language, $systemencoding = null, $clientencoding = null)
 	{
 		switch ($language) {
-		case LANG_EN:
+		case Ethna_Const::LANG_EN:
 			$locale = "en_US";
 			break;
-		case LANG_JA:
+		case Ethna_Const::LANG_JA:
 			$locale = "ja_JP";
 			break;
 		default:

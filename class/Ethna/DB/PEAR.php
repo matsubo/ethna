@@ -80,7 +80,7 @@ class Ethna_DB_PEAR extends Ethna_DB
 	{
 		$this->db =& DB::connect($this->dsn, $this->persistent);
 		if (DB::isError($this->db)) {
-			$error = Ethna::raiseError('DB接続エラー: %s', E_DB_CONNECT, $this->db->getUserInfo());
+			$error = Ethna::raiseError('DB接続エラー: %s', Ethna_Const::E_DB_CONNECT, $this->db->getUserInfo());
 			$error->addUserInfo($this->db);
 			$this->db = null;
 			return $error;
@@ -333,9 +333,9 @@ class Ethna_DB_PEAR extends Ethna_DB
 		$r =& $this->db->query($query);
 		if (DB::isError($r)) {
 			if ($r->getCode() == DB_ERROR_ALREADY_EXISTS) {
-				$error = Ethna::raiseNotice('ユニーク制約エラー SQL[%s]', E_DB_DUPENT, $query, $this->db->errorNative(), $r->getUserInfo());
+				$error = Ethna::raiseNotice('ユニーク制約エラー SQL[%s]', Ethna_Const::E_DB_DUPENT, $query, $this->db->errorNative(), $r->getUserInfo());
 			} else {
-				$error = Ethna::raiseError('クエリエラー SQL[%s] CODE[%d] MESSAGE[%s]', E_DB_QUERY, $query, $this->db->errorNative(), $r->getUserInfo());
+				$error = Ethna::raiseError('クエリエラー SQL[%s] CODE[%d] MESSAGE[%s]', Ethna_Const::E_DB_QUERY, $query, $this->db->errorNative(), $r->getUserInfo());
 			}
 			return $error;
 		}

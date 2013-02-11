@@ -37,7 +37,7 @@ class Ethna_View_Info extends Ethna_ViewClass
 
 		// cores
 		$this->af->setApp('app_id', $ctl->getAppId());
-		$this->af->setApp('ethna_version', ETHNA_VERSION);
+		$this->af->setApp('ethna_version', Ethna_Const::ETHNA_VERSION);
 
 		// actions
 		$this->af->setApp('action_list', $em->getActionList());

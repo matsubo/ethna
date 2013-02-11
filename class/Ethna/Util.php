@@ -257,7 +257,7 @@ class Ethna_Util
 							$field .= $line_end;
 
 							// request one more line
-							return Ethna::raiseNotice(E_UTIL_CSV_CONTINUE);
+							return Ethna::raiseNotice(Ethna_Const::E_UTIL_CSV_CONTINUE);
 						}
 					}
 				}

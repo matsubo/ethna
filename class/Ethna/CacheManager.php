@@ -50,12 +50,12 @@ class Ethna_CacheManager
 		$class_name = sprintf("Ethna_CacheManager_%s", ucfirst(strtolower($type)));
 		$class_file = sprintf("%s/CacheManager/%s.php", dirname(__FILE__), $class_name);
 		if (file_exists($class_file) == false) {
-			$retval = Ethna::raiseError("invalid cache type: no such file ($class_file)", E_CACHE_INVALID_TYPE);
+			$retval = Ethna::raiseError("invalid cache type: no such file ($class_file)", Ethna_Const::E_CACHE_INVALID_TYPE);
 			return $retval;
 		}
 		include_once($class_file);
 		if (class_exists($class_name) == false) {
-			$retval = Ethna::raiseError("invalid cache type: class is not defined ($class_name)", E_CACHE_INVALID_TYPE);
+			$retval = Ethna::raiseError("invalid cache type: class is not defined ($class_name)", Ethna_Const::E_CACHE_INVALID_TYPE);
 			return $retval;
 		}
 

@@ -44,7 +44,7 @@ class Ethna_Handle_AddActionCli extends Ethna_Handle_AddAction
         list($action_name, $app_dir, $entry_point) = $r;
 
         $sg =& new Ethna_SkeltonGenerator();
-        $r = $sg->generateActionSkelton($action_name, $app_dir, GATEWAY_CLI);
+        $r = $sg->generateActionSkelton($action_name, $app_dir, Ethna_Const::GATEWAY_CLI);
         if (Ethna::isError($r)) {
             printf("error occurred while generating skelton. please see also following error message(s)\n\n");
             return $r;

@@ -45,17 +45,17 @@ class Ethna_CacheManager_Localfile extends Ethna_CacheManager
 		clearstatcache();
 		$st = @stat($cache_file);
 		if ($st == false) {
-			return PEAR::raiseError('fopen failed', E_CACHE_NO_VALUE);
+			return PEAR::raiseError('fopen failed', Ethna_Const::E_CACHE_NO_VALUE);
 		}
 		if (is_null($lifetime) == false) {
 			if (($st[9]+$lifetime) < time()) {
-				return PEAR::raiseError('fopen failed', E_CACHE_EXPIRED);
+				return PEAR::raiseError('fopen failed', Ethna_Const::E_CACHE_EXPIRED);
 			}
 		}
 
 		$fp = fopen($cache_file, "r");
 		if ($fp == false) {
-			return PEAR::raiseError('fopen failed', E_CACHE_NO_VALUE);
+			return PEAR::raiseError('fopen failed', Ethna_Const::E_CACHE_NO_VALUE);
 		}
 		// ロック
 		$timeout = 3;
@@ -69,7 +69,7 @@ class Ethna_CacheManager_Localfile extends Ethna_CacheManager
 		}
 		if ($timeout <= 0) {
 			fclose($fp);
-			return PEAR::raiseError('fopen failed', E_CACHE_GENERAL);
+			return PEAR::raiseError('fopen failed', E_CACHEthna_Const::E_GENERAL);
 		}
 
 		$n = 0;
@@ -85,7 +85,7 @@ class Ethna_CacheManager_Localfile extends Ethna_CacheManager
 
 		if ($st == false || $n > 5) {
 			fclose($fp);
-			return PEAR::raiseError('stat failed', E_CACHE_NO_VALUE);
+			return PEAR::raiseError('stat failed', Ethna_Const::E_CACHE_NO_VALUE);
 		}
 		$value = fread($fp, $st[7]);
 		fclose($fp);
@@ -109,7 +109,7 @@ class Ethna_CacheManager_Localfile extends Ethna_CacheManager
 		clearstatcache();
 		$st = @stat($cache_file);
 		if ($st == false) {
-			return PEAR::raiseError('fopen failed', E_CACHE_NO_VALUE);
+			return PEAR::raiseError('fopen failed', Ethna_Const::E_CACHE_NO_VALUE);
 		}
 		return $st[9];
 	}
@@ -175,7 +175,7 @@ class Ethna_CacheManager_Localfile extends Ethna_CacheManager
 		$cache_file = $this->_getCacheFile($namespace, $key);
 		$fp = fopen($cache_file, "a+");
 		if ($fp == false) {
-			return PEAR::raiseError('fopen failed', E_CACHE_GENERAL);
+			return PEAR::raiseError('fopen failed', E_CACHEthna_Const::E_GENERAL);
 		}
 
 		// ロック
@@ -190,7 +190,7 @@ class Ethna_CacheManager_Localfile extends Ethna_CacheManager
 		}
 		if ($timeout <= 0) {
 			fclose($fp);
-			return PEAR::raiseError('fopen failed', E_CACHE_GENERAL);
+			return PEAR::raiseError('fopen failed', E_CACHEthna_Const::E_GENERAL);
 		}
 		rewind($fp);
 		ftruncate($fp, 0);

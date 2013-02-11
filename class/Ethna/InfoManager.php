@@ -37,31 +37,31 @@ class Ethna_InfoManager extends Ethna_AppManager
 
 	/**	@var	array	[属性]DBタイプ一覧 */
 	var	$db_type_list = array(
-		DB_TYPE_RW		=> array('name' => 'DB_TYPE_RW'),
-		DB_TYPE_RO		=> array('name' => 'DB_TYPE_RO'),
-		DB_TYPE_MISC	=> array('name' => 'DB_TYPE_MISC'),
+		Ethna_Const::DB_TYPE_RW		=> array('name' => 'DB_TYPE_RW'),
+		Ethna_Const::DB_TYPE_RO		=> array('name' => 'DB_TYPE_RO'),
+		Ethna_Const::DB_TYPE_MISC	=> array('name' => 'DB_TYPE_MISC'),
 	);
 
 	/**	@var	array	[属性]フォーム型一覧 */
 	var	$form_type_list = array(
-		FORM_TYPE_TEXT		=> array('name' => 'テキストボックス'),
-		FORM_TYPE_PASSWORD	=> array('name' => 'パスワード'),
-		FORM_TYPE_TEXTAREA	=> array('name' => 'テキストエリア'),
-		FORM_TYPE_SELECT	=> array('name' => 'セレクトボックス'),
-		FORM_TYPE_RADIO		=> array('name' => 'ラジオボタン'),
-		FORM_TYPE_CHECKBOX	=> array('name' => 'チェックボックス'),
-		FORM_TYPE_SUBMIT	=> array('name'	=> 'フォーム送信ボタン'),
-		FORM_TYPE_FILE		=> array('name' => 'ファイル'),
+		Ethna_Const::FORM_TYPE_TEXT		=> array('name' => 'テキストボックス'),
+		Ethna_Const::FORM_TYPE_PASSWORD	=> array('name' => 'パスワード'),
+		Ethna_Const::FORM_TYPE_TEXTAREA	=> array('name' => 'テキストエリア'),
+		Ethna_Const::FORM_TYPE_SELECT	=> array('name' => 'セレクトボックス'),
+		Ethna_Const::FORM_TYPE_RADIO		=> array('name' => 'ラジオボタン'),
+		Ethna_Const::FORM_TYPE_CHECKBOX	=> array('name' => 'チェックボックス'),
+		Ethna_Const::FORM_TYPE_SUBMIT	=> array('name'	=> 'フォーム送信ボタン'),
+		Ethna_Const::FORM_TYPE_FILE		=> array('name' => 'ファイル'),
 	);
 
 	/**	@var	array	[属性]変数型一覧 */
 	var	$var_type_list = array(
-		VAR_TYPE_INT		=> array('name' => '整数'),
-		VAR_TYPE_FLOAT		=> array('name' => '浮動小数点数'),
-		VAR_TYPE_STRING		=> array('name' => '文字列'),
-		VAR_TYPE_DATETIME	=> array('name' => '日付'),
-		VAR_TYPE_BOOLEAN	=> array('name' => '真偽値'),
-		VAR_TYPE_FILE		=> array('name' => 'ファイル'),
+		Ethna_Const::VAR_TYPE_INT		=> array('name' => '整数'),
+		Ethna_Const::VAR_TYPE_FLOAT		=> array('name' => '浮動小数点数'),
+		Ethna_Const::VAR_TYPE_STRING		=> array('name' => '文字列'),
+		Ethna_Const::VAR_TYPE_DATETIME	=> array('name' => '日付'),
+		Ethna_Const::VAR_TYPE_BOOLEAN	=> array('name' => '真偽値'),
+		Ethna_Const::VAR_TYPE_FILE		=> array('name' => 'ファイル'),
 	);
 
 	/**#@-*/
@@ -606,7 +606,7 @@ class Ethna_InfoManager extends Ethna_AppManager
 		$elts = array();
 		$elts['アプリケーションID'] = $this->ctl->getAppId();
 		$elts['アプリケーションURL'] = $this->ctl->getURL();
-		$elts['Ethnaバージョン'] = ETHNA_VERSION;
+		$elts['Ethnaバージョン'] = Ethna_Const::ETHNA_VERSION;
 		$elts['Ethnaベースディレクトリ'] = ETHNA_BASE;
 		$r['Core'] = $elts;
 

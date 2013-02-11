@@ -50,7 +50,7 @@ class Ethna extends PEAR
 	 *	@param	int		$code				エラーコード
 	 *	@static
 	 */
-	function &raiseError($message, $code = E_GENERAL)
+	function &raiseError($message, $code = Ethna_Const::E_GENERAL)
 	{
 		$userinfo = null;
 		if (func_num_args() > 2) {
@@ -70,7 +70,7 @@ class Ethna extends PEAR
 	 *	@param	int		$code				エラーコード
 	 *	@static
 	 */
-	function &raiseWarning($message, $code = E_GENERAL)
+	function &raiseWarning($message, $code = Ethna_Const::E_GENERAL)
 	{
 		$userinfo = null;
 		if (func_num_args() > 2) {
@@ -90,7 +90,7 @@ class Ethna extends PEAR
 	 *	@param	int		$code				エラーコード
 	 *	@static
 	 */
-	function &raiseNotice($message, $code = E_GENERAL)
+	function &raiseNotice($message, $code = Ethna_Const::E_GENERAL)
 	{
 		$userinfo = null;
 		if (func_num_args() > 2) {

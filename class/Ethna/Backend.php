@@ -456,7 +456,7 @@ class Ethna_Backend
 	{
 		$r = $this->controller->getDBType($db_key);
 		if (is_null($r)) {
-			return Ethna::raiseError(E_DB_INVALIDTYPE, "未定義のDB種別[%s]", $db_key);
+			return Ethna::raiseError(Ethna_Const::E_DB_INVALIDTYPE, "未定義のDB種別[%s]", $db_key);
 		}
 
 		if ($db_key == "") {

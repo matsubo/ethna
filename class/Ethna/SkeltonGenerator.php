@@ -146,7 +146,7 @@ class Ethna_SkeltonGenerator
      *  @param  int     $gateway        ゲートウェイ
 	 *	@return	bool	true:成功 false:失敗
 	 */
-	function generateActionSkelton($action_name, $app_dir, $gateway = GATEWAY_WWW)
+	function generateActionSkelton($action_name, $app_dir, $gateway = Ethna_Const::GATEWAY_WWW)
 	{
         // discover controller
         $controller_class = $this->_discoverController($app_dir);
@@ -155,7 +155,7 @@ class Ethna_SkeltonGenerator
         }
 
         $c =& new $controller_class;
-        $c->setGateway(GATEWAY_CLI);
+        $c->setGateway(Ethna_Const::GATEWAY_CLI);
 
 		$action_dir = $c->getActiondir($gateway);
 		$action_class = $c->getDefaultActionClass($action_name, $gateway);
@@ -175,13 +175,13 @@ class Ethna_SkeltonGenerator
 		$this->_mkdir(dirname("$action_dir$action_path"), 0755);
 
         switch ($gateway) {
-        case GATEWAY_WWW:
+        case Ethna_Const::GATEWAY_WWW:
             $skelton = "skel.action.php";
             break;
-        case GATEWAY_CLI:
+        case Ethna_Const::GATEWAY_CLI:
             $skelton = "skel.action_cli.php";
             break;
-        case GATEWAY_XMLRPC:
+        case Ethna_Const::GATEWAY_XMLRPC:
             $skelton = "skel.action_xmlrpc.php";
             break;
         }
@@ -212,7 +212,7 @@ class Ethna_SkeltonGenerator
         }
 
         $c =& new $controller_class;
-        $c->setGateway(GATEWAY_CLI);
+        $c->setGateway(Ethna_Const::GATEWAY_CLI);
 
 		$view_dir = $c->getViewdir();
 		$view_class = $c->getDefaultViewClass($forward_name, false);
@@ -255,7 +255,7 @@ class Ethna_SkeltonGenerator
         }
 
         $c =& new $controller_class;
-        $c->setGateway(GATEWAY_CLI);
+        $c->setGateway(Ethna_Const::GATEWAY_CLI);
 
 		$action_dir = $c->getActiondir($gateway);
 		$app_dir = $c->getDirectory('app');
@@ -297,7 +297,7 @@ class Ethna_SkeltonGenerator
         }
 
         $c =& new $controller_class;
-        $c->setGateway(GATEWAY_CLI);
+        $c->setGateway(Ethna_Const::GATEWAY_CLI);
 
 		$tpl_dir = $c->getTemplatedir();
         if ($tpl_dir{strlen($tpl_dir)-1} != '/') {
@@ -337,7 +337,7 @@ class Ethna_SkeltonGenerator
         }
 
         $c =& new $controller_class;
-        $c->setGateway(GATEWAY_CLI);
+        $c->setGateway(Ethna_Const::GATEWAY_CLI);
 
         $table_id = preg_replace('/_(.)/e', "strtoupper('\$1')", ucfirst($table_name));
 
@@ -380,7 +380,7 @@ class Ethna_SkeltonGenerator
         }
 
         $c =& new $controller_class;
-        $c->setGateway(GATEWAY_CLI);
+        $c->setGateway(Ethna_Const::GATEWAY_CLI);
 
         $manager_id = preg_replace('/_(.)/e', "strtoupper('\$1')", ucfirst($manager_name));
 
@@ -423,7 +423,7 @@ class Ethna_SkeltonGenerator
         }
 
         $c =& new $controller_class;
-        $c->setGateway(GATEWAY_CLI);
+        $c->setGateway(Ethna_Const::GATEWAY_CLI);
 
 		$action_dir = $c->getActiondir();
 		$action_class = $c->getDefaultActionClass($action_name, false);
@@ -467,7 +467,7 @@ class Ethna_SkeltonGenerator
         }
 
         $c =& new $controller_class;
-        $c->setGateway(GATEWAY_CLI);
+        $c->setGateway(Ethna_Const::GATEWAY_CLI);
 
 		$view_dir = $c->getViewdir();
 		$view_class = $c->getDefaultViewClass($forward_name, false);

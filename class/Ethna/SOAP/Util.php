@@ -70,19 +70,19 @@ class Ethna_SOAP_Util
 	{
 		$name = null;
 		switch ($def) {
-		case VAR_TYPE_STRING:
+		case Ethna_Const::VAR_TYPE_STRING:
 			$name = "string";
 			break;
-		case VAR_TYPE_INT:
+		case Ethna_Const::VAR_TYPE_INT:
 			$name = "int";
 			break;
-		case VAR_TYPE_FLOAT:
+		case Ethna_Const::VAR_TYPE_FLOAT:
 			$name = "float";
 			break;
-		case VAR_TYPE_DATETIME:
+		case Ethna_Const::VAR_TYPE_DATETIME:
 			$name = "datetime";
 			break;
-		case VAR_TYPE_BOOLEAN:
+		case Ethna_Const::VAR_TYPE_BOOLEAN:
 			$name = "boolean";
 			break;
 		}
@@ -101,19 +101,19 @@ class Ethna_SOAP_Util
 	{
 		$name = null;
 		switch ($def) {
-		case VAR_TYPE_STRING:
+		case Ethna_Const::VAR_TYPE_STRING:
 			$name = "ArrayOfString";
 			break;
-		case VAR_TYPE_INT:
+		case Ethna_Const::VAR_TYPE_INT:
 			$name = "ArrayOfInt";
 			break;
-		case VAR_TYPE_FLOAT:
+		case Ethna_Const::VAR_TYPE_FLOAT:
 			$name = "ArrayOfFloat";
 			break;
-		case VAR_TYPE_DATETIME:
+		case Ethna_Const::VAR_TYPE_DATETIME:
 			$name = "ArrayOfDatetime";
 			break;
-		case VAR_TYPE_BOOLEAN:
+		case Ethna_Const::VAR_TYPE_BOOLEAN:
 			$name = "ArrayOfBoolean";
 			break;
 		}
@@ -129,8 +129,8 @@ class Ethna_SOAP_Util
 	 */
 	function fixRetval(&$retval)
 	{
-		$retval['errorcode'] = VAR_TYPE_INT;
-		$retval['errormessage'] = VAR_TYPE_STRING;
+		$retval['errorcode'] = Ethna_Const::VAR_TYPE_INT;
+		$retval['errormessage'] = Ethna_Const::VAR_TYPE_STRING;
 	}
 }
 // }}}
