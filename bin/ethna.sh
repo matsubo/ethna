@@ -9,7 +9,7 @@
 
 if [ -z "$ETHNA_HOME" ];
 then
-    ETHNA_HOME="@PEAR-DIR@/Ethna"
+    ETHNA_HOME="/Users/matsu/public_html/static/test/Ethna"
 fi
 
 if (test -z "$PHP_COMMAND");
