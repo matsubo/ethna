@@ -10,4 +10,5 @@
 * PHP5.3 以降対応
 * ADOdb support deprecated.
 * Added Composer load
+* UNIT TEST DOES NOT PASS AT ALL!!!! ABORTED!!!!!!!
 
