@@ -1,0 +1,6 @@
+{
+    "require": {
+        "vierbergenlars/simpletest": "dev-master"
+    }
+
+}
