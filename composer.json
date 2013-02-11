@@ -1,6 +1,12 @@
 {
+    "name": "matsu/ethna",
+    "authors": [
+        {
+            "name": "Yuki Matsukura",
+            "email": "matsubokkuri@gmail.com"
+        }
+    ],
     "require": {
-        "vierbergenlars/simpletest": "dev-master"
-    }
 
+    }
 }
