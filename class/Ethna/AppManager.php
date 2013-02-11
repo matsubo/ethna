@@ -175,13 +175,13 @@ class Ethna_AppManager
 			list($length, $prop_list) = $_ETHNA_APP_MANAGER_OL_CACHE[$cache_class][$cache_key];
 		} else {
 			// キャッシュ更新
-			$tmp =& new $class_name($this->backend);
+			$tmp = new $class_name($this->backend);
 			list($length, $prop_list) = $tmp->searchProp(null, $filter, $order, $offset, $count);
 			$_ETHNA_APP_MANAGER_OL_CACHE[$cache_class][$cache_key] = array($length, $prop_list);
 		}
 
 		foreach ($prop_list as $prop) {
-			$object =& new $class_name($this->backend, null, null, $prop);
+			$object = new $class_name($this->backend, null, null, $prop);
 			$object_list[] = $object;
 		}
 
@@ -221,7 +221,7 @@ class Ethna_AppManager
 			// skip
 		} else {
 			// キャッシュ更新
-			$tmp =& new $class_name($this->backend);
+			$tmp = new $class_name($this->backend);
 			$_ETHNA_APP_MANAGER_OPL_CACHE[$cache_class][$cache_key] = $tmp->searchProp($keys, $filter, $order, $offset, $count);
 		}
 
@@ -257,7 +257,7 @@ class Ethna_AppManager
 			// skip
 		} else {
 			// キャッシュ更新
-			$tmp =& new $class_name($this->backend);
+			$tmp = new $class_name($this->backend);
 			list(, $prop) = $tmp->searchProp($keys, $filter);
 			$_ETHNA_APP_MANAGER_OP_CACHE[$cache_class][$cache_key] = count($prop) > 0 ? $prop[0] : null;
 		}

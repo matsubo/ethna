@@ -78,7 +78,7 @@ class Ethna_ClassFactory
 		if (method_exists($this, $method)) {
 			$obj =& $this->$method($class_name);
 		} else {
-			$obj =& new $class_name();
+			$obj = new $class_name();
 		}
 		$this->object[$key] =& $obj;
 

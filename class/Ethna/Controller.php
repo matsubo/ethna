@@ -173,7 +173,7 @@ class Ethna_Controller
 
         // クラスファクトリオブジェクトの生成
         $class_factory = $this->class['class'];
-        $this->class_factory =& new $class_factory($this, $this->class);
+        $this->class_factory = new $class_factory($this, $this->class);
 
         // エラーハンドラの設定
         Ethna::setErrorCallback(array(&$this, 'handleError'));
@@ -609,7 +609,7 @@ class Ethna_Controller
      */
     function main($class_name, $action_name = "", $fallback_action_name = "")
     {
-        $c =& new $class_name;
+        $c = new $class_name;
         $c->trigger($action_name, $fallback_action_name);
     }
 
@@ -624,7 +624,7 @@ class Ethna_Controller
      */
     function main_CLI($class_name, $action_name, $enable_filter = true)
     {
-        $c =& new $class_name(GATEWAY_CLI);
+        $c = new $class_name(GATEWAY_CLI);
         $c->action_cli[$action_name] = array();
         $c->trigger($action_name, "", $enable_filter);
     }
@@ -643,7 +643,7 @@ class Ethna_Controller
             die("always_populate_raw_post_data ini variable should be true to enable this gateway");
         }
 
-        $c =& new $class_name(GATEWAY_XMLRPC);
+        $c = new $class_name(GATEWAY_XMLRPC);
         $c->trigger("", "", false);
     }
 
@@ -658,7 +658,7 @@ class Ethna_Controller
      */
     function main_SOAP($class_name, $action_name = "", $fallback_action_name = "")
     {
-        $c =& new $class_name(GATEWAY_SOAP);
+        $c = new $class_name(GATEWAY_SOAP);
         $c->trigger($action_name, $fallback_action_name);
     }
 
@@ -757,7 +757,7 @@ class Ethna_Controller
 
         // オブジェクト生成
         $form_name = $this->getActionFormName($action_name);
-        $this->action_form =& new $form_name($this);
+        $this->action_form = new $form_name($this);
         $this->action_form->setFormVars();
 
         // バックエンド処理実行
@@ -782,7 +782,7 @@ class Ethna_Controller
 
         if ($forward_name != null) {
             $view_class_name = $this->getViewClassName($forward_name);
-            $this->view =& new $view_class_name($backend, $forward_name, $this->_getForwardPath($forward_name));
+            $this->view = new $view_class_name($backend, $forward_name, $this->_getForwardPath($forward_name));
             $this->view->preforward();
             $this->view->forward();
         }
@@ -842,7 +842,7 @@ class Ethna_Controller
 
         // オブジェクト生成
         $form_name = $this->getActionFormName($method);
-        $this->action_form =& new $form_name($this);
+        $this->action_form = new $form_name($this);
         $def = $this->action_form->getDef();
         $n = 0;
         foreach ($def as $key => $value) {
@@ -871,12 +871,12 @@ class Ethna_Controller
     function _trigger_SOAP()
     {
         // SOAPエントリクラス
-        $gg =& new Ethna_SOAP_GatewayGenerator();
+        $gg = new Ethna_SOAP_GatewayGenerator();
         $script = $gg->generate();
         eval($script);
 
         // SOAPリクエスト処理
-        $server =& new SoapServer(null, array('uri' => $this->config->get('url')));
+        $server = new SoapServer(null, array('uri' => $this->config->get('url')));
         $server->setClass($gg->getClassName());
         $server->handle();
     }
@@ -1130,7 +1130,7 @@ class Ethna_Controller
                 include_once($file);
             }
             if (class_exists($filter)) {
-                $this->filter_chain[] =& new $filter($this);
+                $this->filter_chain[] = new $filter($this);
             }
         }
     }
@@ -1461,7 +1461,7 @@ class Ethna_Controller
      */
     function &getTemplateEngine()
     {
-        $smarty =& new Smarty();
+        $smarty = new Smarty();
         $smarty->template_dir = $this->getTemplatedir();
         $smarty->compile_dir = $this->getDirectory('template_c');
         $smarty->compile_id = md5($smarty->template_dir);
