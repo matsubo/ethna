@@ -7,7 +7,7 @@
  *  @version    $Id$
  */
 
-require_once Ethna_Util::getBaseDirectory() . '/class/Plugin/Smarty/modifier.wordwrap_i18n.php';
+require_once Ethna_Util::getBaseDirectory() . '/class/Ethna/Plugin/Smarty/modifier.wordwrap_i18n.php';
 
 //{{{    Ethna_Plugin_Smarty_modifier_wordwrap_i18n_Test
 /**

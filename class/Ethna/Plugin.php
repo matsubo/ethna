@@ -91,7 +91,26 @@ class Ethna_Plugin
      */
     public function getPlugin($type, $name)
     {
-        return $this->_getPlugin($type, $name);
+        /*
+        print "---------------\n";
+        print $type."\n";
+        print $name."\n";
+        try{
+        throw new Exception(1);
+        }catch(Exception $e){
+//            print_r($e);
+        }
+        print "---------------\n";
+         */
+
+        $class_name = sprintf('Ethna_Plugin_%s_%s', $type, $name);
+
+        if ($this->obj_registry[$type][$name]) {
+            return $this->obj_registry[$type][$name];
+        }
+
+        // Create instance
+        return $this->obj_registry[$type][$name] = new $class_name($this->controller, $type, $name);
     }
 
     /**
@@ -323,9 +342,8 @@ class Ethna_Plugin
      */
     private function _includePluginSrc($class, $dir, $file, $parent = false)
     {
-        $true = true;
         if (class_exists($class)) {
-            return $true;
+            return true;
         }
 
         $file = $dir . '/' . $file;
@@ -334,7 +352,7 @@ class Ethna_Plugin
                 return Ethna::raiseWarning('plugin file is not found: [%s]',
                                            Ethna_Const::E_PLUGIN_NOTFOUND, $file);
             } else {
-                return $true;
+                return true;
             }
         }
 
@@ -345,7 +363,7 @@ class Ethna_Plugin
                 return Ethna::raiseWarning('plugin class [%s] is not defined',
                     Ethna_Const::E_PLUGIN_NOTFOUND, $class);
             } else {
-                return $true;
+                return true;
             }
         }
 
@@ -354,7 +372,8 @@ class Ethna_Plugin
                 $this->logger->log(LOG_DEBUG, 'plugin class [%s] is defined', $class);
             }
         }
-        return $true;
+
+        return true;
     }
 
     /**
@@ -381,6 +400,14 @@ class Ethna_Plugin
                 return $dir;
             }
         }
+
+
+        // search ethna directory
+        $ethna_plugin_file = Ethna_Util::getBaseDirectory() . '/class/Ethna/Plugin/'.$type.'.php';
+        if (file_exists($ethna_plugin_file)) {
+            return dirname($ethna_plugin_file);
+        }
+
 
         return Ethna::raiseWarning('plugin file is not found in search directories: [%s]',
                                    Ethna_Const::E_PLUGIN_NOTFOUND, $file);

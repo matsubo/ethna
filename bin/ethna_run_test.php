@@ -40,10 +40,16 @@ $test_dir = ETHNA_INSTALL_BASE . '/test';
 
 /** include_pathの設定(このtest runnerがあるディレクトリを追加) */
 //ini_set('include_path', realpath(ETHNA_INSTALL_BASE . '/class') . PATH_SEPARATOR . ini_get('include_path'));
-ini_set('include_path', realpath(dirname(ETHNA_INSTALL_BASE)) . PATH_SEPARATOR . ini_get('include_path'));
+$ethna_class = realpath(dirname(ETHNA_INSTALL_BASE)) . DIRECTORY_SEPARATOR . 'Ethna' . DIRECTORY_SEPARATOR .'class';
+ini_set('include_path', $ethna_class . PATH_SEPARATOR . ini_get('include_path'));
 
-/** Ethna関連クラスのインクルード */
-require_once 'Ethna/Ethna.php';
+
+// Require and Init auto loader
+$loader = require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+
+// Add ethna class directory
+ $loader->add('Ethna', dirname(__DIR__). '/class');
+
 
 // simpletest を使っているため、E_DEPRECATED, E_STRICT は解除
 error_reporting(error_reporting() & ~E_DEPRECATED & ~E_STRICT);
@@ -52,16 +58,15 @@ if (extension_loaded('xdebug')) {
 }
 
 /** SimpleTestのインクルード */
-require_once 'simpletest/unit_tester.php';
-require_once 'simpletest/reporter.php';
 require_once $test_dir . '/TextSimpleReporter.php';
 require_once $test_dir . '/TextDetailReporter.php';
 require_once $test_dir . '/UnitTestBase.php';
 
 $test = new TestSuite('Ethna All tests');
 
+
+
 // テストケースのファイルリストを取得
-require_once 'Ethna/class/Getopt.php';
 $opt = new Ethna_Getopt();
 $args = $opt->readPHPArgv();
 array_shift($args);

@@ -22,21 +22,21 @@ class Ethna_Plugin_Csrf_Session_Test extends Ethna_UnitTestBase
         if (isset($GLOBALS['_Ethna_controller'])) {
             unset($GLOBALS['_Ethna_controller']);
         }
+
+
+        $ctl = new CsrfTest_Ethna_Controller;
+        $plugin = $ctl->getPlugin();
+        $this->csrf = $plugin->getPlugin('Csrf', 'Session');
+        $this->csrf = new Ethna_Plugin_Csrf_Session();
+        $this->assertTrue(is_object($this->csrf), 'getPlugin failed');
+        //$this->csrf->session = new Ethna_Session_Dummy($ctl, $ctl->getAppId());
+
     }
 
     function tearDown()
     {
         $_SERVER['REQUEST_METHOD'] = null;
         unset($GLOBALS['_Ethna_controller']);
-    }
-
-    function testMakeInstance()
-    {
-        $ctl = new CsrfTest_Ethna_Controller();
-        $plugin = $ctl->getPlugin();
-        $this->csrf = $plugin->getPlugin('Csrf', 'Session');
-        $this->assertTrue(is_object($this->csrf), 'getPlugin failed');
-        //$this->csrf->session = new Ethna_Session_Dummy($ctl, $ctl->getAppId());
     }
 
     function testGetName()
@@ -200,8 +200,5 @@ class Ethna_Session_Dummy extends Ethna_Session
 class CsrfTest_Ethna_Controller
     extends Ethna_Controller
 {
-    public $class = array(
-        'session'       => 'Ethna_Session_Dummy',
-    );
 }
 // }}}

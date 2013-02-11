@@ -884,7 +884,7 @@ class Ethna_Util
      */
     public static function getBaseDirectory()
     {
-        return dirname(dirname(__FILE__));
+        return dirname(dirname(dirname(__FILE__)));
     }
 
     // {{{ is_error

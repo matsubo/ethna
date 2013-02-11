@@ -7,7 +7,7 @@
  *  @version    $Id$
  */
 
-require_once Ethna_Util::getBaseDirectory() . '/class/Plugin/Smarty/function.select.php';
+require_once Ethna_Util::getBaseDirectory() . '/class/Ethna/Plugin/Smarty/function.select.php';
 
 //{{{    Ethna_Plugin_Smarty_function_select_Test
 /**

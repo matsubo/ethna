@@ -6,7 +6,7 @@
  *  @version    $Id$
  */
 
-require_once Ethna_Util::getBaseDirectory() . '/class/Plugin/Smarty/modifier.explode.php';
+require_once Ethna_Util::getBaseDirectory() . '/class/Ethna/Plugin/Smarty/modifier.explode.php';
 
 //{{{    Ethna_Plugin_Smarty_modifier_explode_Test
 /**

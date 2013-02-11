@@ -249,7 +249,7 @@ class Ethna_Controller
         $this->plugin = $this->getPlugin();
 
         // include Ethna_Plugin_Abstract for all plugins
-        $this->plugin->includePlugin('Abstract');
+//        $this->plugin->includePlugin('Abstract');
 
         //// assert (experimental)
         //if ($this->config->get('debug') === false) {
@@ -1188,6 +1188,7 @@ class Ethna_Controller
      */
     public function handleError($error)
     {
+        throw new Exception($error->getMessage());
         // ログ出力
         list ($log_level, $dummy) = $this->logger->errorLevelToLogLevel($error->getLevel());
         $message = $error->getMessage();

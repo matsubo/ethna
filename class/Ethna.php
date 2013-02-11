@@ -147,8 +147,8 @@ class Ethna
      */
     public static function handleError($error)
     {
-        for ($i = 0; $i < count($this->error_callback_list); $i++) {
-            $callback = $this->error_callback_list[$i];
+        for ($i = 0; $i < count(self::$error_callback_list); $i++) {
+            $callback = self::$error_callback_list[$i];
             if (is_array($callback) == false) {
                 call_user_func($callback, $error);
             } else if (is_object($callback[0])) {
