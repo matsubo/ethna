@@ -1,0 +1,13 @@
+{
+    "name": "gree/ethna",
+    "description": "Ethna 2.1.2 autoload support version",
+    "authors": [
+        {
+            "name": "Yuki Matsukura",
+            "email": "matsubokkuri@gmail.com"
+        }
+    ],
+    "require": {
+
+    }
+}
