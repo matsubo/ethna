@@ -117,4 +117,4 @@ class Ethna_Handle_AddView extends Ethna_Handle
     }
 }
 // }}}
-?>
+

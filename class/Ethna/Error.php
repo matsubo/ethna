@@ -145,4 +145,4 @@ class Ethna_Error extends PEAR_Error
 	}
 }
 // }}}
-?>
+

@@ -54,4 +54,4 @@ class Ethna_Handle_AddActionXmlrpc extends Ethna_Handle_AddAction
     }
 }
 // }}}
-?>
+

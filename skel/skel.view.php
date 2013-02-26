@@ -25,4 +25,4 @@ class {$view_class} extends Ethna_ViewClass
 	{
 	}
 }
-?>
+

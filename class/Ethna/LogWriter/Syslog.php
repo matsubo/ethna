@@ -71,4 +71,4 @@ class Ethna_LogWriter_Syslog extends Ethna_LogWriter
 	}
 }
 // }}}
-?>
+

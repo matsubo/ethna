@@ -111,4 +111,4 @@ class Ethna_ActionClass
 	}
 }
 // }}}
-?>
+

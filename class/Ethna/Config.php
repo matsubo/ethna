@@ -159,7 +159,7 @@ class Ethna_Config
 		foreach ($this->config as $key => $value) {
 			$this->_setConfigValue($fp, $key, $value, 0);
 		}
-		fwrite($fp, ");\n?>\n");
+		fwrite($fp, ");\n");
 		fclose($fp);
 
 		Ethna_Util::unlockFile($lh);
@@ -198,4 +198,4 @@ class Ethna_Config
 	}
 }
 // }}}
-?>
+

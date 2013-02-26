@@ -103,4 +103,4 @@ class Ethna_LogWriter_File extends Ethna_LogWriter
 	}
 }
 // }}}
-?>
+

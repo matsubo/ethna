@@ -118,4 +118,4 @@ class Ethna_Handle_AddActionCli extends Ethna_Handle_AddAction
     }
 }
 // }}}
-?>
+

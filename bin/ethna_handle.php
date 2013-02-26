@@ -131,4 +131,4 @@ http://ethna.jp/
 EOD;
     printf($version, ETHNA_VERSION);
 }
-?>
+

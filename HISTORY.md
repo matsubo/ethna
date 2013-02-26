@@ -5,6 +5,7 @@
 - Supports PHP5.3=<
 - Supported autoload and composer.
 - Changed the behavior of ActionForm to use $_REQUEST instead of $_POST or $_GET.
+- removed ?> in the end of PHP file.
 
 
 ** 2.1.1

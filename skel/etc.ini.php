@@ -32,4 +32,4 @@ $config = array(
     'log_filter_do' => '',
     'log_filter_ignore' => 'Undefined index.*%%.*tpl',
 );
-?>
+

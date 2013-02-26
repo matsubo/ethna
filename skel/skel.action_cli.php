@@ -68,4 +68,4 @@ class {$action_class} extends Ethna_ActionClass
         return null;
 	}
 }
-?>
+

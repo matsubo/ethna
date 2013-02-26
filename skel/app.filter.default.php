@@ -79,4 +79,4 @@ class {$project_id}_Filter_ExecutionTime extends Ethna_Filter
 		print "\n<!-- page was processed in $time seconds -->\n";
 	}
 }
-?>
+

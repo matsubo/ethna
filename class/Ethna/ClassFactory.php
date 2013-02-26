@@ -180,4 +180,4 @@ class Ethna_ClassFactory
 	}
 }
 // }}}
-?>
+

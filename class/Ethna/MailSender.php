@@ -228,4 +228,4 @@ class Ethna_MailSender
     }
 }
 // }}}
-?>
+

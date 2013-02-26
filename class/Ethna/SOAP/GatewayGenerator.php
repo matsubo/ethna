@@ -178,4 +178,4 @@ class Ethna_SOAP_GatewayGenerator
 	}
 }
 // }}}
-?>
+

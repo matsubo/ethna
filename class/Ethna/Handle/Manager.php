@@ -150,4 +150,4 @@ class Ethna_Handle_Manager
     }
 }
 // }}}
-?>
+

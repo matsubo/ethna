@@ -17,4 +17,4 @@
 class {$app_manager}Manager extends Ethna_AppManager
 {
 }
-?>
+

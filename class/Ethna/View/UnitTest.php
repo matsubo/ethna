@@ -62,4 +62,4 @@ class Ethna_View_UnitTest extends Ethna_ViewClass
         set_time_limit($max_execution_time);
     }
 }
-?>
+

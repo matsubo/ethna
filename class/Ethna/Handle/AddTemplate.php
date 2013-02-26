@@ -89,4 +89,4 @@ class Ethna_Handle_AddTemplate extends Ethna_Handle
     }
 }
 // }}}
-?>
+

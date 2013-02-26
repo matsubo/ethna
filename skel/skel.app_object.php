@@ -37,4 +37,4 @@ class {$app_object} extends Ethna_AppObject
         return $this->get($key);
     }
 }
-?>
+

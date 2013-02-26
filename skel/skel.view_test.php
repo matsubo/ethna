@@ -59,4 +59,4 @@ class {$view_class}_TestCase extends Ethna_UnitTestCase
     }
     */
 }
-?>
+

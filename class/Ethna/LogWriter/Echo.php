@@ -63,4 +63,4 @@ class Ethna_LogWriter_Echo extends Ethna_LogWriter
 	}
 }
 // }}}
-?>
+

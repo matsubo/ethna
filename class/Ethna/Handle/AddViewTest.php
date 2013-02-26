@@ -90,4 +90,4 @@ class Ethna_Handle_AddViewTest extends Ethna_Handle
     
 }
 
-?>
+

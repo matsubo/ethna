@@ -437,4 +437,4 @@ class Ethna_ViewClass
 	}
 }
 // }}}
-?>
+

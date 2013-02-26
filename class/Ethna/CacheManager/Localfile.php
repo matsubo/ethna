@@ -294,4 +294,4 @@ class Ethna_CacheManager_Localfile extends Ethna_CacheManager
 		return chmod($file, $mode);
 	}
 }
-?>
+

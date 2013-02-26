@@ -641,4 +641,4 @@ class Ethna_SkeltonGenerator
     }
 }
 // }}}
-?>
+

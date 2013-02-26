@@ -1099,4 +1099,4 @@ class Ethna_ActionForm
     }
 }
 // }}}
-?>
+

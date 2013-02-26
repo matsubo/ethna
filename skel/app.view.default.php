@@ -25,4 +25,4 @@ class {$project_id}_View_Index extends Ethna_ViewClass
 	{
 	}
 }
-?>
+

@@ -614,4 +614,4 @@ function smarty_block_form($params, $content, &$smarty, &$repeat)
     }
     print $s;
 }
-?>
+

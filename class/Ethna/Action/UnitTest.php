@@ -30,4 +30,4 @@ class Ethna_Action_UnitTest extends Ethna_ActionClass
         return '__ethna_unittest__';
     }
 }
-?>
+

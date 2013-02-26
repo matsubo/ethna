@@ -33,4 +33,4 @@ class Ethna_Action_Info extends Ethna_ActionClass
 	}
 }
 // }}}
-?>
+

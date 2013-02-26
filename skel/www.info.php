@@ -5,4 +5,4 @@ include_once('{$basedir}/app/{$project_id}_Controller.php');
 	'__ethna_info__',
 	)
 );
-?>
+

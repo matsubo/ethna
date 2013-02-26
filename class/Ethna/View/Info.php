@@ -50,4 +50,4 @@ class Ethna_View_Info extends Ethna_ViewClass
 	}
 }
 // }}}
-?>
+

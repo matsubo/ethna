@@ -150,4 +150,4 @@ class Ethna_UnitTestManager extends Ethna_AppManager
         return array($reporter->report, $reporter->result);
     }
 }
-?>
+

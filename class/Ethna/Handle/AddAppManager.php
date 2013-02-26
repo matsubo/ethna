@@ -88,4 +88,4 @@ class Ethna_Handle_AddAppManager extends Ethna_Handle
     }
 }
 // }}}
-?>
+

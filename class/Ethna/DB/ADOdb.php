@@ -401,4 +401,4 @@ class Ethna_DB_ADOdb extends Ethna_DB
     // }}}
 }
 
-?>
+
