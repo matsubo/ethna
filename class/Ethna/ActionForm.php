@@ -160,11 +160,7 @@ class Ethna_ActionForm
      */
     function setFormVars()
     {
-        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') == 0) {
-            $http_vars =& $_POST;
-        } else {
-            $http_vars =& $_GET;
-        }
+        $http_vars = $_REQUEST;
 
         foreach ($this->form as $name => $def) {
             $type = is_array($def['type']) ? $def['type'][0] : $def['type'];

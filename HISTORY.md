@@ -1,12 +1,11 @@
 * 変更点一覧
 
-** [current] 2.3.0-dev
+** 2.1.2-autoload
 
-*** features
+- Supports PHP5.3=<
+- Supported autoload and composer.
+- Changed the behavior of ActionForm to use $_REQUEST instead of $_POST or $_GET.
 
-*** bug fixes
-
-- Ethna_Controller::getActionRequest()メソッドのデフォルト状態の振舞いを修正
 
 ** 2.1.1
 
