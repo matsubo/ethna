@@ -1,13 +1,24 @@
 {
     "name": "gree/ethna",
     "description": "Ethna 2.1.2 autoload support version",
+    "keywords" : ["Web", "Ethna", "Framework", "Application", "MVC"],
+    "type": "project",
+    "homepage": "http://ethna.jp/",
+    "time": "2013-05-09",
     "authors": [
         {
+            "name": "Masaki Fujimoto",
+            "role": "Project Manager"
+        },
+        {
             "name": "Yuki Matsukura",
-            "email": "matsubokkuri@gmail.com"
-        }
+            "email": "matsubokkuri@gmail.com",
+            "homepage": "http://matsu.teraren.com/",
+            "role": "Developer"
+         }
     ],
     "autoload": {
         "psr-0": {"Ethna": "class/"}
-    }
+    },
+    "license": "BSD-3-Clause"
 }

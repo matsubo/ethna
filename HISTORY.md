@@ -1,6 +1,14 @@
-* 変更点一覧
+変更点一覧
+========================================================
 
-** 2.1.2-autoload
+
+2.2.0
+--------------------------------------------------------
+- Updated document.
+
+
+2.1.2-autoload
+--------------------------------------------------------
 
 - Supports PHP5.3=<
 - Supported autoload and composer.
@@ -8,15 +16,17 @@
 - removed ?> in the end of PHP file.
 
 
-** 2.1.1
+2.1.1
+--------------------------------------------------------
 
-*** bug fixes
+### bug fixes
 
 - ethna.batのパスを修正
 
-** 2.1.0
+2.1.0
+--------------------------------------------------------
 
-*** features
+### features
 
 - ethnaコマンドのETHNA_HOMEをインストール時に決定するように改善
 - Ethna_ActionForm::validate() で多次元配列が渡されたときのnoticeを回避
@@ -83,7 +93,7 @@
 - generate_app_objectを追加
 - クラスのメソッドもSmartyFunctionとして登録できるように修正
 
-*** bug fixes
+### bug fixes
 
 - [[#8435>http://sourceforge.jp/tracker/index.php?func=detail&aid=8435&group_id=1343&atid=5092]](Ethna_AppObject prop_def[]['seq']が未設定)
 - [[#8079>http://sourceforge.jp/tracker/index.php?func=detail&aid=8079&group_id=1343&atid=5092]](FilterでBackendを呼ぶとActionFormの値が空になる)
@@ -105,9 +115,10 @@
 - (within beta) ActionFormの配列のフォーム値が破壊される問題を修正(by sfioさん)
 
 
-** [2006/01/29] 0.2.0
+[2006/01/29] 0.2.0
+--------------------------------------------------------
 
-*** features
+### features
 
 - 文字列のmin/maxエラーのデフォルトエラーメッセージを修正
 - フォーム値定義にカスタムエラーメッセージを定義できるように変更
@@ -129,7 +140,7 @@
 - Ethna_ActionForm::isForceValidatePlus()、Ethna_ActionForm::setForceValidatePlus()メソッドと、$force_validate_plusメンバを追加($force_validate_plusをtrueに設定すると、通常検証でエラーが発生した場合でも_validatePlus()メソッドが実行される−デフォルト:false)
 - フォーム値定義のcustom属性にカンマ区切りでの複数メソッドサポートを追加
 
-*** bug fixes
+### bug fixes
 
 - htmlspecialcharsにENT_QUOTESオプションを追加
 - Ethna_AppSQLクラスのコンストラクタメソッド名を修正
@@ -158,9 +169,10 @@
 - Ethna_View_List::_fixNameObjectに対象オブジェクトも渡すように修正
 
 
-** [2005/03/02] 0.1.5
+[2005/03/02] 0.1.5
+--------------------------------------------------------
 
-*** features
+### features
 
 - Ethna_Controller::getCLI()(CLIで実行中かどうかを返すメソッド)を追加
 - ethna_error_handlerがphp.iniの設定に応じてPHPログも出力するように変更
@@ -170,26 +182,28 @@
 - MIMEエンコード用ユーティリティメソッドを追加
 - include_pathのセパレータのwin32対応
 
-*** bug fixes
+### bug fixes
 
 - ethna_error_handlerのtypoを修正
 - Ethna_Sessionクラスでログが正しく出力されない問題を修正
 
 
-** [2005/01/14] 0.1.4
+[2005/01/14] 0.1.4
+--------------------------------------------------------
 
-*** features
+### features
 
 - Ethna_AppObjectでJOINした場合に、(可能なら)プライマリキーでGROUP BYするように変更
 
-*** bug fixes
+### bug fixes
 
 - __ethna_info__が全く動作しない問題を修正:(
 
 
-** [2005/01/13] 0.1.3
+[2005/01/13] 0.1.3
+--------------------------------------------------------
 
-*** features
+### features
 
 - Ethna_AppSearchObjectの複合条件対応
 - Ethna_ClassFactoryクラスを追加
@@ -203,7 +217,7 @@
 - Ethna_ActionForm::_handleErrorをpublicメソッドに変更(Ethna_ActionForm::handleErrorに名称変更)
 - Ethna_ActionForm::getDefメソッドに引数を追加(省略可)
 
-*** bug fixes
+### bug fixes
 
 - フォーム定義に配列を指定していた場合のカスタムチェックメソッドの呼び出しが正しく行われない問題を修正
 - フォーム定義に配列を指定していた場合の必須チェックが正しく行われない問題を修正
@@ -211,15 +225,16 @@
 - VAR_TYPE_FILEの場合はregexp属性が無効になるように修正
 
 
-** [2004/12/23] 0.1.2
+[2004/12/23] 0.1.2
+--------------------------------------------------------
 
-*** features
+### features
 
 - __ethna_info__アクションを追加
 - class_path, form_path, view_path属性のフルパス指定サポートを追加
 - スクリプトを1ファイルにまとめるツール(bin/unify_script.php)を追加
 
-*** bug fixes
+### bug fixes
 
 - プロジェクトスケルトン生成時にアプリケーションIDの文字種/予約語をチェックするように修正
 - 'form_name'を指定すると無用に警告が発生する問題を修正
@@ -239,15 +254,17 @@
  ?>
 
 
-** [2004/12/10] 0.1.1
+[2004/12/10] 0.1.1
+--------------------------------------------------------
 
-*** bug fixes
+### bug fixes
 
 - ビューオブジェクトのpreforward()が呼ばれないことがある問題を修正
 - アクション/ビューのスケルトン生成時にファイルを上書きしないように修正
 - ビューのスケルトンでクラス名が正しく置換されない問題を修正
 
-** [2004/12/09] 0.1.0
+[2004/12/09] 0.1.0
+--------------------------------------------------------
 
 - 初期リリース
 
