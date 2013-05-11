@@ -32,8 +32,6 @@ class Ethna_ClassFactory
     /** @var array 生成済みオブジェクトキャッシュ */
     protected $object = array();
 
-    /**#@-*/
-
 
     /**
      * Ethna_ClassFactoryクラスのコンストラクタ
@@ -106,20 +104,6 @@ class Ethna_ClassFactory
         $_ret_object = new $class_name($this->ctl);
         return $_ret_object;
     }
-
-    /**
-     * オブジェクト生成メソッド(config)
-     *
-     * @access protected
-     * @param string $class_name クラス名
-     * @return object 生成されたオブジェクト(エラーならnull)
-     */
-    protected function _getObject_Config($class_name)
-    {
-        $_ret_object = new $class_name($this->ctl);
-        return $_ret_object;
-    }
-
     /**
      * オブジェクト生成メソッド(session)
      *

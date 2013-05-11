@@ -16,16 +16,13 @@
  * @access public
  * @package Ethna
  */
-class Ethna_Controller
+abstract class Ethna_Controller
 {
     /** @var string アプリケーションID */
     protected $appid = 'ETHNA';
 
     /** @var string アプリケーションベースディレクトリ */
     protected $base = '';
-
-    /** @var string アプリケーションベースURL */
-    protected $url = '';
 
     /** @var array アプリケーションディレクトリ */
     protected $directory = array(
@@ -35,8 +32,6 @@ class Ethna_Controller
         'bin' => 'bin',
         'etc' => 'etc',
         'filter' => 'app/filter',
-        'locale' => 'locale',
-        'plugins' => array(),
         'template' => 'template',
         'template_c' => 'tmp',
         'tmp' => 'tmp',
@@ -53,7 +48,6 @@ class Ethna_Controller
     protected $class = array(
         'class' => 'Ethna_ClassFactory',
         'backend' => 'Ethna_Backend',
-        'config' => 'Ethna_Config',
         'error' => 'Ethna_ActionError',
         'form' => 'Ethna_ActionForm',
         'session' => 'Ethna_Session',
@@ -64,9 +58,6 @@ class Ethna_Controller
     /** @var array フィルタ設定 */
     protected $filter = array(
     );
-
-    /** @var string 使用言語設定 */
-    protected $language;
 
     /** @var string システム側エンコーディング */
     protected $system_encoding;
@@ -125,33 +116,6 @@ class Ethna_Controller
         // クラスファクトリオブジェクトの生成
         $class_factory = $this->class['class'];
         $this->class_factory = new $class_factory($this, $this->class);
-
-        // エラーハンドラの設定
-        Ethna::setErrorCallback(array(&$this, 'handleError'));
-
-        // ディレクトリ名の設定(相対パス->絶対パス)
-        foreach ($this->directory as $key => $value) {
-            if ($key == 'plugins') {
-                // Smartyプラグインディレクトリは配列で指定する
-                $tmp = array(SMARTY_DIR . 'plugins');
-                foreach (Ethna_Util::to_array($value) as $elt) {
-                    if (Ethna_Util::isAbsolute($elt) == false) {
-                        $tmp[] = $this->base . (empty($this->base) ? '' : '/') . $elt;
-                    }
-                }
-                $this->directory[$key] = $tmp;
-            } else {
-                if (Ethna_Util::isAbsolute($value) == false) {
-                    $this->directory[$key] = $this->base . (empty($this->base) ? '' : '/') . $value;
-                }
-            }
-        }
-
-        // 初期設定
-        list($this->language, $this->system_encoding, $this->client_encoding) = $this->_getDefaultLanguage();
-
-        $this->config = $this->getConfig();
-        $this->url = $this->config->get('url');
     }
 
     /**
@@ -199,17 +163,6 @@ class Ethna_Controller
         }
 
         return true;
-    }
-
-    /**
-     * アプリケーションベースURLを返す
-     *
-     * @access public
-     * @return string アプリケーションベースURL
-     */
-    public function getURL()
-    {
-        return $this->url;
     }
 
     /**
@@ -348,17 +301,6 @@ class Ethna_Controller
     }
 
     /**
-     * 設定オブジェクトのアクセサ
-     *
-     * @access public
-     * @return object Ethna_Config 設定オブジェクト
-     */
-    public function getConfig()
-    {
-        return $this->class_factory->getObject('config');
-    }
-
-    /**
      * セッションオブジェクトのアクセサ
      *
      * @access public
@@ -483,9 +425,6 @@ class Ethna_Controller
         // 実行前フィルタ
         for ($i = 0; $i < count($this->filter_chain); $i++) {
             $r = $this->filter_chain[$i]->preFilter();
-            if (Ethna::isError($r)) {
-                return $r;
-            }
         }
 
         // trigger
@@ -546,8 +485,6 @@ class Ethna_Controller
         }
         $this->action_name = $action_name;
 
-        // 言語設定
-        $this->_setLanguage($this->language, $this->system_encoding, $this->client_encoding);
 
         // オブジェクト生成
         $form_name = $this->getActionFormName($action_name);
@@ -593,27 +530,6 @@ class Ethna_Controller
     private function _trigger_CLI($default_action_name = "")
     {
         return $this->_trigger_WWW($default_action_name);
-    }
-
-    /**
-     * エラーハンドラ
-     *
-     * エラー発生時の追加処理を行いたい場合はこのメソッドをオーバーライドする
-     * (アラートメール送信等−デフォルトではログ出力時にアラートメール
-     * が送信されるが、エラー発生時に別にアラートメールをここで送信
-     * させることも可能)
-     *
-     * @access public
-     * @param object Ethna_Error エラーオブジェクト
-     */
-    public function handleError(&$error)
-    {
-        // ログ出力
-        $message = $error->getMessage();
-
-
-        // @todo and will be removed after supporting exception.
-        die($message);
     }
 
     /**
@@ -1150,7 +1066,6 @@ class Ethna_Controller
         $smarty = new Smarty();
         $smarty->template_dir = $this->getDirectory('template');
         $smarty->compile_dir = $this->getDirectory('template_c');
-        $smarty->compile_id = md5($smarty->template_dir);
 
         // 一応がんばってみる
         if (!is_dir($smarty->compile_dir)) {
@@ -1159,22 +1074,7 @@ class Ethna_Controller
 
         return $smarty;
     }
-    /**
-     * 使用言語を設定する
-     *
-     * 将来への拡張のためのみに存在しています。現在は特にオーバーライドの必要はありません。
-     *
-     * @access protected
-     * @param string $language 言語定義(Ethna_Const::LANG_JA, Ethna_Const::LANG_EN...)
-     * @param string $system_encoding システムエンコーディング名
-     * @param string $client_encoding クライアントエンコーディング
-     */
-    protected function _setLanguage($language, $system_encoding = null, $client_encoding = null)
-    {
-        $this->language = $language;
-        $this->system_encoding = $system_encoding;
-        $this->client_encoding = $client_encoding;
-    }
+
 
     /**
      * デフォルト状態での使用言語を取得する

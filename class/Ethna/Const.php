@@ -12,24 +12,11 @@
  */
 class Ethna_Const
 {
-
-
-    /** バージョン定義 */
-    const ETHNA_VERSION =  '2.1.2-autoload';
-
-    /** クライアント言語定義: 英語 */
-    const LANG_EN =  'en';
-
-    /** クライアント言語定義: 日本語 */
-    const LANG_JA =  'ja';
-
-
     /** ゲートウェイ: WWW */
     const GATEWAY_WWW =  1;
 
     /** ゲートウェイ: CLI */
     const GATEWAY_CLI =  2;
-
 
 
     /** 要素型: 整数 */
@@ -188,12 +175,5 @@ class Ethna_Const
     /** エラーコード: キャッシュエラー(その他) */
     const E_CACHE_GENERAL =  259;
 
-
-
 }
-
-
-
-
-
 

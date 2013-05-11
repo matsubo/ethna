@@ -25,9 +25,6 @@ abstract class Ethna_ViewClass
     /** @var object Ethna_Backend backendオブジェクト */
     protected $backend;
 
-    /** @var object Ethna_Config 設定オブジェクト */
-    protected $config;
-
     /** @var object Ethna_ActionError アクションエラーオブジェクト */
     protected $action_error;
 
@@ -66,7 +63,6 @@ abstract class Ethna_ViewClass
     {
         $c = $backend->getController();
         $this->backend = $backend;
-        $this->config = $this->backend->getConfig();
 
         $this->action_error = $this->backend->getActionError();
         $this->ae = $this->action_error;
@@ -406,14 +402,14 @@ abstract class Ethna_ViewClass
         $form_array = $this->af->getArray();
         $app_array = $this->af->getAppArray();
         $app_ne_array = $this->af->getAppNEArray();
-        $smarty->assign_by_ref('form', $form_array);
-        $smarty->assign_by_ref('app', $app_array);
-        $smarty->assign_by_ref('app_ne', $app_ne_array);
+        $smarty->assign('form', $form_array);
+        $smarty->assign('app', $app_array);
+        $smarty->assign('app_ne', $app_ne_array);
         $message_list = Ethna_Util::escapeHtml($this->ae->getMessageList());
-        $smarty->assign_by_ref('errors', $message_list);
+        $smarty->assign('errors', $message_list);
         if (isset($_SESSION)) {
             $tmp_session = Ethna_Util::escapeHtml($_SESSION);
-            $smarty->assign_by_ref('session', $tmp_session);
+            $smarty->assign('session', $tmp_session);
         }
         $smarty->assign('script', basename($_SERVER['PHP_SELF']));
         $smarty->assign('request_uri', htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES));

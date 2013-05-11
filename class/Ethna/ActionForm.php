@@ -18,10 +18,6 @@
  */
 class Ethna_ActionForm
 {
-    /**#@+
-     * @access private
-     */
-
     /** @var array フォーム値定義(デフォルト) */
     protected $form_template = array();
 
@@ -355,8 +351,8 @@ class Ethna_ActionForm
      * フォームを配列にして返す(内部処理)
      *
      * @access private
-     * @param array &$vars フォーム(等)の配列
-     * @param array &$retval 配列への変換結果
+     * @param array $vars フォーム(等)の配列
+     * @param array $retval 配列への変換結果
      * @param bool $escape HTMLエスケープフラグ(true:エスケープする)
      */
     private function _getArray(&$vars, &$retval, $escape)
@@ -458,40 +454,6 @@ class Ethna_ActionForm
         $this->backend = $c->getBackend();
 
         return to_array($this->form_vars[$name]);
-    }
-
-    /**
-     * チェックメソッド: 機種依存文字
-     *
-     * @access public
-     * @param string $name フォーム項目名
-     * @return object Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
-     */
-    public function checkVendorChar($name)
-    {
-        $null = null;
-        $string = $this->form_vars[$name];
-
-        for ($i = 0; $i < strlen($string); $i++) {
-            /* JIS13区のみチェック */
-            $c = ord($string{$i});
-            if ($c < 0x80) {
-                /* ASCII */
-            } else if ($c == 0x8e) {
-                /* 半角カナ */
-                $i++;
-            } else if ($c == 0x8f) {
-                /* JIS X 0212 */
-                $i += 2;
-            } else if ($c == 0xad || ($c >= 0xf9 && $c <= 0xfc)) {
-                /* IBM拡張文字 / NEC選定IBM拡張文字 */
-                return $this->ae->add($name, '{form}に機種依存文字が入力されています', Ethna_Const::E_FORM_INVALIDCHAR);
-            } else {
-                $i++;
-            }
-        }
-
-        return $null;
     }
 
     /**

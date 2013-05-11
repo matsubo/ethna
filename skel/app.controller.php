@@ -243,13 +243,13 @@ class {$project_id}_Controller extends Ethna_Controller
          *  全てのビューに共通なテンプレート変数を設定します
          *
          *    記述例：
-         * $smarty->assign_by_ref('session_name', session_name());
-         * $smarty->assign_by_ref('session_id', session_id());
+         * $smarty->assign('session_name', session_name());
+         * $smarty->assign('session_id', session_id());
          *
          * // ログインフラグ(true/false)
          * $session = $this->getClassFactory('session');
          * if ($session && $this->session->isStart()) {
-         *     $smarty->assign_by_ref('login', $session->isStart());
+         *     $smarty->assign('login', $session->isStart());
          * }
          */
     }

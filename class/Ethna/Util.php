@@ -484,9 +484,14 @@ class Ethna_Util
      */
     public static function isAbsolute($path)
     {
-        if (preg_match("/\.\./", $path)) {
+        if (!$path) {
             return false;
         }
+        if (!is_string($path)) {
+            return false;
+        }
+
+
 
         if (DIRECTORY_SEPARATOR == '/' && (substr($path, 0, 1) == '/' OR substr($path, 0, 1) == '~')) {
             return true;

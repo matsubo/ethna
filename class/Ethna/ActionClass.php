@@ -12,9 +12,6 @@ class Ethna_ActionClass
     /** @var object Ethna_Backend backendオブジェクト */
     protected $backend;
 
-    /** @var object Ethna_Config 設定オブジェクト */
-    protected $config;
-
     /** @var object Ethna_ActionError アクションエラーオブジェクト */
     protected $action_error;
 
@@ -30,8 +27,6 @@ class Ethna_ActionClass
     /** @var object Ethna_Session セッションオブジェクト */
     protected $session;
 
-    /**#@-*/
-
     /**
      * Ethna_ActionClassのコンストラクタ
      *
@@ -42,7 +37,6 @@ class Ethna_ActionClass
     {
         $c = $backend->getController();
         $this->backend = $backend;
-        $this->config = $this->backend->getConfig();
 
         $this->action_error = $this->backend->getActionError();
         $this->ae = $this->action_error;

@@ -21,11 +21,6 @@ class Ethna_Backend
     /** @var object Ethna_Controller controllerオブジェクト */
     protected $controller;
 
-    /** @var object Ethna_Controller controllerオブジェクト($controllerの省略形) */
-    protected $ctl;
-
-    /** @var object Ethna_Config 設定オブジェクト */
-    protected $config;
 
     /** @var object Ethna_ActionError アクションエラーオブジェクト */
     protected $action_error;
@@ -58,15 +53,12 @@ class Ethna_Backend
      * Ethna_Backendクラスのコンストラクタ
      *
      * @access public
-     * @param object Ethna_Controller &$controller コントローラオブジェクト
+     * @param object Ethna_Controller $controller コントローラオブジェクト
      */
     public function __construct($controller)
     {
         // オブジェクトの設定
         $this->controller = $controller;
-        $this->ctl = $this->controller;
-
-        $this->config = $controller->getConfig();
 
         $this->action_error = $controller->getActionError();
         $this->ae = $this->action_error;
@@ -107,17 +99,6 @@ class Ethna_Backend
     }
 
     /**
-     * 設定オブジェクトへのアクセサ(R)
-     *
-     * @access public
-     * @return object Ethna_Config 設定オブジェクト
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
      * アプリケーションIDを返す
      *
      * @access public
@@ -155,7 +136,7 @@ class Ethna_Backend
      *
      * @access public
      */
-    public function setActionForm(&$action_form)
+    public function setActionForm($action_form)
     {
         $this->action_form = $action_form;
         $this->af = $action_form;
@@ -177,7 +158,7 @@ class Ethna_Backend
      *
      * @access public
      */
-    public function setActionClass(&$action_class)
+    public function setActionClass($action_class)
     {
         $this->action_class = $action_class;
         $this->ac = $action_class;
