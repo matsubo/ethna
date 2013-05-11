@@ -20,5 +20,8 @@
     "autoload": {
         "psr-0": {"Ethna": "class/"}
     },
+    "require": {
+      "smarty/smarty": "v3.1.13"
+    },
     "license": "BSD-3-Clause"
 }

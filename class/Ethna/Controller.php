@@ -817,7 +817,7 @@ class Ethna_Controller
      *  @access protected
      *  @return string  フォームにより要求されたアクション名
      */
-    function _getActionName_Form()
+    protected function _getActionName_Form()
     {
         if (isset($_SERVER['REQUEST_METHOD']) == false) {
             return null;
