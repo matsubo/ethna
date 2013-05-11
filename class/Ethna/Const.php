@@ -31,15 +31,6 @@ class Ethna_Const
     const GATEWAY_CLI =  2;
 
 
-    /** DB種別定義: R/W */
-    const DB_TYPE_RW =  1;
-
-    /** DB種別定義: R/O */
-    const DB_TYPE_RO =  2;
-
-    /** DB種別定義: Misc  */
-    const DB_TYPE_MISC =  3;
-
 
     /** 要素型: 整数 */
     const VAR_TYPE_INT =  1;
@@ -94,20 +85,6 @@ class Ethna_Const
     /** エラーコード: 一般エラー */
     const E_GENERAL =  1;
 
-    /** エラーコード: DB接続エラー */
-    const E_DB_CONNECT =  2;
-
-    /** エラーコード: DB設定なし */
-    const E_DB_NODSN =  3;
-
-    /** エラーコード: DBクエリエラー */
-    const E_DB_QUERY =  4;
-
-    /** エラーコード: DBユニークキーエラー */
-    const E_DB_DUPENT =  5;
-
-    /** エラーコード: DB種別エラー */
-    const E_DB_INVALIDTYPE =  6;
 
     /** エラーコード: セッションエラー(有効期限切れ) */
     const E_SESSION_EXPIRE =  16;

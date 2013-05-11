@@ -9,7 +9,6 @@
  *	@version	$Id$
  */
 
-// {{{ Ethna_ActionError
 /**
  *	アプリケーションエラー管理クラス
  *
@@ -28,20 +27,6 @@ class Ethna_ActionError
 
 	/**	@var	object	Ethna_ActionForm	アクションフォームオブジェクト */
 	var $action_form = null;
-
-	/**	@var	object	Ethna_Logger		ログオブジェクト */
-	var $logger = null;
-	/**#@-*/
-
-	/**
-	 *	Ethna_ActionErrorクラスのコンストラクタ
-	 *
-	 *	@access	public
-	 */
-	function Ethna_ActionError()
-	{
-	}
-
 	/**
 	 *	エラーオブジェクトを生成/追加する
 	 *
@@ -65,8 +50,6 @@ class Ethna_ActionError
 
 		// ログ出力(補足)
 		$af =& $this->_getActionForm();
-		$logger =& $this->_getLogger();
-		$logger->log(LOG_NOTICE, '{form} -> [%s]', $this->action_form->getName($name));
 	}
 
 	/**
@@ -205,21 +188,5 @@ class Ethna_ActionError
 		}
 		return $this->action_form;
 	}
-
-	/**
-	 *	Ethna_Loggerオブジェクトを取得する
-	 *
-	 *	@access	private
-	 *	@return	object	Ethna_Logger
-	 */
-	function &_getLogger()
-	{
-		if (is_null($this->logger)) {
-			$controller =& Ethna_Controller::getInstance();
-			$this->logger =& $controller->getLogger();
-		}
-		return $this->logger;
-	}
 }
-// }}}
 

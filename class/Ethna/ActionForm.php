@@ -54,9 +54,6 @@ class Ethna_ActionForm
     /** @var    object  Ethna_I18N  i18nオブジェクト */
     var $i18n;
 
-    /** @var    object  Ethna_Logger    ログオブジェクト */
-    var $logger;
-
     /** @var    array   フォーム定義要素 */
     var $def = array('name', 'required', 'max', 'min', 'regexp', 'custom', 'filter', 'form_type', 'type');
 
@@ -73,10 +70,9 @@ class Ethna_ActionForm
      */
     function Ethna_ActionForm(&$controller)
     {
-        $this->action_error =& $controller->getActionError();
-        $this->ae =& $this->action_error;
-        $this->i18n =& $controller->getI18N();
-        $this->logger =& $controller->getLogger();
+        $this->action_error = $controller->getActionError();
+        $this->ae = $this->action_error;
+        $this->i18n = $controller->getI18N();
 
         if (isset($_SERVER['REQUEST_METHOD']) == false) {
             return;
@@ -430,7 +426,7 @@ class Ethna_ActionForm
             if (is_null($this->form_vars[$name])) {
                 $form_vars = array();
             } else if (is_array($def['type'])) {
-                $form_vars =& $this->form_vars[$name];
+                $form_vars = $this->form_vars[$name];
             } else {
                 $form_vars = array(& $this->form_vars[$name]);
             }
@@ -503,8 +499,8 @@ class Ethna_ActionForm
         }
 
         // Ethna_Backendの設定
-        $c =& Ethna_Controller::getInstance();
-        $this->backend =& $c->getBackend();
+        $c = Ethna_Controller::getInstance();
+        $this->backend = $c->getBackend();
 
         return to_array($this->form_vars[$name]);
     }
@@ -975,7 +971,6 @@ class Ethna_ActionForm
         foreach (preg_split('/\s*,\s*/', $filter) as $f) {
             $method = sprintf('_filter_%s', $f);
             if (method_exists($this, $method) == false) {
-                $this->logger->log(LOG_WARNING, 'filter method is not defined [%s]', $method);
                 continue;
             }
             $value = $this->$method($value);

@@ -23,9 +23,6 @@ class Ethna_Session
 	 *	@access	private
 	 */
 
-	/**	@var	object	Ethna_Logger	loggerオブジェクト */
-	var	$logger;
-
 	/**	@var	string	セッション名 */
 	var $session_name;
 
@@ -47,11 +44,10 @@ class Ethna_Session
 	 *	@param	string	$appid		アプリケーションID(セッション名として使用)
 	 *	@param	string	$save_dir	セッションデータを保存するディレクトリ
 	 */
-	function Ethna_Session($appid, $save_dir, $logger)
+	function Ethna_Session($appid, $save_dir)
 	{
 		$this->session_name = "${appid}SESSID";
 		$this->session_save_dir = $save_dir;
-		$this->logger =& $logger;
 
 		if ($this->session_save_dir != "") {
 			session_save_path($this->session_save_dir);
@@ -113,16 +109,6 @@ class Ethna_Session
 			}
 			return false;
 		}
-
-		// check remote address
-		if (!isset($_SESSION['REMOTE_ADDR']) || $this->_validateRemoteAddr($_SESSION['REMOTE_ADDR'], $_SERVER['REMOTE_ADDR']) == false) {
-			// we do not allow this
-			setcookie($this->session_name, "", 0, "/");
-			session_destroy();
-			$this->session_start = false;
-			return false;
-		}
-
 		return true;
 	}
 
@@ -263,27 +249,6 @@ class Ethna_Session
 	function isAnonymous()
 	{
 		return $this->anonymous;
-	}
-
-	/**
-	 *	セッションに保存されたIPアドレスとアクセス元のIPアドレスが同一ネットワーク範囲かどうかを判別する(16bit mask)
-	 *
-	 *	@access	private
-	 *	@param	string	$src_ip		セッション開始時のアクセス元IPアドレス
-	 *	@param	string	$dst_ip		現在のアクセス元IPアドレス
-	 *	@return	bool	true:正常終了 false:不正なIPアドレス
-	 */
-	function _validateRemoteAddr($src_ip, $dst_ip)
-	{
-		$src = ip2long($src_ip);
-		$dst = ip2long($dst_ip);
-
-		if (($src & 0xffff0000) == ($dst & 0xffff0000)) {
-			return true;
-		} else {
-			$this->logger->log(LOG_NOTICE, "session IP validation failed [%s] - [%s]", $src_ip, $dst_ip);
-			return false;
-		}
 	}
 }
 // }}}

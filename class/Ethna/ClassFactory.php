@@ -51,8 +51,8 @@ class Ethna_ClassFactory
 	 */
 	function Ethna_ClassFactory(&$controller, $class)
 	{
-		$this->controller =& $controller;
-		$this->ctl =& $controller;
+		$this->controller = $controller;
+		$this->ctl = $controller;
 		$this->class = $class;
 	}
 
@@ -76,11 +76,11 @@ class Ethna_ClassFactory
 
 		$method = sprintf('_getObject_%s', ucfirst($key));
 		if (method_exists($this, $method)) {
-			$obj =& $this->$method($class_name);
+			$obj = $this->$method($class_name);
 		} else {
 			$obj = new $class_name();
 		}
-		$this->object[$key] =& $obj;
+		$this->object[$key] = $obj;
 
 		return $obj;
 	}
@@ -141,19 +141,6 @@ class Ethna_ClassFactory
 	}
 
 	/**
-	 *	オブジェクト生成メソッド(logger)
-	 *
-	 *	@access	protected
-	 *	@param	string	$class_name		クラス名
-	 *	@return	object	生成されたオブジェクト(エラーならnull)
-	 */
-	function &_getObject_Logger($class_name)
-	{
-		$_ret_object = new $class_name($this->ctl);
-		return $_ret_object;
-	}
-
-	/**
 	 *	オブジェクト生成メソッド(session)
 	 *
 	 *	@access	protected
@@ -162,7 +149,7 @@ class Ethna_ClassFactory
 	 */
 	function &_getObject_Session($class_name)
 	{
-		$_ret_object = new $class_name($this->ctl->getAppId(), $this->ctl->getDirectory('tmp'), $this->ctl->getLogger());
+		$_ret_object = new $class_name($this->ctl->getAppId(), $this->ctl->getDirectory('tmp'));
 		return $_ret_object;
 	}
 

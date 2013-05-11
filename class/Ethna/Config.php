@@ -40,12 +40,11 @@ class Ethna_Config
 	 */
 	function Ethna_Config(&$controller)
 	{
-		$this->controller =& $controller;
+		$this->controller = $controller;
 
 		// 設定ファイルの読み込み
 		$r = $this->_getConfig();
 		if (Ethna::isError($r)) {
-			// この時点ではlogging等は出来ない(Loggerオブジェクトが生成されていない)
 			$fp = fopen("php://stderr", "r");
 			fputs($fp, sprintf("error occured while reading config file(s) [%s]\n"), $r->getInfo(0));
 			fclose($fp);
@@ -115,9 +114,6 @@ class Ethna_Config
 		// デフォルト値設定
 		if (isset($_SERVER['HTTP_HOST']) && isset($config['url']) == false) {
 			$config['url'] = sprintf("http://%s", $_SERVER['HTTP_HOST']);
-		}
-		if (isset($config['dsn']) == false) {
-			$config['dsn'] = "";
 		}
 		if (isset($config['log_facility']) == false) {
 			$config['log_facility'] = "";

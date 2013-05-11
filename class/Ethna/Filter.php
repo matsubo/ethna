@@ -35,9 +35,6 @@ class Ethna_Filter
 	/**	@var	object	Ethna_Config		設定オブジェクト */
 	var	$config;
 
-	/**	@var	object	Ethna_Logger		ログオブジェクト */
-	var $logger;
-
 	/**#@-*/
 
 
@@ -50,11 +47,10 @@ class Ethna_Filter
 	function Ethna_Filter(&$controller)
 	{
 		// オブジェクトの設定
-		$this->controller =& $controller;
-		$this->ctl =& $this->controller;
+		$this->controller = $controller;
+		$this->ctl = $this->controller;
 
-		$this->config =& $controller->getConfig();
-		$this->logger =& $this->controller->getLogger();
+		$this->config = $controller->getConfig();
 	}
 
 	/**

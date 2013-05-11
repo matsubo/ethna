@@ -31,9 +31,6 @@ class Ethna_Controller
     /** @var    string      アプリケーションベースURL */
     var $url = '';
 
-    /** @var    string      アプリケーションDSN(Data Source Name) */
-    var $dsn;
-
     /** @var    array       アプリケーションディレクトリ */
     var $directory = array(
         'action'        => 'app/action',
@@ -43,17 +40,11 @@ class Ethna_Controller
         'etc'           => 'etc',
         'filter'        => 'app/filter',
         'locale'        => 'locale',
-        'log'           => 'log',
         'plugins'       => array(),
         'template'      => 'template',
         'template_c'    => 'tmp',
         'tmp'           => 'tmp',
         'view'          => 'app/view',
-    );
-
-    /** @var    array       DBアクセス定義 */
-    var $db = array(
-        ''              => Ethna_Const::DB_TYPE_RW,
     );
 
     /** @var    array       拡張子設定 */
@@ -67,11 +58,9 @@ class Ethna_Controller
         'class'         => 'Ethna_ClassFactory',
         'backend'       => 'Ethna_Backend',
         'config'        => 'Ethna_Config',
-        'db'            => 'Ethna_DB',
         'error'         => 'Ethna_ActionError',
         'form'          => 'Ethna_ActionForm',
         'i18n'          => 'Ethna_I18N',
-        'logger'        => 'Ethna_Logger',
         'session'       => 'Ethna_Session',
         'sql'           => 'Ethna_AppSQL',
         'view'          => 'Ethna_ViewClass',
@@ -138,9 +127,6 @@ class Ethna_Controller
     /** @var    object  Ethna_Config        設定オブジェクト */
     var $config = null;
 
-    /** @var    object  Ethna_Logger        ログオブジェクト */
-    var $logger = null;
-
     /** @var    string  リクエストのゲートウェイ(www/cli/rest/...) */
     var $gateway = Ethna_Const::GATEWAY_WWW;
 
@@ -190,12 +176,7 @@ class Ethna_Controller
         list($this->language, $this->system_encoding, $this->client_encoding) = $this->_getDefaultLanguage();
 
         $this->config = $this->getConfig();
-        $this->dsn = $this->_prepareDSN();
         $this->url = $this->config->get('url');
-
-        // ログ出力開始
-        $this->logger = $this->getLogger();
-        $this->logger->begin();
 
         // Ethnaマネージャ設定
         $this->_activateEthnaManager();
@@ -246,59 +227,6 @@ class Ethna_Controller
         }
 
         return true;
-    }
-
-    /**
-     *  DSNを返す
-     *
-     *  @access public
-     *  @param  string  $db_key DBキー
-     *  @return string  DSN
-     */
-    function getDSN($db_key = "")
-    {
-        if (isset($this->dsn[$db_key]) == false) {
-            return null;
-        }
-        return $this->dsn[$db_key];
-    }
-
-    /**
-     *  DSNの持続接続設定を返す
-     *
-     *  @access public
-     *  @param  string  $db_key DBキー
-     *  @return bool    true:persistent false:non-persistent(あるいは設定無し)
-     */
-    function getDSN_persistent($db_key = "")
-    {
-        $key = sprintf("dsn%s_persistent", $db_key == "" ? "" : "_$db_key");
-
-        $dsn_persistent = $this->config->get($key);
-        if (is_null($dsn_persistent)) {
-            return false;
-        }
-        return $dsn_persistent;
-    }
-
-    /**
-     *  DB設定を返す
-     *
-     *  @access public
-     *  @param  string  $db_key DBキー("", "r", "rw", "default", "blog_r"...)
-     *  @return string  $db_keyに対応するDB種別定義(設定が無い場合はnull)
-     */
-    function getDBType($db_key = null)
-    {
-        if (is_null($db_key)) {
-            // 一覧を返す
-            return $this->db;
-        }
-
-        if (isset($this->db[$db_key]) == false) {
-            return null;
-        }
-        return $this->db[$db_key];
     }
 
     /**
@@ -467,17 +395,6 @@ class Ethna_Controller
     function getI18N()
     {
         return $this->class_factory->getObject('i18n');
-    }
-
-    /**
-     *  ログオブジェクトのアクセサ
-     *
-     *  @access public
-     *  @return object  Ethna_Logger        ログオブジェクト
-     */
-    function getLogger()
-    {
-        return $this->class_factory->getObject('logger');
     }
 
     /**
@@ -650,7 +567,6 @@ class Ethna_Controller
         $action_obj = $this->_getAction($action_name);
         if (is_null($action_obj)) {
             if ($fallback_action_name != "") {
-                $this->logger->log(LOG_DEBUG, 'undefined action [%s] -> try fallback action [%s]', $action_name, $fallback_action_name);
                 $action_obj = $this->_getAction($fallback_action_name);
             }
             if (is_null($action_obj)) {
@@ -664,7 +580,6 @@ class Ethna_Controller
         for ($i = 0; $i < count($this->filter_chain); $i++) {
             $r = $this->filter_chain[$i]->preActionFilter($action_name);
             if ($r != null) {
-                $this->logger->log(LOG_DEBUG, 'action [%s] -> [%s] by %s', $action_name, $r, get_class($this->filter_chain[$i]));
                 $action_name = $r;
             }
         }
@@ -690,7 +605,6 @@ class Ethna_Controller
         for ($i = count($this->filter_chain) - 1; $i >= 0; $i--) {
             $r = $this->filter_chain[$i]->postActionFilter($action_name, $forward_name);
             if ($r != null) {
-                $this->logger->log(LOG_DEBUG, 'forward [%s] -> [%s] by %s', $forward_name, $r, get_class($this->filter_chain[$i]));
                 $forward_name = $r;
             }
         }
@@ -734,9 +648,11 @@ class Ethna_Controller
     function handleError(&$error)
     {
         // ログ出力
-        list ($log_level, $dummy) = $this->logger->errorLevelToLogLevel($error->getLevel());
         $message = $error->getMessage();
-        $this->logger->log($log_level, sprintf("%s [ERROR CODE(%d)]", $message, $error->getCode()));
+
+
+        // @todo and will be removed after supporting exception.
+        die($message);
     }
 
     /**
@@ -769,7 +685,6 @@ class Ethna_Controller
         // フォームから要求されたアクション名を取得する
         $form_action_name = $this->_getActionName_Form();
         $form_action_name = preg_replace('/[^a-z0-9\-_]+/i', '', $form_action_name);
-        $this->logger->log(LOG_DEBUG, 'form_action_name[%s]', $form_action_name);
 
         // Ethnaマネージャへのフォームからのリクエストは拒否
         if ($form_action_name == "__ethna_info__" ||
@@ -783,7 +698,6 @@ class Ethna_Controller
             if ($tmp{strlen($tmp)-1} == '*') {
                 $tmp = substr($tmp, 0, -1);
             }
-            $this->logger->log(LOG_DEBUG, '-> default_action_name[%s]', $tmp);
             $action_name = $tmp;
         } else {
             $action_name = $form_action_name;
@@ -797,12 +711,9 @@ class Ethna_Controller
                 if ($tmp{strlen($tmp)-1} == '*') {
                     $tmp = substr($tmp, 0, -1);
                 }
-                $this->logger->log(LOG_DEBUG, '-> fallback_action_name[%s]', $tmp);
                 $action_name = $tmp;
             }
         }
-
-        $this->logger->log(LOG_DEBUG, '<<< action_name[%s] >>>', $action_name);
 
         return $action_name;
     }
@@ -902,8 +813,6 @@ class Ethna_Controller
             if (isset($action_obj['inspect']) && $action_obj['inspect']) {
                 return $action_obj;
             }
-        } else {
-            $this->logger->log(LOG_DEBUG, "action [%s] is not defined -> try default", $action_name);
         }
 
         // アクションスクリプトのインクルード
@@ -916,21 +825,16 @@ class Ethna_Controller
 
         if (isset($action_obj['form_name']) == false) {
             $action_obj['form_name'] = $this->getDefaultFormClass($action_name);
-        } else if (class_exists($action_obj['form_name']) == false) {
-            // 明示指定されたフォームクラスが定義されていない場合は警告
-            $this->logger->log(LOG_WARNING, 'stated form class is not defined [%s]', $action_obj['form_name']);
-        }
-
+        } 
+ 
         // 必要条件の確認
         if (class_exists($action_obj['class_name']) == false) {
-            $this->logger->log(LOG_NOTICE, 'action class is not defined [%s]', $action_obj['class_name']);
             $_ret_object = null;
             return $_ret_object;
         }
         if (class_exists($action_obj['form_name']) == false) {
             // フォームクラスは未定義でも良い
             $class_name = $this->class_factory->getObjectName('form');
-            $this->logger->log(LOG_DEBUG, 'form class is not defined [%s] -> falling back to default [%s]', $action_obj['form_name'], $class_name);
             $action_obj['form_name'] = $class_name;
         }
 
@@ -1025,7 +929,6 @@ class Ethna_Controller
 
         $postfix = preg_replace('/_(.)/e', "strtoupper('\$1')", ucfirst($action_name));
         $r = sprintf("%s_%sForm_%s", $this->getAppId(), $gateway_prefix ? $gateway_prefix . "_" : "", $postfix);
-        $this->logger->log(LOG_DEBUG, "default action class [%s]", $r);
 
         return $r;
     }
@@ -1102,7 +1005,6 @@ class Ethna_Controller
 
         $postfix = preg_replace('/_(.)/e', "strtoupper('\$1')", ucfirst($action_name));
         $r = sprintf("%s_%sAction_%s", $this->getAppId(), $gateway_prefix ? $gateway_prefix . "_" : "", $postfix);
-        $this->logger->log(LOG_DEBUG, "default action class [%s]", $r);
 
         return $r;
     }
@@ -1142,10 +1044,7 @@ class Ethna_Controller
      */
     function getDefaultActionPath($action_name)
     {
-        $r = preg_replace('/_(.)/e', "'/' . strtoupper('\$1')", ucfirst($action_name)) . '.' . $this->getExt('php');
-        $this->logger->log(LOG_DEBUG, "default action path [%s]", $r);
-
-        return $r;
+        return preg_replace('/_(.)/e', "'/' . strtoupper('\$1')", ucfirst($action_name)) . '.' . $this->getExt('php');
     }
 
     /**
@@ -1182,7 +1081,6 @@ class Ethna_Controller
         if (is_null($class_name) == false && class_exists($class_name)) {
             return $class_name;
         } else if (is_null($class_name) == false) {
-            $this->logger->log(LOG_WARNING, 'stated view class is not defined [%s] -> try default', $class_name);
         }
 
         $class_name = $this->getDefaultViewClass($forward_name);
@@ -1190,7 +1088,6 @@ class Ethna_Controller
             return $class_name;
         } else {
             $class_name = $this->class_factory->getObjectName('view');
-            $this->logger->log(LOG_DEBUG, 'view class is not defined for [%s] -> use default [%s]', $forward_name, $class_name);
             return $class_name;
         }
     }
@@ -1209,10 +1106,7 @@ class Ethna_Controller
         $gateway_prefix = $this->_getGatewayPrefix($gateway);
 
         $postfix = preg_replace('/_(.)/e', "strtoupper('\$1')", ucfirst($forward_name));
-        $r = sprintf("%s_%sView_%s", $this->getAppId(), $gateway_prefix ? $gateway_prefix . "_" : "", $postfix);
-        $this->logger->log(LOG_DEBUG, "default view class [%s]", $r);
-
-        return $r;
+        return  sprintf("%s_%sView_%s", $this->getAppId(), $gateway_prefix ? $gateway_prefix . "_" : "", $postfix);
     }
 
     /**
@@ -1226,10 +1120,7 @@ class Ethna_Controller
      */
     function getDefaultViewPath($forward_name)
     {
-        $r = preg_replace('/_(.)/e', "'/' . strtoupper('\$1')", ucfirst($forward_name)) . '.' . $this->getExt('php');
-        $this->logger->log(LOG_DEBUG, "default view path [%s]", $r);
-
-        return $r;
+        return preg_replace('/_(.)/e', "'/' . strtoupper('\$1')", ucfirst($forward_name)) . '.' . $this->getExt('php');
     }
 
     /**
@@ -1499,9 +1390,7 @@ class Ethna_Controller
                 $tmp_path = $action_dir . $tmp_path;
             }
 
-            if (file_exists($tmp_path) == false) {
-                $this->logger->log(LOG_WARNING, 'class_path file not found [%s] -> try default', $tmp_path);
-            } else {
+            if (file_exists($tmp_path) != false) {
                 include_once($tmp_path);
                 $class_path = $tmp_path;
             }
@@ -1513,7 +1402,6 @@ class Ethna_Controller
             if (file_exists($action_dir . $class_path)) {
                 include_once($action_dir . $class_path);
             } else {
-                $this->logger->log(LOG_DEBUG, 'default action file not found [%s] -> try all files', $class_path);
                 $class_path = null;
             }
         }
@@ -1536,7 +1424,6 @@ class Ethna_Controller
                 return;
             }
             if (file_exists($tmp_path) == false) {
-                $this->logger->log(LOG_WARNING, 'form_path file not found [%s] -> try default', $tmp_path);
             } else {
                 include_once($tmp_path);
                 $form_path = $tmp_path;
@@ -1551,8 +1438,6 @@ class Ethna_Controller
             }
             if (file_exists($action_dir . $form_path)) {
                 include_once($action_dir . $form_path);
-            } else {
-                $this->logger->log(LOG_DEBUG, 'default form file not found [%s] -> maybe falling back to default form class', $form_path);
             }
         }
     }
@@ -1578,9 +1463,7 @@ class Ethna_Controller
                 $tmp_path = $view_dir . $tmp_path;
             }
 
-            if (file_exists($tmp_path) == false) {
-                $this->logger->log(LOG_WARNING, 'view_path file not found [%s] -> try default', $tmp_path);
-            } else {
+            if (file_exists($tmp_path) != false) {
                 include_once($tmp_path);
                 return;
             }
@@ -1592,7 +1475,6 @@ class Ethna_Controller
             include_once($view_dir . $view_path);
             return;
         } else {
-            $this->logger->log(LOG_DEBUG, 'default view file not found [%s]', $view_path);
             $view_path = null;
         }
     }
@@ -1624,57 +1506,6 @@ class Ethna_Controller
             }
         }
         closedir($dh);
-    }
-
-    /**
-     *  設定ファイルのDSN定義から使用するデータを再構築する(スレーブアクセス分岐等)
-     *
-     *  DSNの定義方法(デフォルト:設定ファイル)を変えたい場合はここをオーバーライドする
-     *
-     *  @access protected
-     *  @return array   DSN定義(array('DBキー1' => 'dsn1', 'DBキー2' => 'dsn2', ...))
-     */
-    function _prepareDSN()
-    {
-        $r = array();
-
-        foreach ($this->db as $key => $value) {
-            $config_key = "dsn";
-            if ($key != "") {
-                $config_key .= "_$key";
-            }
-            $dsn = $this->config->get($config_key);
-            if (is_array($dsn)) {
-                // 種別1つにつき複数DSNが定義されている場合はアクセス分岐
-                $dsn = $this->_selectDSN($key, $dsn);
-            }
-            $r[$key] = $dsn;
-        }
-        return $r;
-    }
-
-    /**
-     *  DSNのアクセス分岐を行う
-     *  
-     *  スレーブサーバへの振分け処理(デフォルト:ランダム)を変更したい場合はこのメソッドをオーバーライドする
-     *
-     *  @access protected
-     *  @param  string  $type       DB種別
-     *  @param  array   $dsn_list   DSN一覧
-     *  @return string  選択されたDSN
-     */
-    function _selectDSN($type, $dsn_list)
-    {
-        if (is_array($dsn_list) == false) {
-            return $dsn_list;
-        }
-
-        // デフォルト:ランダム
-        list($usec, $sec) = explode(' ', microtime());
-        mt_srand($sec + ((float) $usec * 100000));
-        $n = mt_rand(0, count($dsn_list)-1);
-        
-        return $dsn_list[$n];
     }
 
     /**
