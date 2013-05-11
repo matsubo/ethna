@@ -1,55 +1,55 @@
 <?php
 // vim: foldmethod=marker
 /**
- *	Ethna_Util.php
+ *    Ethna_Util.php
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@license	http://www.opensource.org/licenses/bsd-license.php The BSD License
- *	@package	Ethna
- *	@version	$Id$
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
+ *    @package    Ethna
+ *    @version    $Id$
  */
 
 // {{{ to_array
 /**
- *	¥°¥í¡¼¥Ğ¥ë¥æ¡¼¥Æ¥£¥ê¥Æ¥£´Ø¿ô: ¥¹¥«¥é¡¼ÃÍ¤òÍ×ÁÇ¿ô1¤ÎÇÛÎó¤È¤·¤ÆÊÖ¤¹
+ *    ã‚°ãƒ­ãƒ¼ãƒãƒ«ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£é–¢æ•°: ã‚¹ã‚«ãƒ©ãƒ¼å€¤ã‚’è¦ç´ æ•°1ã®é…åˆ—ã¨ã—ã¦è¿”ã™
  *
- *	@param	mixed	$v	ÇÛÎó¤È¤·¤Æ°·¤¦ÃÍ
- *	@return	array	ÇÛÎó¤ËÊÑ´¹¤µ¤ì¤¿ÃÍ
+ *    @param    mixed    $v    é…åˆ—ã¨ã—ã¦æ‰±ã†å€¤
+ *    @return    array    é…åˆ—ã«å¤‰æ›ã•ã‚ŒãŸå€¤
  */
 function to_array($v)
 {
-	if (is_array($v)) {
-		return $v;
-	} else {
-		return array($v);
-	}
+    if (is_array($v)) {
+        return $v;
+    } else {
+        return array($v);
+    }
 }
 // }}}
 
 // {{{ is_error
 /**
- *	¥°¥í¡¼¥Ğ¥ë¥æ¡¼¥Æ¥£¥ê¥Æ¥£´Ø¿ô: »ØÄê¤µ¤ì¤¿¥Õ¥©¡¼¥à¹àÌÜ¤Ë¥¨¥é¡¼¤¬¤¢¤ë¤«¤É¤¦¤«¤òÊÖ¤¹
+ *    ã‚°ãƒ­ãƒ¼ãƒãƒ«ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£é–¢æ•°: æŒ‡å®šã•ã‚ŒãŸãƒ•ã‚©ãƒ¼ãƒ é …ç›®ã«ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹ã‹ã©ã†ã‹ã‚’è¿”ã™
  *
- *	@param	string	$name	¥Õ¥©¡¼¥à¹àÌÜÌ¾
- *	@return	bool	true:¥¨¥é¡¼Í­¤ê false:¥¨¥é¡¼Ìµ¤·
+ *    @param    string    $name    ãƒ•ã‚©ãƒ¼ãƒ é …ç›®å
+ *    @return    bool    true:ã‚¨ãƒ©ãƒ¼æœ‰ã‚Š false:ã‚¨ãƒ©ãƒ¼ç„¡ã—
  */
 function is_error($name)
 {
-	$c =& Ethna_Controller::getInstance();
+    $c = Ethna_Controller::getInstance();
 
-	$action_error =& $c->getActionError();
+    $action_error = $c->getActionError();
 
-	return $action_error->isError($name);
+    return $action_error->isError($name);
 }
 // }}}
 
 // {{{ file_exists_ex
 /**
- *	¥°¥í¡¼¥Ğ¥ë¥æ¡¼¥Æ¥£¥ê¥Æ¥£´Ø¿ô: include_path¤ò¸¡º÷¤·¤Ä¤Äfile_exists()¤¹¤ë
+ *    ã‚°ãƒ­ãƒ¼ãƒãƒ«ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£é–¢æ•°: include_pathã‚’æ¤œç´¢ã—ã¤ã¤file_exists()ã™ã‚‹
  *
- *	@param	string	$path               ¥Õ¥¡¥¤¥ëÌ¾
- *	@param	bool    $use_include_path   include_path¤ò¥Á¥§¥Ã¥¯¤¹¤ë¤«¤É¤¦¤«
- *	@return	bool	true:Í­¤ê false:Ìµ¤·
+ *    @param    string    $path               ãƒ•ã‚¡ã‚¤ãƒ«å
+ *    @param    bool    $use_include_path   include_pathã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã‹ã©ã†ã‹
+ *    @return    bool    true:æœ‰ã‚Š false:ç„¡ã—
  */
 function file_exists_ex($path, $use_include_path = true)
 {
@@ -78,10 +78,10 @@ function file_exists_ex($path, $use_include_path = true)
 
 // {{{ is_absolute_path
 /**
- *	¥°¥í¡¼¥Ğ¥ë¥æ¡¼¥Æ¥£¥ê¥Æ¥£´Ø¿ô: ÀäÂĞ¥Ñ¥¹¤«¤É¤¦¤«¤òÊÖ¤¹
+ *    ã‚°ãƒ­ãƒ¼ãƒãƒ«ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£é–¢æ•°: çµ¶å¯¾ãƒ‘ã‚¹ã‹ã©ã†ã‹ã‚’è¿”ã™
  *
- *	@param	string	$path               ¥Õ¥¡¥¤¥ëÌ¾
- *	@return	bool	true:ÀäÂĞ false:ÁêÂĞ
+ *    @param    string    $path               ãƒ•ã‚¡ã‚¤ãƒ«å
+ *    @return    bool    true:çµ¶å¯¾ false:ç›¸å¯¾
  */
 function is_absolute_path($path)
 {
@@ -100,482 +100,482 @@ function is_absolute_path($path)
 
 // {{{ Ethna_Util
 /**
- *	¥æ¡¼¥Æ¥£¥ê¥Æ¥£¥¯¥é¥¹
+ *    ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ã‚¯ãƒ©ã‚¹
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@access		public
- *	@package	Ethna
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @access        public
+ *    @package    Ethna
  */
 class Ethna_Util
 {
-	/**
-	 *	POST¤Î¥æ¥Ë¡¼¥¯¥Á¥§¥Ã¥¯¤ò¹Ô¤¦
-	 *
-	 *	@access	public
-	 *	@return	bool	true:2²óÌÜ°Ê¹ß¤ÎPOST false:1²óÌÜ¤ÎPOST
-	 */
-	function isDuplicatePost()
-	{
-		$c =& Ethna_Controller::getInstance();
+    /**
+     *    POSTã®ãƒ¦ãƒ‹ãƒ¼ã‚¯ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+     *
+     *    @access    public
+     *    @return    bool    true:2å›ç›®ä»¥é™ã®POST false:1å›ç›®ã®POST
+     */
+    function isDuplicatePost()
+    {
+        $c = Ethna_Controller::getInstance();
 
-		// use raw post data
-		if (isset($_POST['uniqid'])) {
-			$uniqid = $_POST['uniqid'];
-		} else if (isset($_GET['uniqid'])) {
-			$uniqid = $_GET['uniqid'];
-		} else {
-			return false;
-		}
+        // use raw post data
+        if (isset($_POST['uniqid'])) {
+            $uniqid = $_POST['uniqid'];
+        } else if (isset($_GET['uniqid'])) {
+            $uniqid = $_GET['uniqid'];
+        } else {
+            return false;
+        }
 
-		// purge old files
-		Ethna_Util::purgeTmp("uniqid_", 60*60*1);
+        // purge old files
+        Ethna_Util::purgeTmp("uniqid_", 60*60*1);
 
-		$filename = sprintf("%s/uniqid_%s_%s", $c->getDirectory('tmp'), $_SERVER['REMOTE_ADDR'], $uniqid);
-		if (file_exists($filename) == false) {
-			touch($filename);
-			return false;
-		}
+        $filename = sprintf("%s/uniqid_%s_%s", $c->getDirectory('tmp'), $_SERVER['REMOTE_ADDR'], $uniqid);
+        if (file_exists($filename) == false) {
+            touch($filename);
+            return false;
+        }
 
-		$st = stat($filename);
-		if ($st[9] + 60*60*1 < time()) {
-			// too old
-			return false;
-		}
+        $st = stat($filename);
+        if ($st[9] + 60*60*1 < time()) {
+            // too old
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 *	POST¤Î¥æ¥Ë¡¼¥¯¥Á¥§¥Ã¥¯¥Õ¥é¥°¤ò¥¯¥ê¥¢¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@return	mixed	0:Àµ¾ï½ªÎ» Ethna_Error:¥¨¥é¡¼
-	 */
-	function clearDuplicatePost()
-	{
-		$c =& Ethna_Controller::getInstance();
+    /**
+     *    POSTã®ãƒ¦ãƒ‹ãƒ¼ã‚¯ãƒã‚§ãƒƒã‚¯ãƒ•ãƒ©ã‚°ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹
+     *
+     *    @access    public
+     *    @return    mixed    0:æ­£å¸¸çµ‚äº† Ethna_Error:ã‚¨ãƒ©ãƒ¼
+     */
+    function clearDuplicatePost()
+    {
+        $c = Ethna_Controller::getInstance();
 
-		// use raw post data
-		if (isset($_POST['uniqid'])) {
-			$uniqid = $_POST['uniqid'];
-		} else {
-			return 0;
-		}
+        // use raw post data
+        if (isset($_POST['uniqid'])) {
+            $uniqid = $_POST['uniqid'];
+        } else {
+            return 0;
+        }
 
-		$filename = sprintf("%s/uniqid_%s_%s", $c->getDirectory('tmp'), $_SERVER['REMOTE_ADDR'], $uniqid);
-		if (file_exists($filename)) {
-			if (unlink($filename) == false) {
-				return Ethna::raiseWarning(E_APP_WRITE, $filename);
-			}
-		}
+        $filename = sprintf("%s/uniqid_%s_%s", $c->getDirectory('tmp'), $_SERVER['REMOTE_ADDR'], $uniqid);
+        if (file_exists($filename)) {
+            if (unlink($filename) == false) {
+                return Ethna::raiseWarning(E_APP_WRITE, $filename);
+            }
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 
-	/**
-	 *	¥á¡¼¥ë¥¢¥É¥ì¥¹¤¬Àµ¤·¤¤¤«¤É¤¦¤«¤ò¥Á¥§¥Ã¥¯¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	string	$mailaddress	¥Á¥§¥Ã¥¯¤¹¤ë¥á¡¼¥ë¥¢¥É¥ì¥¹
-	 *	@return	bool	true: Àµ¤·¤¤¥á¡¼¥ë¥¢¥É¥ì¥¹ false: ÉÔÀµ¤Ê·Á¼°
-	 */
-	function checkMailAddress($mailaddress)
-	{
-		if (preg_match('/^([a-z0-9_]|\-|\.|\+)+@(([a-z0-9_]|\-)+\.)+[a-z]{2,6}$/i', $mailaddress)) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     *    ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒæ­£ã—ã„ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹
+     *
+     *    @access    public
+     *    @param    string    $mailaddress    ãƒã‚§ãƒƒã‚¯ã™ã‚‹ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
+     *    @return    bool    true: æ­£ã—ã„ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ false: ä¸æ­£ãªå½¢å¼
+     */
+    function checkMailAddress($mailaddress)
+    {
+        if (preg_match('/^([a-z0-9_]|\-|\.|\+)+@(([a-z0-9_]|\-)+\.)+[a-z]{2,6}$/i', $mailaddress)) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 *	CSV·Á¼°¤ÎÊ¸»úÎó¤òÇÛÎó¤ËÊ¬³ä¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	string	$csv		CSV·Á¼°¤ÎÊ¸»úÎó(1¹ÔÊ¬)
-	 * 	@param	string	$delimiter	¥Õ¥£¡¼¥ë¥É¤Î¶èÀÚ¤êÊ¸»ú
-	 *	@return	mixed	(array):Ê¬³ä·ë²Ì Ethna_Error:¥¨¥é¡¼(¹Ô·ÑÂ³)
-	 */
-	function explodeCSV($csv, $delimiter = ",")
-	{
-		$space_list = '';
-		foreach (array(" ", "\t", "\r", "\n") as $c) {
-			if ($c != $delimiter) {
-				$space_list .= $c;
-			}
-		}
+    /**
+     *    CSVå½¢å¼ã®æ–‡å­—åˆ—ã‚’é…åˆ—ã«åˆ†å‰²ã™ã‚‹
+     *
+     *    @access    public
+     *    @param    string    $csv        CSVå½¢å¼ã®æ–‡å­—åˆ—(1è¡Œåˆ†)
+     *     @param    string    $delimiter    ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®åŒºåˆ‡ã‚Šæ–‡å­—
+     *    @return    mixed    (array):åˆ†å‰²çµæœ Ethna_Error:ã‚¨ãƒ©ãƒ¼(è¡Œç¶™ç¶š)
+     */
+    function explodeCSV($csv, $delimiter = ",")
+    {
+        $space_list = '';
+        foreach (array(" ", "\t", "\r", "\n") as $c) {
+            if ($c != $delimiter) {
+                $space_list .= $c;
+            }
+        }
 
-		$line_end = "";
-		if (preg_match("/([$space_list]+)\$/sS", $csv, $match)) {
-			$line_end = $match[1];
-		}
-		$csv = substr($csv, 0, strlen($csv)-strlen($line_end));
-		$csv .= ' ';
+        $line_end = "";
+        if (preg_match("/([$space_list]+)\$/sS", $csv, $match)) {
+            $line_end = $match[1];
+        }
+        $csv = substr($csv, 0, strlen($csv)-strlen($line_end));
+        $csv .= ' ';
 
-		$field = '';
-		$retval = array();
+        $field = '';
+        $retval = array();
 
-		$index = 0;
-		$csv_len = strlen($csv);
-		do {
-			// 1. skip leading spaces
-			if (preg_match("/^([$space_list]+)/sS", substr($csv, $index), $match)) {
-				$index += strlen($match[1]);
-			}
-			if ($index >= $csv_len) {
-				break;
-			}
+        $index = 0;
+        $csv_len = strlen($csv);
+        do {
+            // 1. skip leading spaces
+            if (preg_match("/^([$space_list]+)/sS", substr($csv, $index), $match)) {
+                $index += strlen($match[1]);
+            }
+            if ($index >= $csv_len) {
+                break;
+            }
 
-			// 2. read field
-			if ($csv{$index} == '"') {
-				// 2A. handle quote delimited field
-				$index++;
-				while ($index < $csv_len) {
-					if ($csv{$index} == '"') {
-						// handle double quote
-						if ($csv{$index+1} == '"') {
-							$field .= $csv{$index};
-							$index += 2;
-						} else {
-							// must be end of string
-							while ($csv{$index} != $delimiter && $index < $csv_len) {
-								$index++;
-							}
-							if ($csv{$index} == $delimiter) {
-								$index++;
-							}
-							break;
-						}
-					} else {
-						// normal character
-						if (preg_match("/^([^\"]*)/S", substr($csv, $index), $match)) {
-							$field .= $match[1];
-							$index += strlen($match[1]);
-						}
+            // 2. read field
+            if ($csv{$index} == '"') {
+                // 2A. handle quote delimited field
+                $index++;
+                while ($index < $csv_len) {
+                    if ($csv{$index} == '"') {
+                        // handle double quote
+                        if ($csv{$index+1} == '"') {
+                            $field .= $csv{$index};
+                            $index += 2;
+                        } else {
+                            // must be end of string
+                            while ($csv{$index} != $delimiter && $index < $csv_len) {
+                                $index++;
+                            }
+                            if ($csv{$index} == $delimiter) {
+                                $index++;
+                            }
+                            break;
+                        }
+                    } else {
+                        // normal character
+                        if (preg_match("/^([^\"]*)/S", substr($csv, $index), $match)) {
+                            $field .= $match[1];
+                            $index += strlen($match[1]);
+                        }
 
-						if ($index == $csv_len) {
-							$field = substr($field, 0, strlen($field)-1);
-							$field .= $line_end;
+                        if ($index == $csv_len) {
+                            $field = substr($field, 0, strlen($field)-1);
+                            $field .= $line_end;
 
-							// request one more line
-							return Ethna::raiseNotice(Ethna_Const::E_UTIL_CSV_CONTINUE);
-						}
-					}
-				}
-			} else {
-				// 2B. handle non-quoted field
-				if (preg_match("/^([^$delimiter]*)/S", substr($csv, $index), $match)) {
-					$field .= $match[1];
-					$index += strlen($match[1]);
-				}
+                            // request one more line
+                            return Ethna::raiseNotice(Ethna_Const::E_UTIL_CSV_CONTINUE);
+                        }
+                    }
+                }
+            } else {
+                // 2B. handle non-quoted field
+                if (preg_match("/^([^$delimiter]*)/S", substr($csv, $index), $match)) {
+                    $field .= $match[1];
+                    $index += strlen($match[1]);
+                }
 
-				// remove trailing spaces
-				$field = preg_replace("/[$space_list]+\$/S", '', $field);
-				if ($csv{$index} == $delimiter) {
-					$index++;
-				}
-			}
-			$retval[] = $field;
-			$field = '';
-		} while ($index < $csv_len);
+                // remove trailing spaces
+                $field = preg_replace("/[$space_list]+\$/S", '', $field);
+                if ($csv{$index} == $delimiter) {
+                    $index++;
+                }
+            }
+            $retval[] = $field;
+            $field = '';
+        } while ($index < $csv_len);
 
-		return $retval;
-	}
+        return $retval;
+    }
 
-	/**
-	 *	CSV¥¨¥¹¥±¡¼¥×½èÍı¤ò¹Ô¤¦
-	 *
-	 *	@access	public
-	 *	@param	string	$csv		¥¨¥¹¥±¡¼¥×ÂĞ¾İ¤ÎÊ¸»úÎó(CSV¤Î³ÆÍ×ÁÇ)
-	 *	@param	bool	$escape_nl	²ş¹ÔÊ¸»ú(\r/\n)¤Î¥¨¥¹¥±¡¼¥×¥Õ¥é¥°
-	 *	@return	string	CSV¥¨¥¹¥±¡¼¥×¤µ¤ì¤¿Ê¸»úÎó
-	 */
-	function escapeCSV($csv, $escape_nl = false)
-	{
-		if (preg_match('/[,"\r\n]/', $csv)) {
-			if ($escape_nl) {
-				$csv = preg_replace('/\r/', "\\r", $csv);
-				$csv = preg_replace('/\n/', "\\n", $csv);
-			}
-			$csv = preg_replace('/"/', "\"\"", $csv);
-			$csv = "\"$csv\"";
-		}
+    /**
+     *    CSVã‚¨ã‚¹ã‚±ãƒ¼ãƒ—å‡¦ç†ã‚’è¡Œã†
+     *
+     *    @access    public
+     *    @param    string    $csv        ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—å¯¾è±¡ã®æ–‡å­—åˆ—(CSVã®å„è¦ç´ )
+     *    @param    bool    $escape_nl    æ”¹è¡Œæ–‡å­—(\r/\n)ã®ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°
+     *    @return    string    CSVã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã•ã‚ŒãŸæ–‡å­—åˆ—
+     */
+    function escapeCSV($csv, $escape_nl = false)
+    {
+        if (preg_match('/[,"\r\n]/', $csv)) {
+            if ($escape_nl) {
+                $csv = preg_replace('/\r/', "\\r", $csv);
+                $csv = preg_replace('/\n/', "\\n", $csv);
+            }
+            $csv = preg_replace('/"/', "\"\"", $csv);
+            $csv = "\"$csv\"";
+        }
 
-		return $csv;
-	}
+        return $csv;
+    }
 
-	/**
-	 *	ÇÛÎó¤ÎÍ×ÁÇ¤òÁ´¤ÆHTML¥¨¥¹¥±¡¼¥×¤·¤ÆÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@param	array	$target		HTML¥¨¥¹¥±¡¼¥×ÂĞ¾İ¤È¤Ê¤ëÇÛÎó
-	 *	@return	array	¥¨¥¹¥±¡¼¥×¤µ¤ì¤¿ÇÛÎó
-	 */
-	function escapeHtml($target)
-	{
-		$r = array();
-		Ethna_Util::_escapeHtml($target, $r);
-		return $r;
-	}
+    /**
+     *    é…åˆ—ã®è¦ç´ ã‚’å…¨ã¦HTMLã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã—ã¦è¿”ã™
+     *
+     *    @access    public
+     *    @param    array    $target        HTMLã‚¨ã‚¹ã‚±ãƒ¼ãƒ—å¯¾è±¡ã¨ãªã‚‹é…åˆ—
+     *    @return    array    ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã•ã‚ŒãŸé…åˆ—
+     */
+    function escapeHtml($target)
+    {
+        $r = array();
+        Ethna_Util::_escapeHtml($target, $r);
+        return $r;
+    }
 
-	/**
-	 *	ÇÛÎó¤ÎÍ×ÁÇ¤òÁ´¤ÆHTML¥¨¥¹¥±¡¼¥×¤·¤ÆÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@param	mixed	$vars	HTML¥¨¥¹¥±¡¼¥×ÂĞ¾İ¤È¤Ê¤ëÇÛÎó
-	 *	@param	mixed	$retval	HTML¥¨¥¹¥±¡¼¥×ÂĞ¾İ¤È¤Ê¤ë»ÒÍ×ÁÇ
-	 */
-	function _escapeHtml(&$vars, &$retval)
-	{
-		foreach (array_keys($vars) as $name) {
-			if (is_array($vars[$name])) {
-				$retval[$name] = array();
-				Ethna_Util::_escapeHtml($vars[$name], $retval[$name]);
-			} else if (!is_object($vars[$name])) {
-				$retval[$name] = htmlspecialchars($vars[$name], ENT_QUOTES);
-			}
-		}
-	}
+    /**
+     *    é…åˆ—ã®è¦ç´ ã‚’å…¨ã¦HTMLã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã—ã¦è¿”ã™
+     *
+     *    @access    public
+     *    @param    mixed    $vars    HTMLã‚¨ã‚¹ã‚±ãƒ¼ãƒ—å¯¾è±¡ã¨ãªã‚‹é…åˆ—
+     *    @param    mixed    $retval    HTMLã‚¨ã‚¹ã‚±ãƒ¼ãƒ—å¯¾è±¡ã¨ãªã‚‹å­è¦ç´ 
+     */
+    function _escapeHtml(&$vars, &$retval)
+    {
+        foreach (array_keys($vars) as $name) {
+            if (is_array($vars[$name])) {
+                $retval[$name] = array();
+                Ethna_Util::_escapeHtml($vars[$name], $retval[$name]);
+            } else if (!is_object($vars[$name])) {
+                $retval[$name] = htmlspecialchars($vars[$name], ENT_QUOTES);
+            }
+        }
+    }
 
-	/**
-	 *	Ê¸»úÎó¤òMIME¥¨¥ó¥³¡¼¥É¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	string	$string		MIME¥¨¥ó¥³¡¼¥É¤¹¤ëÊ¸»úÎó
-	 *	@return	¥¨¥ó¥³¡¼¥ÉºÑ¤ß¤ÎÊ¸»úÎó
-	 */
-	function encode_MIME($string)
-	{
-		$pos = 0;
-		$split = 36;
-		$_string = "";
-		while ($pos < mb_strlen($string))
-		{
-			$tmp = mb_strimwidth($string, $pos, $split, "");
-			$pos += mb_strlen($tmp);
-			$_string .= (($_string)? ' ' : '') . mb_encode_mimeheader($tmp, 'ISO-2022-JP');
-		}
-		return $_string;
-	}
+    /**
+     *    æ–‡å­—åˆ—ã‚’MIMEã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
+     *
+     *    @access    public
+     *    @param    string    $string        MIMEã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹æ–‡å­—åˆ—
+     *    @return    ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰æ¸ˆã¿ã®æ–‡å­—åˆ—
+     */
+    function encode_MIME($string)
+    {
+        $pos = 0;
+        $split = 36;
+        $_string = "";
+        while ($pos < mb_strlen($string))
+        {
+            $tmp = mb_strimwidth($string, $pos, $split, "");
+            $pos += mb_strlen($tmp);
+            $_string .= (($_string)? ' ' : '') . mb_encode_mimeheader($tmp, 'ISO-2022-JP');
+        }
+        return $_string;
+    }
 
-	/**
-	 *	GoogleÉ÷¥ê¥ó¥¯¥ê¥¹¥È¤òÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@param	int		$total		¸¡º÷Áí·ï¿ô
-	 *	@param	int		$offset		É½¼¨¥ª¥Õ¥»¥Ã¥È
-	 *	@param	int		$count		É½¼¨·ï¿ô
-	 *	@return	array	¥ê¥ó¥¯¾ğÊó¤ò³ÊÇ¼¤·¤¿ÇÛÎó
-	 */
-	function getDirectLinkList($total, $offset, $count)
-	{
-		$direct_link_list = array();
+    /**
+     *    Googleé¢¨ãƒªãƒ³ã‚¯ãƒªã‚¹ãƒˆã‚’è¿”ã™
+     *
+     *    @access    public
+     *    @param    int        $total        æ¤œç´¢ç·ä»¶æ•°
+     *    @param    int        $offset        è¡¨ç¤ºã‚ªãƒ•ã‚»ãƒƒãƒˆ
+     *    @param    int        $count        è¡¨ç¤ºä»¶æ•°
+     *    @return    array    ãƒªãƒ³ã‚¯æƒ…å ±ã‚’æ ¼ç´ã—ãŸé…åˆ—
+     */
+    function getDirectLinkList($total, $offset, $count)
+    {
+        $direct_link_list = array();
 
-		if ($total == 0) {
-			return array();
-		}
+        if ($total == 0) {
+            return array();
+        }
 
-		// backwards
-		$current = $offset - $count;
-		while ($current > 0) {
-			array_unshift($direct_link_list, $current);
-			$current -= $count;
-		}
-		if ($offset != 0 && $current <= 0) {
-			array_unshift($direct_link_list, 0);
-		}
+        // backwards
+        $current = $offset - $count;
+        while ($current > 0) {
+            array_unshift($direct_link_list, $current);
+            $current -= $count;
+        }
+        if ($offset != 0 && $current <= 0) {
+            array_unshift($direct_link_list, 0);
+        }
 
-		// current
-		$backward_count = count($direct_link_list);
-		array_push($direct_link_list, $offset);
+        // current
+        $backward_count = count($direct_link_list);
+        array_push($direct_link_list, $offset);
 
-		// forwards
-		$current = $offset + $count;
-		for ($i = 0; $i < 10; $i++) {
-			if ($current >= $total) {
-				break;
-			}
-			array_push($direct_link_list, $current);
-			$current += $count;
-		}
-		$forward_count = count($direct_link_list) - $backward_count - 1;
+        // forwards
+        $current = $offset + $count;
+        for ($i = 0; $i < 10; $i++) {
+            if ($current >= $total) {
+                break;
+            }
+            array_push($direct_link_list, $current);
+            $current += $count;
+        }
+        $forward_count = count($direct_link_list) - $backward_count - 1;
 
-		$backward_count -= 4;
-		if ($forward_count < 5) {
-			$backward_count -= 5 - $forward_count;
-		}
-		if ($backward_count < 0) {
-			$backward_count = 0;
-		}
+        $backward_count -= 4;
+        if ($forward_count < 5) {
+            $backward_count -= 5 - $forward_count;
+        }
+        if ($backward_count < 0) {
+            $backward_count = 0;
+        }
 
-		// add index
-		$n = 1;
-		$r = array();
-		foreach ($direct_link_list as $direct_link) {
-			$v = array('offset' => $direct_link, 'index' => $n);
-			$r[] = $v;
-			$n++;
-		}
+        // add index
+        $n = 1;
+        $r = array();
+        foreach ($direct_link_list as $direct_link) {
+            $v = array('offset' => $direct_link, 'index' => $n);
+            $r[] = $v;
+            $n++;
+        }
 
-		return array_splice($r, $backward_count, 10);
-	}
+        return array_splice($r, $backward_count, 10);
+    }
 
-	/**
-	 *	¸µ¹æÀ©¤Ç¤ÎÇ¯¤òÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@param	int		$t		unix time
-	 *	@return	string	¸µ¹æ(ÉÔÌÀ¤Ê¾ì¹ç¤Ïnull)
-	 */
-	function getEra($t)
-	{
-		$tm = localtime($t, true);
-		$year = $tm['tm_year'] + 1900;
+    /**
+     *    å…ƒå·åˆ¶ã§ã®å¹´ã‚’è¿”ã™
+     *
+     *    @access    public
+     *    @param    int        $t        unix time
+     *    @return    string    å…ƒå·(ä¸æ˜ãªå ´åˆã¯null)
+     */
+    function getEra($t)
+    {
+        $tm = localtime($t, true);
+        $year = $tm['tm_year'] + 1900;
 
-		if ($year >= 1989) {
-			return array('Ê¿À®', $year - 1988);
-		} else if ($year >= 1926) {
-			return array('¾¼ÏÂ', $year - 1925);
-		}
+        if ($year >= 1989) {
+            return array('å¹³æˆ', $year - 1988);
+        } else if ($year >= 1926) {
+            return array('æ˜­å’Œ', $year - 1925);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/**
-	 *	getimagesize()¤ÎÊÖ¤¹¥¤¥á¡¼¥¸¥¿¥¤¥×¤ËÂĞ±ş¤¹¤ë³ÈÄ¥»Ò¤òÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@param	int		$type	getimagesize()´Ø¿ô¤ÎÊÖ¤¹¥¤¥á¡¼¥¸¥¿¥¤¥×
-	 *	@return	string	$type¤ËÂĞ±ş¤¹¤ë³ÈÄ¥»Ò
-	 */
-	function getImageExtName($type)
-	{
-		$ext_list = array(
-			1	=> 'gif',
-			2	=> 'jpg',
-			3	=> 'png',
-			4	=> 'swf',
-			5	=> 'psd',
-			6	=> 'bmp',
-			7	=> 'tiff',
-			8	=> 'tiff',
-			9	=> 'jpc',
-			10	=> 'jp2',
-			11	=> 'jpx',
-			12	=> 'jb2',
-			13	=> 'swc',
-			14	=> 'iff',
-			15	=> 'wbmp',
-			16	=> 'xbm',
-		);
+    /**
+     *    getimagesize()ã®è¿”ã™ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¿ã‚¤ãƒ—ã«å¯¾å¿œã™ã‚‹æ‹¡å¼µå­ã‚’è¿”ã™
+     *
+     *    @access    public
+     *    @param    int        $type    getimagesize()é–¢æ•°ã®è¿”ã™ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¿ã‚¤ãƒ—
+     *    @return    string    $typeã«å¯¾å¿œã™ã‚‹æ‹¡å¼µå­
+     */
+    function getImageExtName($type)
+    {
+        $ext_list = array(
+            1    => 'gif',
+            2    => 'jpg',
+            3    => 'png',
+            4    => 'swf',
+            5    => 'psd',
+            6    => 'bmp',
+            7    => 'tiff',
+            8    => 'tiff',
+            9    => 'jpc',
+            10    => 'jp2',
+            11    => 'jpx',
+            12    => 'jb2',
+            13    => 'swc',
+            14    => 'iff',
+            15    => 'wbmp',
+            16    => 'xbm',
+        );
 
-		return @$ext_list[$type];
-	}
+        return @$ext_list[$type];
+    }
 
-	/**
-	 *	¥é¥ó¥À¥à¤Ê¥Ï¥Ã¥·¥åÃÍ¤òÀ¸À®¤¹¤ë
-	 *
-	 *	·è¤·¤Æ¹âÂ®¤Ç¤Ï¤Ê¤¤¤Î¤ÇÍğÍÑ¤ÏÈò¤±¤ë¤³¤È
-	 *
-	 *	@access	public
-	 *	@param	int		$length	¥Ï¥Ã¥·¥åÃÍ¤ÎÄ¹¤µ(¡Á64)
-	 *	@return	string	¥Ï¥Ã¥·¥åÃÍ
-	 */
-	function getRandom($length = 64)
-	{
-		static $srand = false;
+    /**
+     *    ãƒ©ãƒ³ãƒ€ãƒ ãªãƒãƒƒã‚·ãƒ¥å€¤ã‚’ç”Ÿæˆã™ã‚‹
+     *
+     *    æ±ºã—ã¦é«˜é€Ÿã§ã¯ãªã„ã®ã§ä¹±ç”¨ã¯é¿ã‘ã‚‹ã“ã¨
+     *
+     *    @access    public
+     *    @param    int        $length    ãƒãƒƒã‚·ãƒ¥å€¤ã®é•·ã•(ã€œ64)
+     *    @return    string    ãƒãƒƒã‚·ãƒ¥å€¤
+     */
+    function getRandom($length = 64)
+    {
+        static $srand = false;
 
-		if ($srand == false) {
-			list($usec, $sec) = explode(' ', microtime());
-			mt_srand((float) $sec + ((float) $usec * 100000) + getmypid());
-			$srand = true;
-		}
+        if ($srand == false) {
+            list($usec, $sec) = explode(' ', microtime());
+            mt_srand((float) $sec + ((float) $usec * 100000) + getmypid());
+            $srand = true;
+        }
 
-		$value = "";
-		for ($i = 0; $i < 2; $i++) {
-			// for Linux
-			if (file_exists('/proc/net/dev')) {
-				$rx = $tx = 0;
-				$fp = fopen('/proc/net/dev', 'r');
-				if ($fp != null) {
-					$header = true;
-					while (feof($fp) === false) {
-						$s = fgets($fp, 4096);
-						if ($header) {
-							$header = false;
-							continue;
-						}
-						$v = preg_split('/[:\s]+/', $s);
-						if (is_array($v) && count($v) > 10) {
-							$rx += $v[2];
-							$tx += $v[10];
-						}
-					}
-				}
-				$platform_value = $rx . $tx . mt_rand() . getmypid();
-			} else {
-				$platform_value = mt_rand() . getmypid();
-			}
-			$now = strftime('%Y%m%d %T');
-			$time = gettimeofday();
-			$v = $now . $time['usec'] . $platform_value . mt_rand(0, time());
-			$value .= md5($v);
-		}
+        $value = "";
+        for ($i = 0; $i < 2; $i++) {
+            // for Linux
+            if (file_exists('/proc/net/dev')) {
+                $rx = $tx = 0;
+                $fp = fopen('/proc/net/dev', 'r');
+                if ($fp != null) {
+                    $header = true;
+                    while (feof($fp) === false) {
+                        $s = fgets($fp, 4096);
+                        if ($header) {
+                            $header = false;
+                            continue;
+                        }
+                        $v = preg_split('/[:\s]+/', $s);
+                        if (is_array($v) && count($v) > 10) {
+                            $rx += $v[2];
+                            $tx += $v[10];
+                        }
+                    }
+                }
+                $platform_value = $rx . $tx . mt_rand() . getmypid();
+            } else {
+                $platform_value = mt_rand() . getmypid();
+            }
+            $now = strftime('%Y%m%d %T');
+            $time = gettimeofday();
+            $v = $now . $time['usec'] . $platform_value . mt_rand(0, time());
+            $value .= md5($v);
+        }
 
-		if ($length < 64) {
-			$value = substr($value, 0, $length);
-		}
-		return $value;
-	}
+        if ($length < 64) {
+            $value = substr($value, 0, $length);
+        }
+        return $value;
+    }
 
-	/**
-	 *	1¼¡¸µÇÛÎó¤òm x n¤ËºÆ¹½À®¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	array	$array	½èÍıÂĞ¾İ¤Î1¼¡¸µÇÛÎó
-	 *	@param	int		$m		¼´¤ÎÍ×ÁÇ¿ô
-	 *	@param	int		$order	$m¤òX¼´¤È¸«Ğö¤¹¤«Y¼´¤È¸«Ğö¤¹¤«(0:X¼´ 1:Y¼´)
-	 *	@return	array	m x n¤ËºÆ¹½À®¤µ¤ì¤¿ÇÛÎó
-	 */
-	function get2dArray($array, $m, $order)
-	{
-		$r = array();
-		
-		$n = intval(count($array) / $m);
-		if ((count($array) % $m) > 0) {
-			$n++;
-		}
-		for ($i = 0; $i < $n; $i++) {
-			$elts = array();
-			for ($j = 0; $j < $m; $j++) {
-				if ($order == 0) {
-					// ²£ÊÂ¤Ó(²£¡§$mÎó ½Ä¡§ÌµÀ©¸Â)
-					$key = $i*$m+$j;
-				} else {
-					// ½ÄÊÂ¤Ó(²£¡§ÌµÀ©¸Â ½Ä¡§$m¹Ô)
-					$key = $i+$n*$j;
-				}
-				if (array_key_exists($key, $array) == false) {
-					$array[$key] = null;
-				}
-				$elts[] = $array[$key];
-			}
-			$r[] = $elts;
-		}
+    /**
+     *    1æ¬¡å…ƒé…åˆ—ã‚’m x nã«å†æ§‹æˆã™ã‚‹
+     *
+     *    @access    public
+     *    @param    array    $array    å‡¦ç†å¯¾è±¡ã®1æ¬¡å…ƒé…åˆ—
+     *    @param    int        $m        è»¸ã®è¦ç´ æ•°
+     *    @param    int        $order    $mã‚’Xè»¸ã¨è¦‹åšã™ã‹Yè»¸ã¨è¦‹åšã™ã‹(0:Xè»¸ 1:Yè»¸)
+     *    @return    array    m x nã«å†æ§‹æˆã•ã‚ŒãŸé…åˆ—
+     */
+    function get2dArray($array, $m, $order)
+    {
+        $r = array();
 
-		return $r;
-	}
+        $n = intval(count($array) / $m);
+        if ((count($array) % $m) > 0) {
+            $n++;
+        }
+        for ($i = 0; $i < $n; $i++) {
+            $elts = array();
+            for ($j = 0; $j < $m; $j++) {
+                if ($order == 0) {
+                    // æ¨ªä¸¦ã³(æ¨ªï¼š$måˆ— ç¸¦ï¼šç„¡åˆ¶é™)
+                    $key = $i*$m+$j;
+                } else {
+                    // ç¸¦ä¸¦ã³(æ¨ªï¼šç„¡åˆ¶é™ ç¸¦ï¼š$mè¡Œ)
+                    $key = $i+$n*$j;
+                }
+                if (array_key_exists($key, $array) == false) {
+                    $array[$key] = null;
+                }
+                $elts[] = $array[$key];
+            }
+            $r[] = $elts;
+        }
 
-	/**
-	 *	¥Ñ¥¹Ì¾¤¬ÀäÂĞ¥Ñ¥¹¤«¤É¤¦¤«¤òÊÖ¤¹
-	 *
-	 *	port from File in PEAR (for BC)
-	 *
-	 *	@access	public
-	 *	@param	string	$path
-	 *	@return	bool	true:ÀäÂĞ¥Ñ¥¹ false:ÁêÂĞ¥Ñ¥¹
-	 */
-	function isAbsolute($path)
-	{
+        return $r;
+    }
+
+    /**
+     *    ãƒ‘ã‚¹åãŒçµ¶å¯¾ãƒ‘ã‚¹ã‹ã©ã†ã‹ã‚’è¿”ã™
+     *
+     *    port from File in PEAR (for BC)
+     *
+     *    @access    public
+     *    @param    string    $path
+     *    @return    bool    true:çµ¶å¯¾ãƒ‘ã‚¹ false:ç›¸å¯¾ãƒ‘ã‚¹
+     */
+    function isAbsolute($path)
+    {
         if (preg_match("/\.\./", $path)) {
             return false;
         }
@@ -587,138 +587,138 @@ class Ethna_Util
         }
 
         return false;
-	}
+    }
 
-	/**
-	 *	¥Æ¥ó¥İ¥é¥ê¥Ç¥£¥ì¥¯¥È¥ê¤Î¥Õ¥¡¥¤¥ë¤òºï½ü¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	string	$prefix		¥Õ¥¡¥¤¥ë¤Î¥×¥ì¥Õ¥£¥¯¥¹
-	 *	@param	int		$timeout	ºï½üÂĞ¾İïçÃÍ(ÉÃ¡İ60*60*1¤Ê¤é1»ş´Ö)
-	 */
-	function purgeTmp($prefix, $timeout)
-	{
-		$c =& Ethna_Controller::getInstance();
+    /**
+     *    ãƒ†ãƒ³ãƒãƒ©ãƒªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å‰Šé™¤ã™ã‚‹
+     *
+     *    @access    public
+     *    @param    string    $prefix        ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ—ãƒ¬ãƒ•ã‚£ã‚¯ã‚¹
+     *    @param    int        $timeout    å‰Šé™¤å¯¾è±¡é–¾å€¤(ç§’âˆ’60*60*1ãªã‚‰1æ™‚é–“)
+     */
+    function purgeTmp($prefix, $timeout)
+    {
+        $c = Ethna_Controller::getInstance();
 
-		$dh = opendir($c->getDirectory('tmp'));
-		if ($dh) {
-			while (($file = readdir($dh)) !== false) {
-				if (strncmp($file, $prefix, strlen($prefix)) == 0) {
-					$f = $c->getDirectory('tmp') . "/" . $file;
-					$st = @stat($f);
-					if ($st[9] + $timeout < time()) {
-						unlink($f);
-					}
-				}
-			}
-			closedir($dh);
-		}
-	}
+        $dh = opendir($c->getDirectory('tmp'));
+        if ($dh) {
+            while (($file = readdir($dh)) !== false) {
+                if (strncmp($file, $prefix, strlen($prefix)) == 0) {
+                    $f = $c->getDirectory('tmp') . "/" . $file;
+                    $st = @stat($f);
+                    if ($st[9] + $timeout < time()) {
+                        unlink($f);
+                    }
+                }
+            }
+            closedir($dh);
+        }
+    }
 
-	/**
-	 *	¥Õ¥¡¥¤¥ë¤ò¥í¥Ã¥¯¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	string	$file		¥í¥Ã¥¯¤¹¤ë¥Õ¥¡¥¤¥ëÌ¾
-	 *	@param	int		$mode		¥í¥Ã¥¯¥â¡¼¥É('r', 'rw')
-	 *	@param	int		$timeout	¥í¥Ã¥¯ÂÔ¤Á¥¿¥¤¥à¥¢¥¦¥È(ÉÃ¡İ0¤Ê¤éÌµ¸Â)
-	 *	@return	int		¥í¥Ã¥¯¥Ï¥ó¥É¥ë(false¤Ê¤é¥¨¥é¡¼)
-	 */
-	function lockFile($file, $mode, $timeout = 0)
-	{
-		$lh = @fopen($file, 'r');
-		if ($lh == null) {
-			return false;
-		}
+    /**
+     *    ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ­ãƒƒã‚¯ã™ã‚‹
+     *
+     *    @access    public
+     *    @param    string    $file        ãƒ­ãƒƒã‚¯ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
+     *    @param    int        $mode        ãƒ­ãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰('r', 'rw')
+     *    @param    int        $timeout    ãƒ­ãƒƒã‚¯å¾…ã¡ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆ(ç§’âˆ’0ãªã‚‰ç„¡é™)
+     *    @return    int        ãƒ­ãƒƒã‚¯ãƒãƒ³ãƒ‰ãƒ«(falseãªã‚‰ã‚¨ãƒ©ãƒ¼)
+     */
+    function lockFile($file, $mode, $timeout = 0)
+    {
+        $lh = @fopen($file, 'r');
+        if ($lh == null) {
+            return false;
+        }
 
-		$lock_mode = $mode == 'r' ? LOCK_SH : LOCK_EX;
+        $lock_mode = $mode == 'r' ? LOCK_SH : LOCK_EX;
 
-		for ($i = 0; $i < $timeout || $timeout == 0; $i++) {
-			$r = flock($lh, $lock_mode | LOCK_NB);
-			if ($r == true) {
-				break;
-			}
-			sleep(1);
-		}
-		if ($timeout > 0 && $i == $timeout) {
-			// timed out
-			return false;
-		}
- 
-		return $lh;
-	}
+        for ($i = 0; $i < $timeout || $timeout == 0; $i++) {
+            $r = flock($lh, $lock_mode | LOCK_NB);
+            if ($r == true) {
+                break;
+            }
+            sleep(1);
+        }
+        if ($timeout > 0 && $i == $timeout) {
+            // timed out
+            return false;
+        }
 
-	/**
-	 *	¥Õ¥¡¥¤¥ë¤Î¥í¥Ã¥¯¤ò²ò½ü¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	int		$lh		¥í¥Ã¥¯¥Ï¥ó¥É¥ë
-	 */
-	function unlockFile($lh)
-	{
-		fclose($lh);
-	}
+        return $lh;
+    }
 
-	/**
-	 *	¥Ğ¥Ã¥¯¥È¥ì¡¼¥¹¤ò¥Õ¥©¡¼¥Ş¥Ã¥È¤·¤ÆÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@param	array	$bt		debug_backtrace()´Ø¿ô¤Ç¼èÆÀ¤·¤¿¥Ğ¥Ã¥¯¥È¥ì¡¼¥¹
-	 *	@return	string	Ê¸»úÎó¤Ë¥Õ¥©¡¼¥Ş¥Ã¥È¤µ¤ì¤¿¥Ğ¥Ã¥¯¥È¥ì¡¼¥¹
-	 */
-	function formatBacktrace($bt) 
-	{
-		$r = "";
-		$i = 0;
-		foreach ($bt as $elt) {
-			$r .= sprintf("[%02d] %s:%d:%s.%s\n", $i, $elt['file'], $elt['line'], isset($elt['class']) ? $elt['class'] : 'global', $elt['function']);
-			$i++;
+    /**
+     *    ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ­ãƒƒã‚¯ã‚’è§£é™¤ã™ã‚‹
+     *
+     *    @access    public
+     *    @param    int        $lh        ãƒ­ãƒƒã‚¯ãƒãƒ³ãƒ‰ãƒ«
+     */
+    function unlockFile($lh)
+    {
+        fclose($lh);
+    }
 
-			if (isset($elt['args']) == false || is_array($elt['args']) == false) {
-				continue;
-			}
+    /**
+     *    ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã‚’ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã—ã¦è¿”ã™
+     *
+     *    @access    public
+     *    @param    array    $bt        debug_backtrace()é–¢æ•°ã§å–å¾—ã—ãŸãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹
+     *    @return    string    æ–‡å­—åˆ—ã«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã•ã‚ŒãŸãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹
+     */
+    function formatBacktrace($bt) 
+    {
+        $r = "";
+        $i = 0;
+        foreach ($bt as $elt) {
+            $r .= sprintf("[%02d] %s:%d:%s.%s\n", $i, $elt['file'], $elt['line'], isset($elt['class']) ? $elt['class'] : 'global', $elt['function']);
+            $i++;
 
-			// °ú¿ô¤Î¥À¥ó¥×
-			foreach ($elt['args'] as $arg) {
-				$r .= Ethna_Util::_formatBacktrace($arg);
-			}
-		}
+            if (isset($elt['args']) == false || is_array($elt['args']) == false) {
+                continue;
+            }
 
-		return $r;
-	}
+            // å¼•æ•°ã®ãƒ€ãƒ³ãƒ—
+            foreach ($elt['args'] as $arg) {
+                $r .= Ethna_Util::_formatBacktrace($arg);
+            }
+        }
 
-	/**
-	 *	¥Ğ¥Ã¥¯¥È¥ì¡¼¥¹°ú¿ô¤ò¥Õ¥©¡¼¥Ş¥Ã¥È¤·¤ÆÊÖ¤¹
-	 *
-	 *	@access	private
-	 *	@param	string	$arg	¥Ğ¥Ã¥¯¥È¥ì¡¼¥¹¤Î°ú¿ô
-	 *	@param	int		$level	¥Ğ¥Ã¥¯¥È¥ì¡¼¥¹¤Î¥Í¥¹¥È¥ì¥Ù¥ë
-	 *	@param	int		$wrap	²ş¹Ô¥Õ¥é¥°
-	 *	@return	string	Ê¸»úÎó¤Ë¥Õ¥©¡¼¥Ş¥Ã¥È¤µ¤ì¤¿¥Ğ¥Ã¥¯¥È¥ì¡¼¥¹
-	 */
-	function _formatBacktrace($arg, $level = 0, $wrap = true)
-	{
-		$pad = str_repeat("  ", $level);
-		if (is_array($arg)) {
-			$r = sprintf("     %s[array] => (\n", $pad);
-			if ($level+1 > 4) {
-				$r .= sprintf("     %s  *too deep*\n", $pad);
-			} else {
-				foreach ($arg as $key => $elt) {
-					$r .= Ethna_Util::_formatBacktrace($key, $level, false);
-					$r .= " => \n";
-					$r .= Ethna_Util::_formatBacktrace($elt, $level+1);
-				}
-			}
-			$r .= sprintf("     %s)\n", $pad);
-		} else if (is_object($arg)) {
-			$r = sprintf("     %s[object]%s%s", $pad, get_class($arg), $wrap ? "\n" : "");
-		} else {
-			$r = sprintf("     %s[%s]%s%s", $pad, gettype($arg), $arg, $wrap ? "\n" : "");
-		}
+        return $r;
+    }
 
-		return $r;
-	}
+    /**
+     *    ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹å¼•æ•°ã‚’ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã—ã¦è¿”ã™
+     *
+     *    @access    private
+     *    @param    string    $arg    ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã®å¼•æ•°
+     *    @param    int        $level    ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã®ãƒã‚¹ãƒˆãƒ¬ãƒ™ãƒ«
+     *    @param    int        $wrap    æ”¹è¡Œãƒ•ãƒ©ã‚°
+     *    @return    string    æ–‡å­—åˆ—ã«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã•ã‚ŒãŸãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹
+     */
+    function _formatBacktrace($arg, $level = 0, $wrap = true)
+    {
+        $pad = str_repeat("  ", $level);
+        if (is_array($arg)) {
+            $r = sprintf("     %s[array] => (\n", $pad);
+            if ($level+1 > 4) {
+                $r .= sprintf("     %s  *too deep*\n", $pad);
+            } else {
+                foreach ($arg as $key => $elt) {
+                    $r .= Ethna_Util::_formatBacktrace($key, $level, false);
+                    $r .= " => \n";
+                    $r .= Ethna_Util::_formatBacktrace($elt, $level+1);
+                }
+            }
+            $r .= sprintf("     %s)\n", $pad);
+        } else if (is_object($arg)) {
+            $r = sprintf("     %s[object]%s%s", $pad, get_class($arg), $wrap ? "\n" : "");
+        } else {
+            $r = sprintf("     %s[%s]%s%s", $pad, gettype($arg), $arg, $wrap ? "\n" : "");
+        }
+
+        return $r;
+    }
 }
 // }}}
 

@@ -1,197 +1,197 @@
 <?php
 // vim: foldmethod=marker
 /**
- *	Ethna_Config.php
+ *    Ethna_Config.php
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@license	http://www.opensource.org/licenses/bsd-license.php The BSD License
- *	@package	Ethna
- *	@version	$Id$
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
+ *    @package    Ethna
+ *    @version    $Id$
  */
 
 // {{{ Ethna_Config
 /**
- *	¿ﬂƒÍ•Ø•È•π
+ *    Ë®≠ÂÆö„ÇØ„É©„Çπ
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@access		public
- *	@package	Ethna
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @access        public
+ *    @package    Ethna
  */
 class Ethna_Config
 {
-	/**#@+
-	 *	@access	private
-	 */
+    /**#@+
+     *    @access    private
+     */
 
-	/**	@var	object	Ethna_Controller	controller•™•÷•∏•ß•Ø•» */
-	var	$controller;
-	
-	/**	@var	array	¿ﬂƒÍ∆‚Õ∆ */
-	var	$config = null;
+    /**    @var    object    Ethna_Controller    controller„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà */
+    protected    $controller;
 
-	/**#@-*/
+    /**    @var    array    Ë®≠ÂÆöÂÜÖÂÆπ */
+    protected    $config = null;
+
+    /**#@-*/
 
 
-	/**
-	 *	Ethna_Config•Ø•È•π§Œ•≥•Û•π•»•È•Ø•ø
-	 *
-	 *	@access	public
-	 *	@param	object	Ethna_Controller	&$controller	controller•™•÷•∏•ß•Ø•»
-	 */
-	function Ethna_Config(&$controller)
-	{
-		$this->controller = $controller;
+    /**
+     *    Ethna_Config„ÇØ„É©„Çπ„ÅÆ„Ç≥„É≥„Çπ„Éà„É©„ÇØ„Çø
+     *
+     *    @access    public
+     *    @param    object    Ethna_Controller    &$controller    controller„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà
+     */
+    function Ethna_Config(&$controller)
+    {
+        $this->controller = $controller;
 
-		// ¿ﬂƒÍ•’•°•§•Î§Œ∆…§ﬂπ˛§ﬂ
-		$r = $this->_getConfig();
-		if (Ethna::isError($r)) {
-			$fp = fopen("php://stderr", "r");
-			fputs($fp, sprintf("error occured while reading config file(s) [%s]\n"), $r->getInfo(0));
-			fclose($fp);
-			$this->controller->fatal();
-		}
-	}
+        // Ë®≠ÂÆö„Éï„Ç°„Ç§„É´„ÅÆË™≠„ÅøËæº„Åø
+        $r = $this->_getConfig();
+        if (Ethna::isError($r)) {
+            $fp = fopen("php://stderr", "r");
+            fputs($fp, sprintf("error occured while reading config file(s) [%s]\n"), $r->getInfo(0));
+            fclose($fp);
+            $this->controller->fatal();
+        }
+    }
 
-	/**
-	 *	¿ﬂƒÍ√Õ§ÿ§Œ•¢•Ø•ª•µ(R)
-	 *
-	 *	@access	public
-	 *	@param	string	$key	¿ﬂƒÍπ‡Ã‹Ãæ
-	 *	@return	string	¿ﬂƒÍ√Õ
-	 */
-	function get($key)
-	{
-		if (isset($this->config[$key]) == false) {
-			return null;
-		}
-		return $this->config[$key];
-	}
+    /**
+     *    Ë®≠ÂÆöÂÄ§„Å∏„ÅÆ„Ç¢„ÇØ„Çª„Çµ(R)
+     *
+     *    @access    public
+     *    @param    string    $key    Ë®≠ÂÆöÈ†ÖÁõÆÂêç
+     *    @return    string    Ë®≠ÂÆöÂÄ§
+     */
+    function get($key)
+    {
+        if (isset($this->config[$key]) == false) {
+            return null;
+        }
+        return $this->config[$key];
+    }
 
-	/**
-	 *	¿ﬂƒÍ√Õ§ÿ§Œ•¢•Ø•ª•µ(W)
-	 *
-	 *	@access	public
-	 *	@param	string	$key	¿ﬂƒÍπ‡Ã‹Ãæ
-	 *	@param	string	$value	¿ﬂƒÍ√Õ
-	 */
-	function set($key, $value)
-	{
-		$this->config[$key] = $value;
-	}
+    /**
+     *    Ë®≠ÂÆöÂÄ§„Å∏„ÅÆ„Ç¢„ÇØ„Çª„Çµ(W)
+     *
+     *    @access    public
+     *    @param    string    $key    Ë®≠ÂÆöÈ†ÖÁõÆÂêç
+     *    @param    string    $value    Ë®≠ÂÆöÂÄ§
+     */
+    function set($key, $value)
+    {
+        $this->config[$key] = $value;
+    }
 
-	/**
-	 *	¿ﬂƒÍ•’•°•§•Î§Úππø∑§π§Î
-	 *
-	 *	@access	public
-	 *	@return	mixed	0:¿µæÔΩ™Œª Ethna_Error:•®•È°º
-	 */
-	function update()
-	{
-		return $this->_setConfig();
-	}
+    /**
+     *    Ë®≠ÂÆö„Éï„Ç°„Ç§„É´„ÇíÊõ¥Êñ∞„Åô„Çã
+     *
+     *    @access    public
+     *    @return    mixed    0:Ê≠£Â∏∏ÁµÇ‰∫Ü Ethna_Error:„Ç®„É©„Éº
+     */
+    function update()
+    {
+        return $this->_setConfig();
+    }
 
-	/**
-	 *	¿ﬂƒÍ•’•°•§•Î§Ú∆…§ﬂπ˛§‡
-	 *
-	 *	@access	private
-	 *	@return	mixed	0:¿µæÔΩ™Œª Ethna_Error:•®•È°º
-	 */
-	function _getConfig()
-	{
-		$config = array();
-		$file = $this->_getConfigFile();
-		if (file_exists($file)) {
-			$lh = Ethna_Util::lockFile($file, 'r');
-			if (Ethna::isError($lh)) {
-				return $lh;
-			}
+    /**
+     *    Ë®≠ÂÆö„Éï„Ç°„Ç§„É´„ÇíË™≠„ÅøËæº„ÇÄ
+     *
+     *    @access    private
+     *    @return    mixed    0:Ê≠£Â∏∏ÁµÇ‰∫Ü Ethna_Error:„Ç®„É©„Éº
+     */
+    function _getConfig()
+    {
+        $config = array();
+        $file = $this->_getConfigFile();
+        if (file_exists($file)) {
+            $lh = Ethna_Util::lockFile($file, 'r');
+            if (Ethna::isError($lh)) {
+                return $lh;
+            }
 
-			include($file);
+            include($file);
 
-			Ethna_Util::unlockFile($lh);
-		}
+            Ethna_Util::unlockFile($lh);
+        }
 
-		// •«•’•©•Î•»√Õ¿ﬂƒÍ
-		if (isset($_SERVER['HTTP_HOST']) && isset($config['url']) == false) {
-			$config['url'] = sprintf("http://%s", $_SERVER['HTTP_HOST']);
-		}
-		if (isset($config['log_facility']) == false) {
-			$config['log_facility'] = "";
-		}
-		if (isset($config['log_level']) == false) {
-			$config['log_level'] = "";
-		}
-		if (isset($config['log_option']) == false) {
-			$config['log_option'] = "";
-		}
+        // „Éá„Éï„Ç©„É´„ÉàÂÄ§Ë®≠ÂÆö
+        if (isset($_SERVER['HTTP_HOST']) && isset($config['url']) == false) {
+            $config['url'] = sprintf("http://%s", $_SERVER['HTTP_HOST']);
+        }
+        if (isset($config['log_facility']) == false) {
+            $config['log_facility'] = "";
+        }
+        if (isset($config['log_level']) == false) {
+            $config['log_level'] = "";
+        }
+        if (isset($config['log_option']) == false) {
+            $config['log_option'] = "";
+        }
 
-		$this->config = $config;
+        $this->config = $config;
 
-		return 0;
-	}
+        return 0;
+    }
 
-	/**
-	 *	¿ﬂƒÍ•’•°•§•Î§ÀΩÒ§≠π˛§‡
-	 *
-	 *	@access	private
-	 *	@return	mixed	0:¿µæÔΩ™Œª Ethna_Error:•®•È°º
-	 */
-	function _setConfig()
-	{
-		$file = $this->_getConfigFile();
+    /**
+     *    Ë®≠ÂÆö„Éï„Ç°„Ç§„É´„Å´Êõ∏„ÅçËæº„ÇÄ
+     *
+     *    @access    private
+     *    @return    mixed    0:Ê≠£Â∏∏ÁµÇ‰∫Ü Ethna_Error:„Ç®„É©„Éº
+     */
+    function _setConfig()
+    {
+        $file = $this->_getConfigFile();
 
-		$lh = Ethna_Util::lockFile($file, 'w');
-		if (Ethna::isError($lh)) {
-			return $lh;
-		}
+        $lh = Ethna_Util::lockFile($file, 'w');
+        if (Ethna::isError($lh)) {
+            return $lh;
+        }
 
-		$fp = fopen($file, 'w');
-		if ($fp == null) {
-			return Ethna::raiseError(E_APP_WRITE, "•’•°•§•ÎΩÒ§≠π˛§ﬂ•®•È°º[%s]", $file);
-		}
-		fwrite($fp, "<?php\n");
-		fwrite($fp, sprintf("/*\n * %s\n *\n * update: %s\n */\n", basename($file), strftime('%Y/%m/%d %H:%M:%S')));
-		fwrite($fp, "\$config = array(\n");
-		foreach ($this->config as $key => $value) {
-			$this->_setConfigValue($fp, $key, $value, 0);
-		}
-		fwrite($fp, ");\n");
-		fclose($fp);
+        $fp = fopen($file, 'w');
+        if ($fp == null) {
+            return Ethna::raiseError(E_APP_WRITE, "„Éï„Ç°„Ç§„É´Êõ∏„ÅçËæº„Åø„Ç®„É©„Éº[%s]", $file);
+        }
+        fwrite($fp, "<?php\n");
+        fwrite($fp, sprintf("/*\n * %s\n *\n * update: %s\n */\n", basename($file), strftime('%Y/%m/%d %H:%M:%S')));
+        fwrite($fp, "\$config = array(\n");
+        foreach ($this->config as $key => $value) {
+            $this->_setConfigValue($fp, $key, $value, 0);
+        }
+        fwrite($fp, ");\n");
+        fclose($fp);
 
-		Ethna_Util::unlockFile($lh);
+        Ethna_Util::unlockFile($lh);
 
-		return 0;
-	}
+        return 0;
+    }
 
-	/**
-	 *	¿ﬂƒÍ•’•°•§•Î§À¿ﬂƒÍ√Õ§ÚΩÒ§≠π˛§‡
-	 *
-	 *	@access	private
-	 */
-	function _setConfigValue($fp, $key, $value, $level)
-	{
-		fputs($fp, sprintf("%s'%s' => ", str_repeat("\t", $level+1), $key));
-		if (is_array($value)) {
-			fputs($fp, sprintf("array(\n"));
-			foreach ($value as $k => $v) {
-				$this->_setConfigValue($fp, $k, $v, $level+1);
-			}
-			fputs($fp, sprintf("%s),\n", str_repeat("\t", $level+1)));
-		} else {
-			fputs($fp, sprintf("'%s',\n", $value));
-		}
-	}
+    /**
+     *    Ë®≠ÂÆö„Éï„Ç°„Ç§„É´„Å´Ë®≠ÂÆöÂÄ§„ÇíÊõ∏„ÅçËæº„ÇÄ
+     *
+     *    @access    private
+     */
+    function _setConfigValue($fp, $key, $value, $level)
+    {
+        fputs($fp, sprintf("%s'%s' => ", str_repeat("\t", $level+1), $key));
+        if (is_array($value)) {
+            fputs($fp, sprintf("array(\n"));
+            foreach ($value as $k => $v) {
+                $this->_setConfigValue($fp, $k, $v, $level+1);
+            }
+            fputs($fp, sprintf("%s),\n", str_repeat("\t", $level+1)));
+        } else {
+            fputs($fp, sprintf("'%s',\n", $value));
+        }
+    }
 
-	/**
-	 *	¿ﬂƒÍ•’•°•§•ÎÃæ§ÚºË∆¿§π§Î
-	 *
-	 *	@access	private
-	 *	@return	string	¿ﬂƒÍ•’•°•§•Î§ÿ§Œ•’•Î•—•πÃæ
-	 */
-	function _getConfigFile()
-	{
-		return $this->controller->getDirectory('etc') . '/' . strtolower($this->controller->getAppId()) . '-ini.php';
-	}
+    /**
+     *    Ë®≠ÂÆö„Éï„Ç°„Ç§„É´Âêç„ÇíÂèñÂæó„Åô„Çã
+     *
+     *    @access    private
+     *    @return    string    Ë®≠ÂÆö„Éï„Ç°„Ç§„É´„Å∏„ÅÆ„Éï„É´„Éë„ÇπÂêç
+     */
+    function _getConfigFile()
+    {
+        return $this->controller->getDirectory('etc') . '/' . strtolower($this->controller->getAppId()) . '-ini.php';
+    }
 }
 // }}}
 

@@ -1,192 +1,192 @@
 <?php
 // vim: foldmethod=marker
 /**
- *	Ethna_ActionError.php
+ *    Ethna_ActionError.php
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@license	http://www.opensource.org/licenses/bsd-license.php The BSD License
- *	@package	Ethna
- *	@version	$Id$
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
+ *    @package    Ethna
+ *    @version    $Id$
  */
 
 /**
- *	•¢•◊•Í•±°º•∑•Á•Û•®•È°º¥…Õ˝•Ø•È•π
+ *    „Ç¢„Éó„É™„Ç±„Éº„Ç∑„Éß„É≥„Ç®„É©„ÉºÁÆ°ÁêÜ„ÇØ„É©„Çπ
  *
- *	@access		public
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@package	Ethna
+ *    @access        public
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @package    Ethna
  */
 class Ethna_ActionError
 {
-	/**#@+
-	 *	@access	private
-	 */
+    /**#@+
+     *    @access    private
+     */
 
-	/**	@var	array	•®•È°º•™•÷•∏•ß•Ø•»§Œ∞ÏÕ˜ */
-	var $error_list = array();
+    /**    @var    array    „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÅÆ‰∏ÄË¶ß */
+    protected $error_list = array();
 
-	/**	@var	object	Ethna_ActionForm	•¢•Ø•∑•Á•Û•’•©°º•‡•™•÷•∏•ß•Ø•» */
-	var $action_form = null;
-	/**
-	 *	•®•È°º•™•÷•∏•ß•Ø•»§Ú¿∏¿Æ/ƒ…≤√§π§Î
-	 *
-	 *	@access	public
-	 *	@param	string	$name		•®•È°º§Œ»Ø¿∏§∑§ø•’•©°º•‡π‡Ã‹Ãæ(…‘Õ◊§ §Ènull)
-	 *	@param	string	$message	•®•È°º•·•√•ª°º•∏
-	 *	@param	int		$code		•®•È°º•≥°º•…
-	 */
-	function add($name, $message, $code = null)
-	{
-		if (func_num_args() > 3) {
-			$userinfo = array_slice(func_get_args(), 3);
-			$error =& Ethna::raiseNotice($message, $code, $userinfo);
-		} else {
-			$error =& Ethna::raiseNotice($message, $code);
-		}
-		$elt = array();
-		$elt['name'] = $name;
-		$elt['object'] =& $error;
-		$this->error_list[] = $elt;
+    /**    @var    object    Ethna_ActionForm    „Ç¢„ÇØ„Ç∑„Éß„É≥„Éï„Ç©„Éº„É†„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà */
+    protected $action_form = null;
+    /**
+     *    „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÇíÁîüÊàê/ËøΩÂä†„Åô„Çã
+     *
+     *    @access    public
+     *    @param    string    $name        „Ç®„É©„Éº„ÅÆÁô∫Áîü„Åó„Åü„Éï„Ç©„Éº„É†È†ÖÁõÆÂêç(‰∏çË¶Å„Å™„Çânull)
+     *    @param    string    $message    „Ç®„É©„Éº„É°„ÉÉ„Çª„Éº„Ç∏
+     *    @param    int        $code        „Ç®„É©„Éº„Ç≥„Éº„Éâ
+     */
+    function add($name, $message, $code = null)
+    {
+        if (func_num_args() > 3) {
+            $userinfo = array_slice(func_get_args(), 3);
+            $error = Ethna::raiseNotice($message, $code, $userinfo);
+        } else {
+            $error = Ethna::raiseNotice($message, $code);
+        }
+        $elt = array();
+        $elt['name'] = $name;
+        $elt['object'] = $error;
+        $this->error_list[] = $elt;
 
-		// •Ì•∞Ω–Œœ( ‰¬≠)
-		$af =& $this->_getActionForm();
-	}
+        // „É≠„Ç∞Âá∫Âäõ(Ë£úË∂≥)
+        $af = $this->_getActionForm();
+    }
 
-	/**
-	 *	Ethna_Error•™•÷•∏•ß•Ø•»§Úƒ…≤√§π§Î
-	 *
-	 *	@access	public
-	 *	@param	string				$name	•®•È°º§À¬–±˛§π§Î•’•©°º•‡π‡Ã‹Ãæ(…‘Õ◊§ §Ènull)
-	 *	@param	object	Ethna_Error	$error	•®•È°º•™•÷•∏•ß•Ø•»
-	 */
-	function addObject($name, &$error)
-	{
-		$elt = array();
-		$elt['name'] = $name;
-		$elt['object'] =& $error;
-		$this->error_list[] = $elt;
-	}
+    /**
+     *    Ethna_Error„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÇíËøΩÂä†„Åô„Çã
+     *
+     *    @access    public
+     *    @param    string                $name    „Ç®„É©„Éº„Å´ÂØæÂøú„Åô„Çã„Éï„Ç©„Éº„É†È†ÖÁõÆÂêç(‰∏çË¶Å„Å™„Çânull)
+     *    @param    object    Ethna_Error    $error    „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà
+     */
+    function addObject($name, &$error)
+    {
+        $elt = array();
+        $elt['name'] = $name;
+        $elt['object'] = $error;
+        $this->error_list[] = $elt;
+    }
 
-	/**
-	 *	•®•È°º•™•÷•∏•ß•Ø•»§ŒøÙ§Ú ÷§π
-	 *
-	 *	@access	public
-	 *	@return	int		•®•È°º•™•÷•∏•ß•Ø•»§ŒøÙ
-	 */
-	function count()
-	{
-		return count($this->error_list);
-	}
+    /**
+     *    „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÅÆÊï∞„ÇíËøî„Åô
+     *
+     *    @access    public
+     *    @return    int        „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÅÆÊï∞
+     */
+    function count()
+    {
+        return count($this->error_list);
+    }
 
-	/**
-	 *	•®•È°º•™•÷•∏•ß•Ø•»§ŒøÙ§Ú ÷§π(count()•·•Ω•√•…§Œ•®•§•Í•¢•π)
-	 *
-	 *	@access	public
-	 *	@return	int		•®•È°º•™•÷•∏•ß•Ø•»§ŒøÙ
-	 */
-	function length()
-	{
-		return count($this->error_list);
-	}
+    /**
+     *    „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÅÆÊï∞„ÇíËøî„Åô(count()„É°„ÇΩ„ÉÉ„Éâ„ÅÆ„Ç®„Ç§„É™„Ç¢„Çπ)
+     *
+     *    @access    public
+     *    @return    int        „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÅÆÊï∞
+     */
+    function length()
+    {
+        return count($this->error_list);
+    }
 
-	/**
-	 *	≈–œø§µ§Ï§ø•®•È°º•™•÷•∏•ß•Ø•»§Ú¡¥§∆∫ÔΩ¸§π§Î
-	 *
-	 *	@access	public
-	 */
-	function clear()
-	{
-		$this->error_list = array();
-	}
+    /**
+     *    ÁôªÈå≤„Åï„Çå„Åü„Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÇíÂÖ®„Å¶ÂâäÈô§„Åô„Çã
+     *
+     *    @access    public
+     */
+    function clear()
+    {
+        $this->error_list = array();
+    }
 
-	/**
-	 *	ªÿƒÍ§µ§Ï§ø•’•©°º•‡π‡Ã‹§À•®•È°º§¨»Ø¿∏§∑§∆§§§Î§´§…§¶§´§Ú ÷§π
-	 *
-	 *	@access	public
-	 *	@param	string	$name	•’•©°º•‡π‡Ã‹Ãæ
-	 *	@return	bool	true:•®•È°º§¨»Ø¿∏§∑§∆§§§Î false:•®•È°º§¨»Ø¿∏§∑§∆§§§ §§
-	 */
-	function isError($name)
-	{
-		foreach ($this->error_list as $error) {
-			if (strcasecmp($error['name'], $name) == 0) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     *    ÊåáÂÆö„Åï„Çå„Åü„Éï„Ç©„Éº„É†È†ÖÁõÆ„Å´„Ç®„É©„Éº„ÅåÁô∫Áîü„Åó„Å¶„ÅÑ„Çã„Åã„Å©„ÅÜ„Åã„ÇíËøî„Åô
+     *
+     *    @access    public
+     *    @param    string    $name    „Éï„Ç©„Éº„É†È†ÖÁõÆÂêç
+     *    @return    bool    true:„Ç®„É©„Éº„ÅåÁô∫Áîü„Åó„Å¶„ÅÑ„Çã false:„Ç®„É©„Éº„ÅåÁô∫Áîü„Åó„Å¶„ÅÑ„Å™„ÅÑ
+     */
+    function isError($name)
+    {
+        foreach ($this->error_list as $error) {
+            if (strcasecmp($error['name'], $name) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 *	ªÿƒÍ§µ§Ï§ø•’•©°º•‡π‡Ã‹§À¬–±˛§π§Î•®•È°º•·•√•ª°º•∏§Ú ÷§π
-	 *
-	 *	@access	public
-	 *	@param	string	$name	•’•©°º•‡π‡Ã‹Ãæ
-	 *	@return	string	•®•È°º•·•√•ª°º•∏(•®•È°º§¨Ãµ§§æÏπÁ§œnull)
-	 */
-	function getMessage($name)
-	{
-		foreach ($this->error_list as $error) {
-			if (strcasecmp($error['name'], $name) == 0) {
-				return $this->_getMessage($error);
-			}
-		}
-		return null;
-	}
+    /**
+     *    ÊåáÂÆö„Åï„Çå„Åü„Éï„Ç©„Éº„É†È†ÖÁõÆ„Å´ÂØæÂøú„Åô„Çã„Ç®„É©„Éº„É°„ÉÉ„Çª„Éº„Ç∏„ÇíËøî„Åô
+     *
+     *    @access    public
+     *    @param    string    $name    „Éï„Ç©„Éº„É†È†ÖÁõÆÂêç
+     *    @return    string    „Ç®„É©„Éº„É°„ÉÉ„Çª„Éº„Ç∏(„Ç®„É©„Éº„ÅåÁÑ°„ÅÑÂ†¥Âêà„ÅØnull)
+     */
+    function getMessage($name)
+    {
+        foreach ($this->error_list as $error) {
+            if (strcasecmp($error['name'], $name) == 0) {
+                return $this->_getMessage($error);
+            }
+        }
+        return null;
+    }
 
-	/**
-	 *	•®•È°º•™•÷•∏•ß•Ø•»§Ú«€ŒÛ§À§∑§∆ ÷§π
-	 *
-	 *	@access	public
-	 *	@return	array	•®•È°º•™•÷•∏•ß•Ø•»§Œ«€ŒÛ
-	 */
-	function getErrorList()
-	{
-		return $this->error_list;
-	}
+    /**
+     *    „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÇíÈÖçÂàó„Å´„Åó„Å¶Ëøî„Åô
+     *
+     *    @access    public
+     *    @return    array    „Ç®„É©„Éº„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÅÆÈÖçÂàó
+     */
+    function getErrorList()
+    {
+        return $this->error_list;
+    }
 
-	/**
-	 *	•®•È°º•·•√•ª°º•∏§Ú«€ŒÛ§À§∑§∆ ÷§π
-	 *
-	 *	@access	public
-	 *	@return	array	•®•È°º•·•√•ª°º•∏§Œ«€ŒÛ
-	 */
-	function getMessageList()
-	{
-		$message_list = array();
+    /**
+     *    „Ç®„É©„Éº„É°„ÉÉ„Çª„Éº„Ç∏„ÇíÈÖçÂàó„Å´„Åó„Å¶Ëøî„Åô
+     *
+     *    @access    public
+     *    @return    array    „Ç®„É©„Éº„É°„ÉÉ„Çª„Éº„Ç∏„ÅÆÈÖçÂàó
+     */
+    function getMessageList()
+    {
+        $message_list = array();
 
-		foreach ($this->error_list as $error) {
-			$message_list[] = $this->_getMessage($error);
-		}
-		return $message_list;
-	}
+        foreach ($this->error_list as $error) {
+            $message_list[] = $this->_getMessage($error);
+        }
+        return $message_list;
+    }
 
-	/**
-	 *	•¢•◊•Í•±°º•∑•Á•Û•®•È°º•·•√•ª°º•∏§ÚºË∆¿§π§Î
-	 *
-	 *	@access	private
-	 *	@param	array	•®•È°º•®•Û•»•Í
-	 *	@return	string	•®•È°º•·•√•ª°º•∏
-	 */
-	function _getMessage(&$error)
-	{
-		$af =& $this->_getActionForm();
-		$form_name = $af->getName($error['name']);
-		return str_replace("{form}", $form_name, $error['object']->getMessage());
-	}
+    /**
+     *    „Ç¢„Éó„É™„Ç±„Éº„Ç∑„Éß„É≥„Ç®„É©„Éº„É°„ÉÉ„Çª„Éº„Ç∏„ÇíÂèñÂæó„Åô„Çã
+     *
+     *    @access    private
+     *    @param    array    „Ç®„É©„Éº„Ç®„É≥„Éà„É™
+     *    @return    string    „Ç®„É©„Éº„É°„ÉÉ„Çª„Éº„Ç∏
+     */
+    function _getMessage(&$error)
+    {
+        $af = $this->_getActionForm();
+        $form_name = $af->getName($error['name']);
+        return str_replace("{form}", $form_name, $error['object']->getMessage());
+    }
 
-	/**
-	 *	Ethna_ActionForm•™•÷•∏•ß•Ø•»§ÚºË∆¿§π§Î
-	 *
-	 *	@access	private
-	 *	@return	object	Ethna_ActionForm
-	 */
-	function &_getActionForm()
-	{
-		if (is_null($this->action_form)) {
-			$controller =& Ethna_Controller::getInstance();
-			$this->action_form =& $controller->getActionForm();
-		}
-		return $this->action_form;
-	}
+    /**
+     *    Ethna_ActionForm„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÇíÂèñÂæó„Åô„Çã
+     *
+     *    @access    private
+     *    @return    object    Ethna_ActionForm
+     */
+    function &_getActionForm()
+    {
+        if (is_null($this->action_form)) {
+            $controller = Ethna_Controller::getInstance();
+            $this->action_form = $controller->getActionForm();
+        }
+        return $this->action_form;
+    }
 }
 

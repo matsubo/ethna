@@ -14,178 +14,178 @@ class Ethna_Const
 {
 
 
-    /** ƒo[ƒWƒ‡ƒ“’è‹` */
+    /** ãƒãƒ¼ã‚¸ãƒ§ãƒ³å®šç¾© */
     const ETHNA_VERSION =  '2.1.2-autoload';
 
-    /** ƒNƒ‰ƒCƒAƒ“ƒgŒ¾Œê’è‹`: ‰pŒê */
+    /** ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆè¨€èªžå®šç¾©: è‹±èªž */
     const LANG_EN =  'en';
 
-    /** ƒNƒ‰ƒCƒAƒ“ƒgŒ¾Œê’è‹`: “ú–{Œê */
+    /** ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆè¨€èªžå®šç¾©: æ—¥æœ¬èªž */
     const LANG_JA =  'ja';
 
 
-    /** ƒQ[ƒgƒEƒFƒC: WWW */
+    /** ã‚²ãƒ¼ãƒˆã‚¦ã‚§ã‚¤: WWW */
     const GATEWAY_WWW =  1;
 
-    /** ƒQ[ƒgƒEƒFƒC: CLI */
+    /** ã‚²ãƒ¼ãƒˆã‚¦ã‚§ã‚¤: CLI */
     const GATEWAY_CLI =  2;
 
 
 
-    /** —v‘fŒ^: ®” */
+    /** è¦ç´ åž‹: æ•´æ•° */
     const VAR_TYPE_INT =  1;
 
-    /** —v‘fŒ^: •‚“®¬”“_” */
+    /** è¦ç´ åž‹: æµ®å‹•å°æ•°ç‚¹æ•° */
     const VAR_TYPE_FLOAT =  2;
 
-    /** —v‘fŒ^: •¶Žš—ñ */
+    /** è¦ç´ åž‹: æ–‡å­—åˆ— */
     const VAR_TYPE_STRING =  3;
 
-    /** —v‘fŒ^: “ú•t */
+    /** è¦ç´ åž‹: æ—¥ä»˜ */
     const VAR_TYPE_DATETIME =  4;
 
-    /** —v‘fŒ^: ^‹U’l */
+    /** è¦ç´ åž‹: çœŸå½å€¤ */
     const VAR_TYPE_BOOLEAN =  5;
 
-    /** —v‘fŒ^: ƒtƒ@ƒCƒ‹ */
+    /** è¦ç´ åž‹: ãƒ•ã‚¡ã‚¤ãƒ« */
     const VAR_TYPE_FILE =  6;
 
 
-    /** ƒtƒH[ƒ€Œ^: text */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: text */
     const FORM_TYPE_TEXT =  1;
 
-    /** ƒtƒH[ƒ€Œ^: password */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: password */
     const FORM_TYPE_PASSWORD =  2;
 
-    /** ƒtƒH[ƒ€Œ^: textarea */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: textarea */
     const FORM_TYPE_TEXTAREA =  3;
 
-    /** ƒtƒH[ƒ€Œ^: select */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: select */
     const FORM_TYPE_SELECT =  4;
 
-    /** ƒtƒH[ƒ€Œ^: radio */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: radio */
     const FORM_TYPE_RADIO =  5;
 
-    /** ƒtƒH[ƒ€Œ^: checkbox */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: checkbox */
     const FORM_TYPE_CHECKBOX =  6;
 
-    /** ƒtƒH[ƒ€Œ^: button */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: button */
     const FORM_TYPE_SUBMIT =  7;
 
-    /** ƒtƒH[ƒ€Œ^: file */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: file */
     const FORM_TYPE_FILE =  8;
 
-    /** ƒtƒH[ƒ€Œ^: button */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: button */
     const FORM_TYPE_BUTTON =  9;
 
-    /** ƒtƒH[ƒ€Œ^: hidden */
+    /** ãƒ•ã‚©ãƒ¼ãƒ åž‹: hidden */
     const FORM_TYPE_HIDDEN =  10;
 
 
-    /** ƒGƒ‰[ƒR[ƒh: ˆê”ÊƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ä¸€èˆ¬ã‚¨ãƒ©ãƒ¼ */
     const E_GENERAL =  1;
 
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒZƒbƒVƒ‡ƒ“ƒGƒ‰[(—LŒøŠúŒÀØ‚ê) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼(æœ‰åŠ¹æœŸé™åˆ‡ã‚Œ) */
     const E_SESSION_EXPIRE =  16;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒZƒbƒVƒ‡ƒ“ƒGƒ‰[(IPƒAƒhƒŒƒXƒ`ƒFƒbƒNƒGƒ‰[) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼(IPã‚¢ãƒ‰ãƒ¬ã‚¹ãƒã‚§ãƒƒã‚¯ã‚¨ãƒ©ãƒ¼) */
     const E_SESSION_IPCHECK =  17;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒAƒNƒVƒ‡ƒ“–¢’è‹`ƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚¢ã‚¯ã‚·ãƒ§ãƒ³æœªå®šç¾©ã‚¨ãƒ©ãƒ¼ */
     const E_APP_UNDEFINED_ACTION =  32;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒAƒNƒVƒ‡ƒ“ƒNƒ‰ƒX–¢’è‹`ƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹æœªå®šç¾©ã‚¨ãƒ©ãƒ¼ */
     const E_APP_UNDEFINED_ACTIONCLASS =  33;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒIƒuƒWƒFƒNƒgIDd•¡ƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆIDé‡è¤‡ã‚¨ãƒ©ãƒ¼ */
     const E_APP_DUPENT =  34;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒƒ\ƒbƒh‚ª‘¶Ý‚µ‚È‚¢ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ¡ã‚½ãƒƒãƒ‰ãŒå­˜åœ¨ã—ãªã„ */
     const E_APP_NOMETHOD =  35;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒƒbƒNƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ­ãƒƒã‚¯ã‚¨ãƒ©ãƒ¼ */
     const E_APP_LOCK =  36;
 
-    /** ƒGƒ‰[ƒR[ƒh: CSV•ªŠ„ƒGƒ‰[(sŒp‘±) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: CSVåˆ†å‰²ã‚¨ãƒ©ãƒ¼(è¡Œç¶™ç¶š) */
     const E_UTIL_CSV_CONTINUE =  64;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lŒ^ƒGƒ‰[(ƒXƒJƒ‰[ˆø”‚É”z—ñŽw’è) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤åž‹ã‚¨ãƒ©ãƒ¼(ã‚¹ã‚«ãƒ©ãƒ¼å¼•æ•°ã«é…åˆ—æŒ‡å®š) */
     const E_FORM_WRONGTYPE_SCALAR =  128;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lŒ^ƒGƒ‰[(”z—ñˆø”‚ÉƒXƒJƒ‰[Žw’è) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤åž‹ã‚¨ãƒ©ãƒ¼(é…åˆ—å¼•æ•°ã«ã‚¹ã‚«ãƒ©ãƒ¼æŒ‡å®š) */
     const E_FORM_WRONGTYPE_ARRAY =  129;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lŒ^ƒGƒ‰[(®”Œ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤åž‹ã‚¨ãƒ©ãƒ¼(æ•´æ•°åž‹) */
     const E_FORM_WRONGTYPE_INT =  130;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lŒ^ƒGƒ‰[(•‚“®¬”“_”Œ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤åž‹ã‚¨ãƒ©ãƒ¼(æµ®å‹•å°æ•°ç‚¹æ•°åž‹) */
     const E_FORM_WRONGTYPE_FLOAT =  131;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lŒ^ƒGƒ‰[(“ú•tŒ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤åž‹ã‚¨ãƒ©ãƒ¼(æ—¥ä»˜åž‹) */
     const E_FORM_WRONGTYPE_DATETIME =  132;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lŒ^ƒGƒ‰[(BOOLŒ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤åž‹ã‚¨ãƒ©ãƒ¼(BOOLåž‹) */
     const E_FORM_WRONGTYPE_BOOLEAN =  133;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lŒ^ƒGƒ‰[(FILEŒ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤åž‹ã‚¨ãƒ©ãƒ¼(FILEåž‹) */
     const E_FORM_WRONGTYPE_FILE =  134;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’l•K{ƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤å¿…é ˆã‚¨ãƒ©ãƒ¼ */
     const E_FORM_REQUIRED =  135;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ¬’lƒGƒ‰[(®”Œ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å°å€¤ã‚¨ãƒ©ãƒ¼(æ•´æ•°åž‹) */
     const E_FORM_MIN_INT =  136;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ¬’lƒGƒ‰[(•‚“®¬”“_”Œ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å°å€¤ã‚¨ãƒ©ãƒ¼(æµ®å‹•å°æ•°ç‚¹æ•°åž‹) */
     const E_FORM_MIN_FLOAT =  137;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ¬’lƒGƒ‰[(•¶Žš—ñŒ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å°å€¤ã‚¨ãƒ©ãƒ¼(æ–‡å­—åˆ—åž‹) */
     const E_FORM_MIN_STRING =  138;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ¬’lƒGƒ‰[(“ú•tŒ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å°å€¤ã‚¨ãƒ©ãƒ¼(æ—¥ä»˜åž‹) */
     const E_FORM_MIN_DATETIME =  139;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ¬’lƒGƒ‰[(ƒtƒ@ƒCƒ‹Œ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å°å€¤ã‚¨ãƒ©ãƒ¼(ãƒ•ã‚¡ã‚¤ãƒ«åž‹) */
     const E_FORM_MIN_FILE =  140;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ‘å’lƒGƒ‰[(®”Œ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å¤§å€¤ã‚¨ãƒ©ãƒ¼(æ•´æ•°åž‹) */
     const E_FORM_MAX_INT =  141;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ‘å’lƒGƒ‰[(•‚“®¬”“_”Œ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å¤§å€¤ã‚¨ãƒ©ãƒ¼(æµ®å‹•å°æ•°ç‚¹æ•°åž‹) */
     const E_FORM_MAX_FLOAT =  142;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ‘å’lƒGƒ‰[(•¶Žš—ñŒ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å¤§å€¤ã‚¨ãƒ©ãƒ¼(æ–‡å­—åˆ—åž‹) */
     const E_FORM_MAX_STRING =  143;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ‘å’lƒGƒ‰[(“ú•tŒ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å¤§å€¤ã‚¨ãƒ©ãƒ¼(æ—¥ä»˜åž‹) */
     const E_FORM_MAX_DATETIME =  144;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’lÅ‘å’lƒGƒ‰[(ƒtƒ@ƒCƒ‹Œ^) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æœ€å¤§å€¤ã‚¨ãƒ©ãƒ¼(ãƒ•ã‚¡ã‚¤ãƒ«åž‹) */
     const E_FORM_MAX_FILE =  145;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’l•¶ŽšŽí(³‹K•\Œ»)ƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æ–‡å­—ç¨®(æ­£è¦è¡¨ç¾)ã‚¨ãƒ©ãƒ¼ */
     const E_FORM_REGEXP =  146;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’l”’l(ƒJƒXƒ^ƒ€ƒ`ƒFƒbƒN)ƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æ•°å€¤(ã‚«ã‚¹ã‚¿ãƒ ãƒã‚§ãƒƒã‚¯)ã‚¨ãƒ©ãƒ¼ */
     const E_FORM_INVALIDVALUE =  147;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒtƒH[ƒ€’l•¶ŽšŽí(ƒJƒXƒ^ƒ€ƒ`ƒFƒbƒN)ƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ãƒ•ã‚©ãƒ¼ãƒ å€¤æ–‡å­—ç¨®(ã‚«ã‚¹ã‚¿ãƒ ãƒã‚§ãƒƒã‚¯)ã‚¨ãƒ©ãƒ¼ */
     const E_FORM_INVALIDCHAR =  148;
 
-    /** ƒGƒ‰[ƒR[ƒh: Šm”F—pƒGƒ“ƒgƒŠ“ü—ÍƒGƒ‰[ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ç¢ºèªç”¨ã‚¨ãƒ³ãƒˆãƒªå…¥åŠ›ã‚¨ãƒ©ãƒ¼ */
     const E_FORM_CONFIRM =  149;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒLƒƒƒbƒVƒ…ƒ^ƒCƒv•s³ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚¿ã‚¤ãƒ—ä¸æ­£ */
     const E_CACHE_INVALID_TYPE =  256;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒLƒƒƒbƒVƒ…’l‚È‚µ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚­ãƒ£ãƒƒã‚·ãƒ¥å€¤ãªã— */
     const E_CACHE_NO_VALUE =  257;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒLƒƒƒbƒVƒ…—LŒøŠúŒÀ */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚­ãƒ£ãƒƒã‚·ãƒ¥æœ‰åŠ¹æœŸé™ */
     const E_CACHE_EXPIRED =  258;
 
-    /** ƒGƒ‰[ƒR[ƒh: ƒLƒƒƒbƒVƒ…ƒGƒ‰[(‚»‚Ì‘¼) */
+    /** ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰: ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚¨ãƒ©ãƒ¼(ãã®ä»–) */
     const E_CACHE_GENERAL =  259;
 
 

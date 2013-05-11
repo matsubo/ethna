@@ -1,305 +1,301 @@
 <?php
 // vim: foldmethod=marker
 /**
- *	Ethna_Backend.php
+ * Ethna_Backend.php
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@license	http://www.opensource.org/licenses/bsd-license.php The BSD License
- *	@package	Ethna
- *	@version	$Id$
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @package Ethna
+ * @version $Id$
  */
 
 /**
- *	¥Ğ¥Ã¥¯¥¨¥ó¥É½èÍı¥¯¥é¥¹
+ * ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰å‡¦ç†ã‚¯ãƒ©ã‚¹
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@access		public
- *	@package	Ethna
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @access public
+ * @package Ethna
  */
 class Ethna_Backend
 {
-	/**#@+
-	 *	@access		private
-	 */
+    /** @var object Ethna_Controller controllerã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $controller;
 
-	/**	@var	object	Ethna_Controller	controller¥ª¥Ö¥¸¥§¥¯¥È */
-	var	$controller;
+    /** @var object Ethna_Controller controllerã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ($controllerã®çœç•¥å½¢) */
+    protected $ctl;
 
-	/**	@var	object	Ethna_Controller	controller¥ª¥Ö¥¸¥§¥¯¥È($controller¤Î¾ÊÎ¬·Á) */
-	var	$ctl;
+    /** @var object Ethna_Config è¨­å®šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $config;
 
-	/**	@var	object	Ethna_Config		ÀßÄê¥ª¥Ö¥¸¥§¥¯¥È */
-	var	$config;
+    /** @var object Ethna_ActionError ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $action_error;
 
-	/**	@var	object	Ethna_ActionError	¥¢¥¯¥·¥ç¥ó¥¨¥é¡¼¥ª¥Ö¥¸¥§¥¯¥È */
-	var $action_error;
+    /** @var object Ethna_ActionError ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ($action_errorã®çœç•¥å½¢) */
+    protected $ae;
 
-	/**	@var	object	Ethna_ActionError	¥¢¥¯¥·¥ç¥ó¥¨¥é¡¼¥ª¥Ö¥¸¥§¥¯¥È($action_error¤Î¾ÊÎ¬·Á) */
-	var $ae;
+    /** @var object Ethna_ActionForm ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $action_form;
 
-	/**	@var	object	Ethna_ActionForm	¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È */
-	var $action_form;
+    /** @var object Ethna_ActionForm ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ($action_formã®çœç•¥å½¢) */
+    protected $af;
 
-	/**	@var	object	Ethna_ActionForm	¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È($action_form¤Î¾ÊÎ¬·Á) */
-	var $af;
+    /** @var object Ethna_ActionClass ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $action_class;
 
-	/**	@var	object	Ethna_ActionClass	¥¢¥¯¥·¥ç¥ó¥¯¥é¥¹¥ª¥Ö¥¸¥§¥¯¥È */
-	var $action_class;
+    /** @var object Ethna_ActionClass ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ($action_classã®çœç•¥å½¢) */
+    protected $ac;
 
-	/**	@var	object	Ethna_ActionClass	¥¢¥¯¥·¥ç¥ó¥¯¥é¥¹¥ª¥Ö¥¸¥§¥¯¥È($action_class¤Î¾ÊÎ¬·Á) */
-	var $ac;
+    /** @var object Ethna_Session ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $session;
 
-	/**	@var	object	Ethna_Session		¥»¥Ã¥·¥ç¥ó¥ª¥Ö¥¸¥§¥¯¥È */
-	var $session;
+    /** @var array ãƒãƒãƒ¼ã‚¸ãƒ£ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚­ãƒ£ãƒƒã‚·ãƒ¥ */
+    protected $manager = array();
 
-	/**	@var	array	¥Ş¥Í¡¼¥¸¥ã¥ª¥Ö¥¸¥§¥¯¥È¥­¥ã¥Ã¥·¥å */
-	var $manager = array();
-
-	/**#@-*/
+    /**#@-*/
 
 
-	/**
-	 *	Ethna_Backend¥¯¥é¥¹¤Î¥³¥ó¥¹¥È¥é¥¯¥¿
-	 *
-	 *	@access	public
-	 *	@param	object	Ethna_Controller	&$controller	¥³¥ó¥È¥í¡¼¥é¥ª¥Ö¥¸¥§¥¯¥È
-	 */
-	function Ethna_Backend($controller)
-	{
-		// ¥ª¥Ö¥¸¥§¥¯¥È¤ÎÀßÄê
-		$this->controller = $controller;
-		$this->ctl = $this->controller;
+    /**
+     * Ethna_Backendã‚¯ãƒ©ã‚¹ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     *
+     * @access public
+     * @param object Ethna_Controller &$controller ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     */
+    public function __construct($controller)
+    {
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¨­å®š
+        $this->controller = $controller;
+        $this->ctl = $this->controller;
 
-		$this->config = $controller->getConfig();
+        $this->config = $controller->getConfig();
 
-		$this->action_error = $controller->getActionError();
-		$this->ae = $this->action_error;
-		$this->action_form = $controller->getActionForm();
-		$this->af = $this->action_form;
-		$this->action_class = null;
-		$this->ac = $this->action_class;
+        $this->action_error = $controller->getActionError();
+        $this->ae = $this->action_error;
+        $this->action_form = $controller->getActionForm();
+        $this->af = $this->action_form;
+        $this->action_class = null;
+        $this->ac = $this->action_class;
 
-		$this->session = $this->controller->getSession();
+        $this->session = $this->controller->getSession();
 
-		// ¥Ş¥Í¡¼¥¸¥ã¥ª¥Ö¥¸¥§¥¯¥È¤ÎÀ¸À®(TODO: create on demand)
-		$manager_list = $controller->getManagerList();
-		foreach ($manager_list as $key => $value) {
-			$class_name = $this->controller->getManagerClassName($value);
-			$this->manager[$value] = new $class_name($this);
-		}
+        // ãƒãƒãƒ¼ã‚¸ãƒ£ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ(TODO: create on demand)
+        $manager_list = $controller->getManagerList();
+        foreach ($manager_list as $key => $value) {
+            $class_name = $this->controller->getManagerClassName($value);
+            $this->manager[$value] = new $class_name($this);
+        }
 
-		foreach ($manager_list as $key => $value) {
-			foreach ($manager_list as $k => $v) {
-				if ($v == $value) {
-					/* skip myself */
-					continue;
-				}
-				$this->manager[$value]->$k = $this->manager[$v];
-			}
-		}
-	}
+        foreach ($manager_list as $key => $value) {
+            foreach ($manager_list as $k => $v) {
+                if ($v == $value) {
+                    /* skip myself */
+                    continue;
+                }
+                $this->manager[$value]->$k = $this->manager[$v];
+            }
+        }
+    }
 
-	/**
-	 *	controller¥ª¥Ö¥¸¥§¥¯¥È¤Ø¤Î¥¢¥¯¥»¥µ(R)
-	 *
-	 *	@access	public
-	 *	@return	object	Ethna_Controller	controller¥ª¥Ö¥¸¥§¥¯¥È
-	 */
-	function getController()
-	{
-		return $this->controller;
-	}
+    /**
+     * controllerã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ã‚¢ã‚¯ã‚»ã‚µ(R)
+     *
+     * @access public
+     * @return object Ethna_Controller controllerã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
 
-	/**
-	 *	ÀßÄê¥ª¥Ö¥¸¥§¥¯¥È¤Ø¤Î¥¢¥¯¥»¥µ(R)
-	 *
-	 *	@access	public
-	 *	@return	object	Ethna_Config		ÀßÄê¥ª¥Ö¥¸¥§¥¯¥È
-	 */
-	function getConfig()
-	{
-		return $this->config;
-	}
+    /**
+     * è¨­å®šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ã‚¢ã‚¯ã‚»ã‚µ(R)
+     *
+     * @access public
+     * @return object Ethna_Config è¨­å®šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     */
+    function getConfig()
+    {
+        return $this->config;
+    }
 
-	/**
-	 *	¥¢¥×¥ê¥±¡¼¥·¥ç¥óID¤òÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@return	string	¥¢¥×¥ê¥±¡¼¥·¥ç¥óID
-	 */
-	function getAppId()
-	{
-		return $this->controller->getAppId();
-	}
+    /**
+     * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³IDã‚’è¿”ã™
+     *
+     * @access public
+     * @return string ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ID
+     */
+    function getAppId()
+    {
+        return $this->controller->getAppId();
+    }
 
-	/**
-	 *	¥¢¥¯¥·¥ç¥ó¥¨¥é¡¼¥ª¥Ö¥¸¥§¥¯¥È¤Î¥¢¥¯¥»¥µ(R)
-	 *
-	 *	@access	public
-	 *	@return	object	Ethna_ActionError	¥¢¥¯¥·¥ç¥ó¥¨¥é¡¼¥ª¥Ö¥¸¥§¥¯¥È
-	 */
-	function getActionError()
-	{
-		return $this->action_error;
-	}
+    /**
+     * ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ã‚»ã‚µ(R)
+     *
+     * @access public
+     * @return object Ethna_ActionError ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     */
+    function getActionError()
+    {
+        return $this->action_error;
+    }
 
-	/**
-	 *	¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È¤Î¥¢¥¯¥»¥µ(R)
-	 *
-	 *	@access	public
-	 *	@return	object	Ethna_ActionForm	¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È
-	 */
-	function getActionForm()
-	{
-		return $this->action_form;
-	}
+    /**
+     * ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ã‚»ã‚µ(R)
+     *
+     * @access public
+     * @return object Ethna_ActionForm ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     */
+    function getActionForm()
+    {
+        return $this->action_form;
+    }
 
-	/**
-	 *	¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È¤Î¥¢¥¯¥»¥µ(W)
-	 *
-	 *	@access	public
-	 */
-	function setActionForm(&$action_form)
-	{
-		$this->action_form = $action_form;
+    /**
+     * ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ã‚»ã‚µ(W)
+     *
+     * @access public
+     */
+    function setActionForm(&$action_form)
+    {
+        $this->action_form = $action_form;
         $this->af = $action_form;
-	}
+    }
 
-	/**
-	 *	¼Â¹ÔÃæ¤Î¥¢¥¯¥·¥ç¥ó¥¯¥é¥¹¥ª¥Ö¥¸¥§¥¯¥È¤Î¥¢¥¯¥»¥µ(R)
-	 *
-	 *	@access	public
-	 *	@return	mixed	Ethna_ActionClass:¥¢¥¯¥·¥ç¥ó¥¯¥é¥¹ null:¥¢¥¯¥·¥ç¥ó¥¯¥é¥¹Ì¤Äê
-	 */
-	function getActionClass()
-	{
-		return $this->action_class;
-	}
+    /**
+     * å®Ÿè¡Œä¸­ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ã‚»ã‚µ(R)
+     *
+     * @access public
+     * @return mixed Ethna_ActionClass:ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹ null:ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹æœªå®š
+     */
+    function getActionClass()
+    {
+        return $this->action_class;
+    }
 
-	/**
-	 *	¼Â¹ÔÃæ¤Î¥¢¥¯¥·¥ç¥ó¥¯¥é¥¹¥ª¥Ö¥¸¥§¥¯¥È¤Î¥¢¥¯¥»¥µ(W)
-	 *
-	 *	@access	public
-	 */
-	function setActionClass(&$action_class)
-	{
+    /**
+     * å®Ÿè¡Œä¸­ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ã‚»ã‚µ(W)
+     *
+     * @access public
+     */
+    function setActionClass(&$action_class)
+    {
         $this->action_class = $action_class;
         $this->ac = $action_class;
-	}
+    }
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥ó¥ª¥Ö¥¸¥§¥¯¥È¤Î¥¢¥¯¥»¥µ(R)
-	 *
-	 *	@access	public
-	 *	@return	object	Ethna_Session	¥»¥Ã¥·¥ç¥ó¥ª¥Ö¥¸¥§¥¯¥È
-	 */
-	function getSession()
-	{
-		return $this->session;
-	}
+    /**
+     * ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ã‚»ã‚µ(R)
+     *
+     * @access public
+     * @return object Ethna_Session ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     */
+    function getSession()
+    {
+        return $this->session;
+    }
 
-	/**
-	 *	¥Ş¥Í¡¼¥¸¥ã¥ª¥Ö¥¸¥§¥¯¥È¤Ø¤Î¥¢¥¯¥»¥µ(R)
-	 *
-	 *	@access	public
-	 *	@return	object	Ethna_AppManager	¥Ş¥Í¡¼¥¸¥ã¥ª¥Ö¥¸¥§¥¯¥È
-	 */
-	function getManager($type)
-	{
-		if (isset($this->manager[$type])) {
-			return $this->manager[$type];
-		}
-		return null;
-	}
+    /**
+     * ãƒãƒãƒ¼ã‚¸ãƒ£ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ã‚¢ã‚¯ã‚»ã‚µ(R)
+     *
+     * @access public
+     * @return object Ethna_AppManager ãƒãƒãƒ¼ã‚¸ãƒ£ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     */
+    function getManager($type)
+    {
+        if (isset($this->manager[$type])) {
+            return $this->manager[$type];
+        }
+        return null;
+    }
 
-	/**
-	 *	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¤Î¥Ù¡¼¥¹¥Ç¥£¥ì¥¯¥È¥ê¤ò¼èÆÀ¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@return	string	¥Ù¡¼¥¹¥Ç¥£¥ì¥¯¥È¥ê¤Î¥Ñ¥¹Ì¾
-	 */
-	function getBasedir()
-	{
-		return $this->controller->getBasedir();
-	}
+    /**
+     * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ™ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’å–å¾—ã™ã‚‹
+     *
+     * @access public
+     * @return string ãƒ™ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ‘ã‚¹å
+     */
+    function getBasedir()
+    {
+        return $this->controller->getBasedir();
+    }
 
-	/**
-	 *	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¤Î¥Æ¥ó¥×¥ì¡¼¥È¥Ç¥£¥ì¥¯¥È¥ê¤ò¼èÆÀ¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@return	string	¥Æ¥ó¥×¥ì¡¼¥È¥Ç¥£¥ì¥¯¥È¥ê¤Î¥Ñ¥¹Ì¾
-	 */
-	function getTemplatedir()
-	{
-		return $this->controller->getTemplatedir();
-	}
+    /**
+     * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’å–å¾—ã™ã‚‹
+     *
+     * @access public
+     * @return string ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ‘ã‚¹å
+     */
+    function getTemplatedir()
+    {
+        return $this->controller->getTemplatedir();
+    }
 
-	/**
-	 *	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¤ÎÀßÄê¥Ç¥£¥ì¥¯¥È¥ê¤ò¼èÆÀ¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@return	string	ÀßÄê¥Ç¥£¥ì¥¯¥È¥ê¤Î¥Ñ¥¹Ì¾
-	 */
-	function getEtcdir()
-	{
-		return $this->controller->getDirectory('etc');
-	}
+    /**
+     * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨­å®šãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’å–å¾—ã™ã‚‹
+     *
+     * @access public
+     * @return string è¨­å®šãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ‘ã‚¹å
+     */
+    function getEtcdir()
+    {
+        return $this->controller->getDirectory('etc');
+    }
 
-	/**
-	 *	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¤Î¥Æ¥ó¥İ¥é¥ê¥Ç¥£¥ì¥¯¥È¥ê¤ò¼èÆÀ¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@return	string	¥Æ¥ó¥İ¥é¥ê¥Ç¥£¥ì¥¯¥È¥ê¤Î¥Ñ¥¹Ì¾
-	 */
-	function getTmpdir()
-	{
-		return $this->controller->getDirectory('tmp');
-	}
+    /**
+     * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ†ãƒ³ãƒãƒ©ãƒªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’å–å¾—ã™ã‚‹
+     *
+     * @access public
+     * @return string ãƒ†ãƒ³ãƒãƒ©ãƒªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ‘ã‚¹å
+     */
+    function getTmpdir()
+    {
+        return $this->controller->getDirectory('tmp');
+    }
 
-	/**
-	 *	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¤Î¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ë³ÈÄ¥»Ò¤ò¼èÆÀ¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@return	string	¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ë¤Î³ÈÄ¥»Ò
-	 */
-	function getTemplateext()
-	{
-		return $this->controller->getExt('tpl');
-	}
+    /**
+     * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«æ‹¡å¼µå­ã‚’å–å¾—ã™ã‚‹
+     *
+     * @access public
+     * @return string ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®æ‹¡å¼µå­
+     */
+    function getTemplateext()
+    {
+        return $this->controller->getExt('tpl');
+    }
 
-	/**
-	 *	¥Ğ¥Ã¥¯¥¨¥ó¥É½èÍı¤ò¼Â¹Ô¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	string	$action_name	¼Â¹Ô¤¹¤ë¥¢¥¯¥·¥ç¥ó¤ÎÌ¾¾Î
-	 *	@return	mixed	(string):ForwardÌ¾(null¤Ê¤éforward¤·¤Ê¤¤) Ethna_Error:¥¨¥é¡¼
-	 */
-	function perform($action_name)
-	{
-		$forward_name = null;
+    /**
+     * ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹
+     *
+     * @access public
+     * @param string $action_name å®Ÿè¡Œã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã®åç§°
+     * @return mixed (string):Forwardå(nullãªã‚‰forwardã—ãªã„) Ethna_Error:ã‚¨ãƒ©ãƒ¼
+     */
+    function perform($action_name)
+    {
+        $forward_name = null;
 
-		$action_class_name = $this->controller->getActionClassName($action_name);
-		$this->action_class = new $action_class_name($this);
-		$this->ac = $this->action_class;
+        $action_class_name = $this->controller->getActionClassName($action_name);
+        $this->action_class = new $action_class_name($this);
+        $this->ac = $this->action_class;
 
-		// ¥¢¥¯¥·¥ç¥ó¤Î¼Â¹Ô
-		$forward_name = $this->ac->authenticate();
-		if ($forward_name === false) {
-			return null;
-		} else if ($forward_name !== null) {
-			return $forward_name;
-		}
+        // ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã®å®Ÿè¡Œ
+        $forward_name = $this->ac->authenticate();
+        if ($forward_name === false) {
+            return null;
+        } else if ($forward_name !== null) {
+            return $forward_name;
+        }
 
-		$forward_name = $this->ac->prepare();
-		if ($forward_name === false) {
-			return null;
-		} else if ($forward_name !== null) {
-			return $forward_name;
-		}
+        $forward_name = $this->ac->prepare();
+        if ($forward_name === false) {
+            return null;
+        } else if ($forward_name !== null) {
+            return $forward_name;
+        }
 
-		$forward_name = $this->ac->perform();
+        $forward_name = $this->ac->perform();
 
-		return $forward_name;
-	}
+        return $forward_name;
+    }
 }
 

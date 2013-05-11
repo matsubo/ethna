@@ -6,7 +6,7 @@
  */
 $config = array(
     // debug
-    'debug'	=> false,
+    'debug'    => false,
 
     // db
     // sample-1: single db

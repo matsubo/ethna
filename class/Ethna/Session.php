@@ -1,255 +1,255 @@
 <?php
 // vim: foldmethod=marker
 /**
- *	Ethna_Session.php
+ *    Ethna_Session.php
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@license	http://www.opensource.org/licenses/bsd-license.php The BSD License
- *	@package	Ethna
- *	@version	$Id$
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
+ *    @package    Ethna
+ *    @version    $Id$
  */
 
 // {{{ Ethna_Session
 /**
- *	¥»¥Ã¥·¥ç¥ó¥¯¥é¥¹
+ *    ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@access		public
- *	@package	Ethna
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @access        public
+ *    @package    Ethna
  */
 class Ethna_Session
 {
-	/**#@+
-	 *	@access	private
-	 */
+    /**#@+
+     *    @access    private
+     */
 
-	/**	@var	string	¥»¥Ã¥·¥ç¥óÌ¾ */
-	var $session_name;
+    /**    @var    string    ã‚»ãƒƒã‚·ãƒ§ãƒ³å */
+    protected $session_name;
 
-	/**	@var	string	¥»¥Ã¥·¥ç¥ó¥Ç¡¼¥¿ÊÝÂ¸¥Ç¥£¥ì¥¯¥È¥ê */
-	var	$session_save_dir;
+    /**    @var    string    ã‚»ãƒƒã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ä¿å­˜ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª */
+    protected    $session_save_dir;
 
-	/**	@var	bool	¥»¥Ã¥·¥ç¥ó³«»Ï¥Õ¥é¥° */
-	var $session_start = false;
+    /**    @var    bool    ã‚»ãƒƒã‚·ãƒ§ãƒ³é–‹å§‹ãƒ•ãƒ©ã‚° */
+    protected $session_start = false;
 
-	/**	@var	bool	Æ¿Ì¾¥»¥Ã¥·¥ç¥ó¥Õ¥é¥° */
-	var $anonymous = false;
+    /**    @var    bool    åŒ¿åã‚»ãƒƒã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚° */
+    protected $anonymous = false;
 
-	/**#@-*/
+    /**#@-*/
 
-	/**
-	 *	Ethna_Session¥¯¥é¥¹¤Î¥³¥ó¥¹¥È¥é¥¯¥¿
-	 *
-	 *	@access	public
-	 *	@param	string	$appid		¥¢¥×¥ê¥±¡¼¥·¥ç¥óID(¥»¥Ã¥·¥ç¥óÌ¾¤È¤·¤Æ»ÈÍÑ)
-	 *	@param	string	$save_dir	¥»¥Ã¥·¥ç¥ó¥Ç¡¼¥¿¤òÊÝÂ¸¤¹¤ë¥Ç¥£¥ì¥¯¥È¥ê
-	 */
-	function Ethna_Session($appid, $save_dir)
-	{
-		$this->session_name = "${appid}SESSID";
-		$this->session_save_dir = $save_dir;
+    /**
+     *    Ethna_Sessionã‚¯ãƒ©ã‚¹ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     *
+     *    @access    public
+     *    @param    string    $appid        ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ID(ã‚»ãƒƒã‚·ãƒ§ãƒ³åã¨ã—ã¦ä½¿ç”¨)
+     *    @param    string    $save_dir    ã‚»ãƒƒã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+     */
+    function Ethna_Session($appid, $save_dir)
+    {
+        $this->session_name = "${appid}SESSID";
+        $this->session_save_dir = $save_dir;
 
-		if ($this->session_save_dir != "") {
-			session_save_path($this->session_save_dir);
-		}
+        if ($this->session_save_dir != "") {
+            session_save_path($this->session_save_dir);
+        }
 
-		session_name($this->session_name);
-		session_cache_limiter('private, must-revalidate');
+        session_name($this->session_name);
+        session_cache_limiter('private, must-revalidate');
 
-		$this->session_start = false;
-		if (isset($_SERVER['REQUEST_METHOD']) == false) {
-			return;
-		}
+        $this->session_start = false;
+        if (isset($_SERVER['REQUEST_METHOD']) == false) {
+            return;
+        }
 
-		if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') == 0) {
-			$http_vars =& $_POST;
-		} else {
-			$http_vars =& $_GET;
-		}
-		if (array_key_exists($this->session_name, $http_vars) && $http_vars[$this->session_name] != null) {
-			$_COOKIE[$this->session_name] = $http_vars[$this->session_name];
-		}
-	}
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') == 0) {
+            $http_vars = $_POST;
+        } else {
+            $http_vars = $_GET;
+        }
+        if (array_key_exists($this->session_name, $http_vars) && $http_vars[$this->session_name] != null) {
+            $_COOKIE[$this->session_name] = $http_vars[$this->session_name];
+        }
+    }
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥ó¤òÉüµ¢¤¹¤ë
-	 *
-	 *	@access	public
-	 */
-	function restore()
-	{
-		if (!empty($_COOKIE[$this->session_name]) || session_id() != "") {
-			session_start();
-			$this->session_start = true;
+    /**
+     *    ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’å¾©å¸°ã™ã‚‹
+     *
+     *    @access    public
+     */
+    function restore()
+    {
+        if (!empty($_COOKIE[$this->session_name]) || session_id() != "") {
+            session_start();
+            $this->session_start = true;
 
-			// check session
-			if ($this->isValid() == false) {
-				setcookie($this->session_name, "", 0, "/");
-				$this->session_start = false;
-			}
+            // check session
+            if ($this->isValid() == false) {
+                setcookie($this->session_name, "", 0, "/");
+                $this->session_start = false;
+            }
 
-			// check anonymous
-			if ($this->get('__anonymous__')) {
-				$this->anonymous = true;
-			}
-		}
-	}
+            // check anonymous
+            if ($this->get('__anonymous__')) {
+                $this->anonymous = true;
+            }
+        }
+    }
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥ó¤ÎÀµÅöÀ­¥Á¥§¥Ã¥¯
-	 *
-	 *	@access	public
-	 *	@return	bool	true:ÀµÅö¤Ê¥»¥Ã¥·¥ç¥ó false:ÉÔÅö¤Ê¥»¥Ã¥·¥ç¥ó
-	 */
-	function isValid()
-	{
-		if (!$this->session_start) {
-			if (!empty($_COOKIE[$this->session_name]) || session_id() != null) {
-				setcookie($this->session_name, "", 0, "/");
-			}
-			return false;
-		}
-		return true;
-	}
+    /**
+     *    ã‚»ãƒƒã‚·ãƒ§ãƒ³ã®æ­£å½“æ€§ãƒã‚§ãƒƒã‚¯
+     *
+     *    @access    public
+     *    @return    bool    true:æ­£å½“ãªã‚»ãƒƒã‚·ãƒ§ãƒ³ false:ä¸å½“ãªã‚»ãƒƒã‚·ãƒ§ãƒ³
+     */
+    function isValid()
+    {
+        if (!$this->session_start) {
+            if (!empty($_COOKIE[$this->session_name]) || session_id() != null) {
+                setcookie($this->session_name, "", 0, "/");
+            }
+            return false;
+        }
+        return true;
+    }
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥ó¤ò³«»Ï¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	int		$lifetime	¥»¥Ã¥·¥ç¥óÍ­¸ú´ü´Ö(ÉÃÃ±°Ì, 0¤Ê¤é¥»¥Ã¥·¥ç¥ó¥¯¥Ã¥­¡¼)
-	 *	@return	bool	true:Àµ¾ï½ªÎ» false:¥¨¥é¡¼
-	 */
-	function start($lifetime = 0, $anonymous = false)
-	{
-		if ($this->session_start) {
-			// we need this?
-			$_SESSION['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
-			$_SESSION['__anonymous__'] = $anonymous;
-			return true;
-		}
+    /**
+     *    ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’é–‹å§‹ã™ã‚‹
+     *
+     *    @access    public
+     *    @param    int        $lifetime    ã‚»ãƒƒã‚·ãƒ§ãƒ³æœ‰åŠ¹æœŸé–“(ç§’å˜ä½, 0ãªã‚‰ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚¯ãƒƒã‚­ãƒ¼)
+     *    @return    bool    true:æ­£å¸¸çµ‚äº† false:ã‚¨ãƒ©ãƒ¼
+     */
+    function start($lifetime = 0, $anonymous = false)
+    {
+        if ($this->session_start) {
+            // we need this?
+            $_SESSION['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
+            $_SESSION['__anonymous__'] = $anonymous;
+            return true;
+        }
 
-		if (is_null($lifetime)) {
-			ini_set('session.use_cookies', 0);
-		} else {
-			ini_set('session.use_cookies', 1);
-		}
+        if (is_null($lifetime)) {
+            ini_set('session.use_cookies', 0);
+        } else {
+            ini_set('session.use_cookies', 1);
+        }
 
-		session_set_cookie_params($lifetime);
-		session_id(Ethna_Util::getRandom());
-		session_start();
-		$_SESSION['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
-		$_SESSION['__anonymous__'] = $anonymous;
-		$this->session_start = true;
+        session_set_cookie_params($lifetime);
+        session_id(Ethna_Util::getRandom());
+        session_start();
+        $_SESSION['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
+        $_SESSION['__anonymous__'] = $anonymous;
+        $this->session_start = true;
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥ó¤òÇË´þ¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@return	bool	true:Àµ¾ï½ªÎ» false:¥¨¥é¡¼
-	 */
-	function destroy()
-	{
-		if (!$this->session_start) {
-			return true;
-		}
-		
-		session_destroy();
-		$this->session_start = false;
-		setcookie($this->session_name, "", 0, "/");
+    /**
+     *    ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’ç ´æ£„ã™ã‚‹
+     *
+     *    @access    public
+     *    @return    bool    true:æ­£å¸¸çµ‚äº† false:ã‚¨ãƒ©ãƒ¼
+     */
+    function destroy()
+    {
+        if (!$this->session_start) {
+            return true;
+        }
 
-		return true;
-	}
+        session_destroy();
+        $this->session_start = false;
+        setcookie($this->session_name, "", 0, "/");
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥óÃÍ¤Ø¤Î¥¢¥¯¥»¥µ(R)
-	 *
-	 *	@access	public
-	 *	@param	string	$name	¥­¡¼
-	 *	@return	mixed	¼èÆÀ¤·¤¿ÃÍ(null:¥»¥Ã¥·¥ç¥ó¤¬³«»Ï¤µ¤ì¤Æ¤¤¤Ê¤¤)
-	 */
-	function get($name)
-	{
-		if (!$this->session_start) {
-			return null;
-		}
+        return true;
+    }
 
-		if (!isset($_SESSION[$name])) {
-			return null;
-		}
-		return $_SESSION[$name];
-	}
+    /**
+     *    ã‚»ãƒƒã‚·ãƒ§ãƒ³å€¤ã¸ã®ã‚¢ã‚¯ã‚»ã‚µ(R)
+     *
+     *    @access    public
+     *    @param    string    $name    ã‚­ãƒ¼
+     *    @return    mixed    å–å¾—ã—ãŸå€¤(null:ã‚»ãƒƒã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã•ã‚Œã¦ã„ãªã„)
+     */
+    function get($name)
+    {
+        if (!$this->session_start) {
+            return null;
+        }
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥óÃÍ¤Ø¤Î¥¢¥¯¥»¥µ(W)
-	 *
-	 *	@access	public
-	 *	@param	string	$name	¥­¡¼
-	 *	@param	string	$value	ÃÍ
-	 *	@return	bool	true:Àµ¾ï½ªÎ» false:¥¨¥é¡¼(¥»¥Ã¥·¥ç¥ó¤¬³«»Ï¤µ¤ì¤Æ¤¤¤Ê¤¤)
-	 */
-	function set($name, $value)
-	{
-		if (!$this->session_start) {
-			// no way
-			return false;
-		}
+        if (!isset($_SESSION[$name])) {
+            return null;
+        }
+        return $_SESSION[$name];
+    }
 
-		$_SESSION[$name] = $value;
+    /**
+     *    ã‚»ãƒƒã‚·ãƒ§ãƒ³å€¤ã¸ã®ã‚¢ã‚¯ã‚»ã‚µ(W)
+     *
+     *    @access    public
+     *    @param    string    $name    ã‚­ãƒ¼
+     *    @param    string    $value    å€¤
+     *    @return    bool    true:æ­£å¸¸çµ‚äº† false:ã‚¨ãƒ©ãƒ¼(ã‚»ãƒƒã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã•ã‚Œã¦ã„ãªã„)
+     */
+    function set($name, $value)
+    {
+        if (!$this->session_start) {
+            // no way
+            return false;
+        }
 
-		return true;
-	}
+        $_SESSION[$name] = $value;
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥ó¤ÎÃÍ¤òÇË´þ¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	string	$name	¥­¡¼
-	 *	@return	bool	true:Àµ¾ï½ªÎ» false:¥¨¥é¡¼(¥»¥Ã¥·¥ç¥ó¤¬³«»Ï¤µ¤ì¤Æ¤¤¤Ê¤¤)
-	 */
-	function remove($name)
-	{
-		if (!$this->session_start) {
-			return false;
-		}
+        return true;
+    }
 
-		unset($_SESSION[$name]);
+    /**
+     *    ã‚»ãƒƒã‚·ãƒ§ãƒ³ã®å€¤ã‚’ç ´æ£„ã™ã‚‹
+     *
+     *    @access    public
+     *    @param    string    $name    ã‚­ãƒ¼
+     *    @return    bool    true:æ­£å¸¸çµ‚äº† false:ã‚¨ãƒ©ãƒ¼(ã‚»ãƒƒã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã•ã‚Œã¦ã„ãªã„)
+     */
+    function remove($name)
+    {
+        if (!$this->session_start) {
+            return false;
+        }
 
-		return true;
-	}
+        unset($_SESSION[$name]);
 
-	/**
-	 *	¥»¥Ã¥·¥ç¥ó¤¬³«»Ï¤µ¤ì¤Æ¤¤¤ë¤«¤É¤¦¤«¤òÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@param	string	$anonymous	Æ¿Ì¾¥»¥Ã¥·¥ç¥ó¤ò¡Ö³«»Ï¡×¤È¤ß¤Ê¤¹¤«¤É¤¦¤«(default: false)
-	 *	@return	bool	true:³«»ÏºÑ¤ß false:³«»Ï¤µ¤ì¤Æ¤¤¤Ê¤¤
-	 */
-	function isStart($anonymous = false)
-	{
-		if ($anonymous) {
-			return $this->session_start;
-		} else {
-			if ($this->session_start && $this->isAnonymous() != true) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
+        return true;
+    }
 
-	/**
-	 *	Æ¿Ì¾¥»¥Ã¥·¥ç¥ó¤«¤É¤¦¤«¤òÊÖ¤¹
-	 *
-	 *	@access	public
-	 *	@return	bool	true:Æ¿Ì¾¥»¥Ã¥·¥ç¥ó false:ÈóÆ¿Ì¾¥»¥Ã¥·¥ç¥ó/¥»¥Ã¥·¥ç¥ó³«»Ï¤µ¤ì¤Æ¤¤¤Ê¤¤
-	 */
-	function isAnonymous()
-	{
-		return $this->anonymous;
-	}
+    /**
+     *    ã‚»ãƒƒã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’è¿”ã™
+     *
+     *    @access    public
+     *    @param    string    $anonymous    åŒ¿åã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’ã€Œé–‹å§‹ã€ã¨ã¿ãªã™ã‹ã©ã†ã‹(default: false)
+     *    @return    bool    true:é–‹å§‹æ¸ˆã¿ false:é–‹å§‹ã•ã‚Œã¦ã„ãªã„
+     */
+    function isStart($anonymous = false)
+    {
+        if ($anonymous) {
+            return $this->session_start;
+        } else {
+            if ($this->session_start && $this->isAnonymous() != true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /**
+     *    åŒ¿åã‚»ãƒƒã‚·ãƒ§ãƒ³ã‹ã©ã†ã‹ã‚’è¿”ã™
+     *
+     *    @access    public
+     *    @return    bool    true:åŒ¿åã‚»ãƒƒã‚·ãƒ§ãƒ³ false:éžåŒ¿åã‚»ãƒƒã‚·ãƒ§ãƒ³/ã‚»ãƒƒã‚·ãƒ§ãƒ³é–‹å§‹ã•ã‚Œã¦ã„ãªã„
+     */
+    function isAnonymous()
+    {
+        return $this->anonymous;
+    }
 }
 // }}}
 

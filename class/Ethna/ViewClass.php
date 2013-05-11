@@ -11,7 +11,7 @@
 
 // {{{ Ethna_ViewClass
 /**
- *    view¥¯¥é¥¹
+ *    viewã‚¯ãƒ©ã‚¹
  *
  *    @author        Masaki Fujimoto <fujimoto@php.net>
  *    @access        public
@@ -23,45 +23,45 @@ class Ethna_ViewClass
      *    @access    private
      */
 
-    /**    @var    object    Ethna_Backend        backend¥ª¥Ö¥¸¥§¥¯¥È */
-    var $backend;
+    /**    @var    object    Ethna_Backend        backendã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $backend;
 
-    /**    @var    object    Ethna_Config        ÀßÄê¥ª¥Ö¥¸¥§¥¯¥È    */
-    var $config;
+    /**    @var    object    Ethna_Config        è¨­å®šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ    */
+    protected $config;
 
-    /**    @var    object    Ethna_ActionError    ¥¢¥¯¥·¥ç¥ó¥¨¥é¡¼¥ª¥Ö¥¸¥§¥¯¥È */
-    var $action_error;
+    /**    @var    object    Ethna_ActionError    ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $action_error;
 
-    /**    @var    object    Ethna_ActionError    ¥¢¥¯¥·¥ç¥ó¥¨¥é¡¼¥ª¥Ö¥¸¥§¥¯¥È(¾ÊÎ¬·Á) */
-    var $ae;
+    /**    @var    object    Ethna_ActionError    ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚¨ãƒ©ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(çœç•¥å½¢) */
+    protected $ae;
 
-    /**    @var    object    Ethna_ActionForm    ¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È */
-    var $action_form;
+    /**    @var    object    Ethna_ActionForm    ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $action_form;
 
-    /**    @var    object    Ethna_ActionForm    ¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È(¾ÊÎ¬·Á) */
-    var $af;
+    /**    @var    object    Ethna_ActionForm    ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(çœç•¥å½¢) */
+    protected $af;
 
-    /**    @var    array   ¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È(helper) */
-    var $helper_action_form = array();
+    /**    @var    array   ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(helper) */
+    protected $helper_action_form = array();
 
-    /**    @var    object    Ethna_Session        ¥»¥Ã¥·¥ç¥ó¥ª¥Ö¥¸¥§¥¯¥È */
-    var $session;
+    /**    @var    object    Ethna_Session        ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    protected $session;
 
-    /**    @var    string    Á«°ÜÌ¾ */
-    var $forward_name;
+    /**    @var    string    é·ç§»å */
+    protected $forward_name;
 
-    /**    @var    string    Á«°ÜÀè¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ëÌ¾ */
-    var $forward_path;
+    /**    @var    string    é·ç§»å…ˆãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«å */
+    protected $forward_path;
 
     /**#@-*/
 
     /**
-     *    Ethna_ViewClass¤Î¥³¥ó¥¹¥È¥é¥¯¥¿
+     *    Ethna_ViewClassã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
      *
      *    @access    public
-     *    @param    object    Ethna_Backend    $backend    backend¥ª¥Ö¥¸¥§¥¯¥È
-     *    @param    string    $forward_name    ¥Ó¥å¡¼¤Ë´ØÏ¢ÉÕ¤±¤é¤ì¤Æ¤¤¤ëÁ«°ÜÌ¾
-     *    @param    string    $forward_path    ¥Ó¥å¡¼¤Ë´ØÏ¢ÉÕ¤±¤é¤ì¤Æ¤¤¤ë¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ëÌ¾
+     *    @param    object    Ethna_Backend    $backend    backendã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     *    @param    string    $forward_name    ãƒ“ãƒ¥ãƒ¼ã«é–¢é€£ä»˜ã‘ã‚‰ã‚Œã¦ã„ã‚‹é·ç§»å
+     *    @param    string    $forward_path    ãƒ“ãƒ¥ãƒ¼ã«é–¢é€£ä»˜ã‘ã‚‰ã‚Œã¦ã„ã‚‹ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«å
      */
     public function __construct(&$backend, $forward_name, $forward_path)
     {
@@ -77,7 +77,7 @@ class Ethna_ViewClass
 
         $this->session = $this->backend->getSession();
 
-        // Ethna_AppManager¥ª¥Ö¥¸¥§¥¯¥È¤ÎÀßÄê
+        // Ethna_AppManagerã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¨­å®š
         $manager_list = $c->getManagerList();
         foreach ($manager_list as $k => $v) {
             $this->$k = $backend->getManager($v);
@@ -95,10 +95,10 @@ class Ethna_ViewClass
     }
 
     /**
-     *    ²èÌÌÉ½¼¨Á°½èÍı
+     *    ç”»é¢è¡¨ç¤ºå‰å‡¦ç†
      *
-     *    ¥Æ¥ó¥×¥ì¡¼¥È¤ËÀßÄê¤¹¤ëÃÍ¤Ç¥³¥ó¥Æ¥­¥¹¥È¤Ë°ÍÂ¸¤·¤Ê¤¤¤â¤Î¤Ï
-     *    ¤³¤³¤ÇÀßÄê¤¹¤ë(Îã:¥»¥ì¥¯¥È¥Ü¥Ã¥¯¥¹Åù)
+     *    ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«è¨­å®šã™ã‚‹å€¤ã§ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã«ä¾å­˜ã—ãªã„ã‚‚ã®ã¯
+     *    ã“ã“ã§è¨­å®šã™ã‚‹(ä¾‹:ã‚»ãƒ¬ã‚¯ãƒˆãƒœãƒƒã‚¯ã‚¹ç­‰)
      *
      *    @access    public
      */
@@ -107,10 +107,10 @@ class Ethna_ViewClass
     }
 
     /**
-     *    Á«°ÜÌ¾¤ËÂĞ±ş¤¹¤ë²èÌÌ¤ò½ĞÎÏ¤¹¤ë
+     *    é·ç§»åã«å¯¾å¿œã™ã‚‹ç”»é¢ã‚’å‡ºåŠ›ã™ã‚‹
      *
-     *    ÆÃ¼ì¤Ê²èÌÌ¤òÉ½¼¨¤¹¤ë¾ì¹ç¤ò½ü¤¤¤ÆÆÃ¤Ë¥ª¡¼¥Ğ¡¼¥é¥¤¥É¤¹¤ëÉ¬Í×¤ÏÌµ¤¤
-     *    (preforward()¤Î¤ß¥ª¡¼¥Ğ¡¼¥é¥¤¥É¤¹¤ì¤ĞÎÉ¤¤)
+     *    ç‰¹æ®Šãªç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹å ´åˆã‚’é™¤ã„ã¦ç‰¹ã«ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹å¿…è¦ã¯ç„¡ã„
+     *    (preforward()ã®ã¿ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚Œã°è‰¯ã„)
      *
      *    @access    public
      */
@@ -122,7 +122,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  helper¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È¤òÀßÄê¤¹¤ë
+     *  helperã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®šã™ã‚‹
      *
      *  @access public
      */
@@ -135,7 +135,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  helper¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È¤òºï½ü¤¹¤ë
+     *  helperã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤ã™ã‚‹
      *
      *  @access public
      */
@@ -145,7 +145,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  »ØÄê¤µ¤ì¤¿¥Õ¥©¡¼¥à¹àÌÜ¤ËÂĞ±ş¤¹¤ë¥Õ¥©¡¼¥àÌ¾(w/ ¥ì¥ó¥À¥ê¥ó¥°)¤ò¼èÆÀ¤¹¤ë
+     *  æŒ‡å®šã•ã‚ŒãŸãƒ•ã‚©ãƒ¼ãƒ é …ç›®ã«å¯¾å¿œã™ã‚‹ãƒ•ã‚©ãƒ¼ãƒ å(w/ ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°)ã‚’å–å¾—ã™ã‚‹
      *
      *  @access public
      */
@@ -163,12 +163,12 @@ class Ethna_ViewClass
     }
 
     /**
-     *  »ØÄê¤µ¤ì¤¿¥Õ¥©¡¼¥à¹àÌÜ¤ËÂĞ±ş¤¹¤ë¥Õ¥©¡¼¥à¥¿¥°¤ò¼èÆÀ¤¹¤ë
+     *  æŒ‡å®šã•ã‚ŒãŸãƒ•ã‚©ãƒ¼ãƒ é …ç›®ã«å¯¾å¿œã™ã‚‹ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹
      *
-     *  experimental(¤È¤¤¤¦¤«¤È¤ê¤¢¤¨¤º-ºÙ¤«¤¤¼ÂÁõ¤ÏÊÌ¥¯¥é¥¹¤Ë¹Ô¤­¤½¤¦¤Ç¤¹)
+     *  experimental(ã¨ã„ã†ã‹ã¨ã‚Šã‚ãˆãš-ç´°ã‹ã„å®Ÿè£…ã¯åˆ¥ã‚¯ãƒ©ã‚¹ã«è¡Œããã†ã§ã™)
      *
      *  @access public
-     *  @todo   form_type³Æ¼ïÂĞ±ş/JavaScriptÂĞ±ş...
+     *  @todo   form_typeå„ç¨®å¯¾å¿œ/JavaScriptå¯¾å¿œ...
      */
     function getFormInput($name, $params)
     {
@@ -180,7 +180,7 @@ class Ethna_ViewClass
         if (isset($def['form_type']) == false) {
             $def['form_type'] = Ethna_Const::FORM_TYPE_TEXT;
         }
-        
+
         switch ($def['form_type']) {
         case Ethna_Const::FORM_TYPE_BUTTON:
             $input = $this->_getFormInput_Button($name, $def, $params);
@@ -219,7 +219,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥¢¥¯¥·¥ç¥ó¥Õ¥©¡¼¥à¥ª¥Ö¥¸¥§¥¯¥È(helper)¤òÀ¸À®¤¹¤ë
+     *  ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(helper)ã‚’ç”Ÿæˆã™ã‚‹
      *
      *  @access protected
      */
@@ -238,7 +238,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥Õ¥©¡¼¥à¹àÌÜ¤ËÂĞ±ş¤¹¤ë¥Õ¥©¡¼¥àÄêµÁ¤ò¼èÆÀ¤¹¤ë
+     *  ãƒ•ã‚©ãƒ¼ãƒ é …ç›®ã«å¯¾å¿œã™ã‚‹ãƒ•ã‚©ãƒ¼ãƒ å®šç¾©ã‚’å–å¾—ã™ã‚‹
      *
      *  @access protected
      */
@@ -260,7 +260,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥Õ¥©¡¼¥à¥¿¥°¤ò¼èÆÀ¤¹¤ë(type="button")
+     *  ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹(type="button")
      *
      *  @access protected
      */
@@ -274,7 +274,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥Õ¥©¡¼¥à¥¿¥°¤ò¼èÆÀ¤¹¤ë(type="file")
+     *  ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹(type="file")
      *
      *  @access protected
      */
@@ -289,7 +289,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥Õ¥©¡¼¥à¥¿¥°¤ò¼èÆÀ¤¹¤ë(type="hidden")
+     *  ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹(type="hidden")
      *
      *  @access protected
      */
@@ -304,7 +304,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥Õ¥©¡¼¥à¥¿¥°¤ò¼èÆÀ¤¹¤ë(type="password")
+     *  ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹(type="password")
      *
      *  @access protected
      */
@@ -319,7 +319,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥Õ¥©¡¼¥à¥¿¥°¤ò¼èÆÀ¤¹¤ë(type="submit")
+     *  ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹(type="submit")
      *
      *  @access protected
      */
@@ -333,7 +333,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥Õ¥©¡¼¥à¥¿¥°¤ò¼èÆÀ¤¹¤ë(textarea)
+     *  ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹(textarea)
      *
      *  @access protected
      */
@@ -346,7 +346,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  ¥Õ¥©¡¼¥à¥¿¥°¤ò¼èÆÀ¤¹¤ë(type="text")
+     *  ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹(type="text")
      *
      *  @access protected
      */
@@ -364,7 +364,7 @@ class Ethna_ViewClass
     }
 
     /**
-     *  HTML¥¿¥°¤ò¼èÆÀ¤¹¤ë
+     *  HTMLã‚¿ã‚°ã‚’å–å¾—ã™ã‚‹
      *
      *  @access protected
      */
@@ -394,10 +394,10 @@ class Ethna_ViewClass
     }
 
     /**
-     *    Smarty¥ª¥Ö¥¸¥§¥¯¥È¤ò¼èÆÀ¤¹¤ë
+     *    Smartyã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã™ã‚‹
      *
      *    @access    protected
-     *    @return    object    Smarty    Smarty¥ª¥Ö¥¸¥§¥¯¥È
+     *    @return    object    Smarty    Smartyã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     function &_getTemplateEngine()
     {
@@ -423,10 +423,10 @@ class Ethna_ViewClass
     }
 
     /**
-     *    ¶¦ÄÌÃÍ¤òÀßÄê¤¹¤ë
+     *    å…±é€šå€¤ã‚’è¨­å®šã™ã‚‹
      *
      *    @access    protected
-     *    @param    object    Smarty    Smarty¥ª¥Ö¥¸¥§¥¯¥È
+     *    @param    object    Smarty    Smartyã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     function _setDefault(&$smarty)
     {

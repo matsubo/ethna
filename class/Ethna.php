@@ -1,12 +1,12 @@
 <?php
 // vim: foldmethod=marker
 /**
- *	Ethna.php
+ *    Ethna.php
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@license	http://www.opensource.org/licenses/bsd-license.php The BSD License
- *	@package	Ethna
- *	@version	$Id$
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
+ *    @package    Ethna
+ *    @version    $Id$
  */
 
 /** Ethna depends on PEAR */
@@ -15,128 +15,128 @@ include_once('PEAR.php');
 /** Ethna (*currently*) depends on Smarty */
 include_once('Smarty/Smarty.class.php');
 
-/** Ethna¥Ù¡¼¥¹¥Ç¥£¥ì¥¯¥È¥êÄêµÁ */
+/** Ethnaãƒ™ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå®šç¾© */
 define('ETHNA_BASE',  dirname(__FILE__));
 
 
-/** Ethna¥°¥í¡¼¥Ğ¥ëÊÑ¿ô: ¥¨¥é¡¼¥³¡¼¥ë¥Ğ¥Ã¥¯´Ø¿ô */
+/** Ethnaã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°: ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•° */
 $GLOBALS['_Ethna_error_callback_list'] = array();
 
-/** Ethna¥°¥í¡¼¥Ğ¥ëÊÑ¿ô: ¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸ */
+/** Ethnaã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°: ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ */
 $GLOBALS['_Ethna_error_message_list'] = array();
 
 
 // {{{ Ethna
 /**
- *	Ethna¥Õ¥ì¡¼¥à¥ï¡¼¥¯¥¯¥é¥¹
+ *    Ethnaãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã‚¯ãƒ©ã‚¹
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@access		public
- *	@package	Ethna
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @access        public
+ *    @package    Ethna
  */
 class Ethna extends PEAR
 {
-	/**#@+
-	 *	@access	private
-	 */
+    /**#@+
+     *    @access    private
+     */
 
-	/**#@-*/
+    /**#@-*/
 
-	/**
-	 *	Ethna_Error¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤¹¤ë(¥¨¥é¡¼¥ì¥Ù¥ë:E_USER_ERROR)
-	 *
-	 *	@access	public
-	 *	@param	string	$message			¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸
-	 *	@param	int		$code				¥¨¥é¡¼¥³¡¼¥É
-	 *	@static
-	 */
-	function &raiseError($message, $code = Ethna_Const::E_GENERAL)
-	{
-		$userinfo = null;
-		if (func_num_args() > 2) {
-			$userinfo = array_slice(func_get_args(), 2);
-			if (count($userinfo) == 1 && is_array($userinfo[0])) {
-				$userinfo = $userinfo[0];
-			}
-		}
-		return PEAR::raiseError($message, $code, PEAR_ERROR_RETURN, E_USER_ERROR, $userinfo, 'Ethna_Error');
-	}
+    /**
+     *    Ethna_Errorã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹(ã‚¨ãƒ©ãƒ¼ãƒ¬ãƒ™ãƒ«:E_USER_ERROR)
+     *
+     *    @access    public
+     *    @param    string    $message            ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+     *    @param    int        $code                ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰
+     *    @static
+     */
+    function &raiseError($message, $code = Ethna_Const::E_GENERAL)
+    {
+        $userinfo = null;
+        if (func_num_args() > 2) {
+            $userinfo = array_slice(func_get_args(), 2);
+            if (count($userinfo) == 1 && is_array($userinfo[0])) {
+                $userinfo = $userinfo[0];
+            }
+        }
+        return PEAR::raiseError($message, $code, PEAR_ERROR_RETURN, E_USER_ERROR, $userinfo, 'Ethna_Error');
+    }
 
-	/**
-	 *	Ethna_Error¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤¹¤ë(¥¨¥é¡¼¥ì¥Ù¥ë:E_USER_WARNING)
-	 *
-	 *	@access	public
-	 *	@param	string	$message			¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸
-	 *	@param	int		$code				¥¨¥é¡¼¥³¡¼¥É
-	 *	@static
-	 */
-	function &raiseWarning($message, $code = Ethna_Const::E_GENERAL)
-	{
-		$userinfo = null;
-		if (func_num_args() > 2) {
-			$userinfo = array_slice(func_get_args(), 2);
-			if (count($userinfo) == 1 && is_array($userinfo[0])) {
-				$userinfo = $userinfo[0];
-			}
-		}
-		return PEAR::raiseError($message, $code, PEAR_ERROR_RETURN, E_USER_WARNING, $userinfo, 'Ethna_Error');
-	}
+    /**
+     *    Ethna_Errorã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹(ã‚¨ãƒ©ãƒ¼ãƒ¬ãƒ™ãƒ«:E_USER_WARNING)
+     *
+     *    @access    public
+     *    @param    string    $message            ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+     *    @param    int        $code                ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰
+     *    @static
+     */
+    function &raiseWarning($message, $code = Ethna_Const::E_GENERAL)
+    {
+        $userinfo = null;
+        if (func_num_args() > 2) {
+            $userinfo = array_slice(func_get_args(), 2);
+            if (count($userinfo) == 1 && is_array($userinfo[0])) {
+                $userinfo = $userinfo[0];
+            }
+        }
+        return PEAR::raiseError($message, $code, PEAR_ERROR_RETURN, E_USER_WARNING, $userinfo, 'Ethna_Error');
+    }
 
-	/**
-	 *	Ethna_Error¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤¹¤ë(¥¨¥é¡¼¥ì¥Ù¥ë:E_USER_NOTICE)
-	 *
-	 *	@access	public
-	 *	@param	string	$message			¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸
-	 *	@param	int		$code				¥¨¥é¡¼¥³¡¼¥É
-	 *	@static
-	 */
-	function &raiseNotice($message, $code = Ethna_Const::E_GENERAL)
-	{
-		$userinfo = null;
-		if (func_num_args() > 2) {
-			$userinfo = array_slice(func_get_args(), 2);
-			if (count($userinfo) == 1 && is_array($userinfo[0])) {
-				$userinfo = $userinfo[0];
-			}
-		}
-		return PEAR::raiseError($message, $code, PEAR_ERROR_RETURN, E_USER_NOTICE, $userinfo, 'Ethna_Error');
-	}
+    /**
+     *    Ethna_Errorã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹(ã‚¨ãƒ©ãƒ¼ãƒ¬ãƒ™ãƒ«:E_USER_NOTICE)
+     *
+     *    @access    public
+     *    @param    string    $message            ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+     *    @param    int        $code                ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰
+     *    @static
+     */
+    function &raiseNotice($message, $code = Ethna_Const::E_GENERAL)
+    {
+        $userinfo = null;
+        if (func_num_args() > 2) {
+            $userinfo = array_slice(func_get_args(), 2);
+            if (count($userinfo) == 1 && is_array($userinfo[0])) {
+                $userinfo = $userinfo[0];
+            }
+        }
+        return PEAR::raiseError($message, $code, PEAR_ERROR_RETURN, E_USER_NOTICE, $userinfo, 'Ethna_Error');
+    }
 
-	/**
-	 *	¥¨¥é¡¼È¯À¸»ş¤Î(¥Õ¥ì¡¼¥à¥ï¡¼¥¯¤È¤·¤Æ¤Î)¥³¡¼¥ë¥Ğ¥Ã¥¯´Ø¿ô¤òÀßÄê¤¹¤ë
-	 *
-	 *	@access	public
-	 *	@param	mixed	string:¥³¡¼¥ë¥Ğ¥Ã¥¯´Ø¿ôÌ¾ array:¥³¡¼¥ë¥Ğ¥Ã¥¯¥¯¥é¥¹(Ì¾|¥ª¥Ö¥¸¥§¥¯¥È)+¥á¥½¥Ã¥ÉÌ¾
-	 *	@static
-	 */
-	function setErrorCallback($callback)
-	{
-		$GLOBALS['_Ethna_error_callback_list'][] = $callback;
-	}
+    /**
+     *    ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿæ™‚ã®(ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã¨ã—ã¦ã®)ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°ã‚’è¨­å®šã™ã‚‹
+     *
+     *    @access    public
+     *    @param    mixed    string:ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°å array:ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚¯ãƒ©ã‚¹(å|ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ)+ãƒ¡ã‚½ãƒƒãƒ‰å
+     *    @static
+     */
+    function setErrorCallback($callback)
+    {
+        $GLOBALS['_Ethna_error_callback_list'][] = $callback;
+    }
 
-	/**
-	 *	¥¨¥é¡¼È¯À¸»ş¤Î½èÍı¤ò¹Ô¤¦(¥³¡¼¥ë¥Ğ¥Ã¥¯´Ø¿ô/¥á¥½¥Ã¥É¤ò¸Æ¤Ó½Ğ¤¹)
-	 *	
-	 *	@access	public
-	 *	@param	object	Ethna_Error		Ethna_Error¥ª¥Ö¥¸¥§¥¯¥È
-	 *	@static
-	 */
-	function handleError(&$error)
-	{
-		for ($i = 0; $i < count($GLOBALS['_Ethna_error_callback_list']); $i++) {
-			$callback =& $GLOBALS['_Ethna_error_callback_list'][$i];
-			if (is_array($callback) == false) {
-				call_user_func($callback, $error);
-			} else if (is_object($callback[0])) {
-				$object =& $callback[0];
-				$method = $callback[1];
+    /**
+     *    ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿæ™‚ã®å‡¦ç†ã‚’è¡Œã†(ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°/ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã™)
+     *    
+     *    @access    public
+     *    @param    object    Ethna_Error        Ethna_Errorã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     *    @static
+     */
+    function handleError(&$error)
+    {
+        for ($i = 0; $i < count($GLOBALS['_Ethna_error_callback_list']); $i++) {
+            $callback = $GLOBALS['_Ethna_error_callback_list'][$i];
+            if (is_array($callback) == false) {
+                call_user_func($callback, $error);
+            } else if (is_object($callback[0])) {
+                $object = $callback[0];
+                $method = $callback[1];
 
-				// perform some more checks?
-				$object->$method($error);
-			} else {
-				call_user_func($callback, $error);
-			}
-		}
-	}
+                // perform some more checks?
+                $object->$method($error);
+            } else {
+                call_user_func($callback, $error);
+            }
+        }
+    }
 }
 // }}}

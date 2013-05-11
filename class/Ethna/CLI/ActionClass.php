@@ -1,35 +1,35 @@
 <?php
 // vim: foldmethod=marker
 /**
- *	action_class.php
+ *    action_class.php
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@license	http://www.opensource.org/licenses/bsd-license.php The BSD License
- *	@package	Ethna
- *	@version	$Id$
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
+ *    @package    Ethna
+ *    @version    $Id$
  */
 
 // {{{ Ethna_CLI_ActionClass
 /**
- *	•≥•ﬁ•Û•…•È•§•Ûactionº¬π‘•Ø•È•π
+ *    „Ç≥„Éû„É≥„Éâ„É©„Ç§„É≥actionÂÆüË°å„ÇØ„É©„Çπ
  *
- *	@author		Masaki Fujimoto <fujimoto@php.net>
- *	@access		public
- *	@package	Ethna
+ *    @author        Masaki Fujimoto <fujimoto@php.net>
+ *    @access        public
+ *    @package    Ethna
  */
 class Ethna_CLI_ActionClass extends Ethna_ActionClass
 {
-	/**
-	 *	actionΩËÕ˝
-	 *
-	 *	@access	public
-	 */
-	function Perform()
-	{
-		parent::Perform();
-		$_SERVER['REMOTE_ADDR'] = "0.0.0.0";
-		$_SERVER['HTTP_USER_AGENT'] = "";
-	}
+    /**
+     *    actionÂá¶ÁêÜ
+     *
+     *    @access    public
+     */
+    function Perform()
+    {
+        parent::Perform();
+        $_SERVER['REMOTE_ADDR'] = "0.0.0.0";
+        $_SERVER['HTTP_USER_AGENT'] = "";
+    }
 }
 // }}}
 
