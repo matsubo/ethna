@@ -26,7 +26,6 @@ $GLOBALS['_Ethna_error_callback_list'] = array();
 $GLOBALS['_Ethna_error_message_list'] = array();
 
 
-// {{{ Ethna
 /**
  *    Ethnaフレームワーククラス
  *
@@ -139,4 +138,3 @@ class Ethna extends PEAR
         }
     }
 }
-// }}}

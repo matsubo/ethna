@@ -1,67 +1,66 @@
 <?php
 // vim: foldmethod=marker
 /**
- *    Ethna_ViewClass.php
+ * Ethna_ViewClass.php
  *
- *    @author        Masaki Fujimoto <fujimoto@php.net>
- *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
- *    @package    Ethna
- *    @version    $Id$
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @package Ethna
+ * @version $Id$
  */
 
-// {{{ Ethna_ViewClass
 /**
- *    viewクラス
+ * viewクラス
  *
- *    @author        Masaki Fujimoto <fujimoto@php.net>
- *    @access        public
- *    @package    Ethna
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @access public
+ * @package Ethna
  */
-class Ethna_ViewClass
+abstract class Ethna_ViewClass
 {
     /**#@+
-     *    @access    private
+     * @access private
      */
 
-    /**    @var    object    Ethna_Backend        backendオブジェクト */
+    /** @var object Ethna_Backend backendオブジェクト */
     protected $backend;
 
-    /**    @var    object    Ethna_Config        設定オブジェクト    */
+    /** @var object Ethna_Config 設定オブジェクト */
     protected $config;
 
-    /**    @var    object    Ethna_ActionError    アクションエラーオブジェクト */
+    /** @var object Ethna_ActionError アクションエラーオブジェクト */
     protected $action_error;
 
-    /**    @var    object    Ethna_ActionError    アクションエラーオブジェクト(省略形) */
+    /** @var object Ethna_ActionError アクションエラーオブジェクト(省略形) */
     protected $ae;
 
-    /**    @var    object    Ethna_ActionForm    アクションフォームオブジェクト */
+    /** @var object Ethna_ActionForm アクションフォームオブジェクト */
     protected $action_form;
 
-    /**    @var    object    Ethna_ActionForm    アクションフォームオブジェクト(省略形) */
+    /** @var object Ethna_ActionForm アクションフォームオブジェクト(省略形) */
     protected $af;
 
-    /**    @var    array   アクションフォームオブジェクト(helper) */
+    /** @var array アクションフォームオブジェクト(helper) */
     protected $helper_action_form = array();
 
-    /**    @var    object    Ethna_Session        セッションオブジェクト */
+    /** @var object Ethna_Session セッションオブジェクト */
     protected $session;
 
-    /**    @var    string    遷移名 */
+    /** @var string 遷移名 */
     protected $forward_name;
 
-    /**    @var    string    遷移先テンプレートファイル名 */
+    /** @var string 遷移先テンプレートファイル名 */
     protected $forward_path;
 
     /**#@-*/
 
     /**
-     *    Ethna_ViewClassのコンストラクタ
+     * Ethna_ViewClassのコンストラクタ
      *
-     *    @access    public
-     *    @param    object    Ethna_Backend    $backend    backendオブジェクト
-     *    @param    string    $forward_name    ビューに関連付けられている遷移名
-     *    @param    string    $forward_path    ビューに関連付けられているテンプレートファイル名
+     * @access public
+     * @param object Ethna_Backend $backend backendオブジェクト
+     * @param string $forward_name ビューに関連付けられている遷移名
+     * @param string $forward_path ビューに関連付けられているテンプレートファイル名
      */
     public function __construct(&$backend, $forward_name, $forward_path)
     {
@@ -95,26 +94,26 @@ class Ethna_ViewClass
     }
 
     /**
-     *    画面表示前処理
+     * 画面表示前処理
      *
-     *    テンプレートに設定する値でコンテキストに依存しないものは
-     *    ここで設定する(例:セレクトボックス等)
+     * テンプレートに設定する値でコンテキストに依存しないものは
+     * ここで設定する(例:セレクトボックス等)
      *
-     *    @access    public
+     * @access public
      */
-    function preforward()
+    public function preforward()
     {
     }
 
     /**
-     *    遷移名に対応する画面を出力する
+     * 遷移名に対応する画面を出力する
      *
-     *    特殊な画面を表示する場合を除いて特にオーバーライドする必要は無い
-     *    (preforward()のみオーバーライドすれば良い)
+     * 特殊な画面を表示する場合を除いて特にオーバーライドする必要は無い
+     * (preforward()のみオーバーライドすれば良い)
      *
-     *    @access    public
+     * @access public
      */
-    function forward()
+    public function forward()
     {
         $smarty = $this->_getTemplateEngine();
         $this->_setDefault($smarty);
@@ -122,11 +121,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  helperアクションフォームオブジェクトを設定する
+     * helperアクションフォームオブジェクトを設定する
      *
-     *  @access public
+     * @access public
      */
-    function addActionFormHelper($action)
+    public function addActionFormHelper($action)
     {
         if (is_object($this->helper_action_form[$action])) {
             return;
@@ -135,21 +134,21 @@ class Ethna_ViewClass
     }
 
     /**
-     *  helperアクションフォームオブジェクトを削除する
+     * helperアクションフォームオブジェクトを削除する
      *
-     *  @access public
+     * @access public
      */
-    function clearActionFormHelper($action)
+    public function clearActionFormHelper($action)
     {
         unset($this->helper_action_form[$action]);
     }
 
     /**
-     *  指定されたフォーム項目に対応するフォーム名(w/ レンダリング)を取得する
+     * 指定されたフォーム項目に対応するフォーム名(w/ レンダリング)を取得する
      *
-     *  @access public
+     * @access public
      */
-    function getFormName($name, $params)
+    public function getFormName($name, $params)
     {
         $def = $this->_getHelperActionFormDef($name);
         $form_name = null;
@@ -163,14 +162,14 @@ class Ethna_ViewClass
     }
 
     /**
-     *  指定されたフォーム項目に対応するフォームタグを取得する
+     * 指定されたフォーム項目に対応するフォームタグを取得する
      *
-     *  experimental(というかとりあえず-細かい実装は別クラスに行きそうです)
+     * experimental(というかとりあえず-細かい実装は別クラスに行きそうです)
      *
-     *  @access public
-     *  @todo   form_type各種対応/JavaScript対応...
+     * @access public
+     * @todo form_type各種対応/JavaScript対応...
      */
-    function getFormInput($name, $params)
+    public function getFormInput($name, $params)
     {
         $def = $this->_getHelperActionFormDef($name);
         if (is_null($def)) {
@@ -219,11 +218,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  アクションフォームオブジェクト(helper)を生成する
+     * アクションフォームオブジェクト(helper)を生成する
      *
-     *  @access protected
+     * @access protected
      */
-    function &_getHelperActionForm($action)
+    protected function _getHelperActionForm($action)
     {
         $af = null;
         $ctl = Ethna_Controller::getInstance();
@@ -238,11 +237,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  フォーム項目に対応するフォーム定義を取得する
+     * フォーム項目に対応するフォーム定義を取得する
      *
-     *  @access protected
+     * @access protected
      */
-    function _getHelperActionFormDef($name)
+    protected function _getHelperActionFormDef($name)
     {
         $def = $this->af->getDef($name);
         if (is_null($def)) {
@@ -260,11 +259,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  フォームタグを取得する(type="button")
+     * フォームタグを取得する(type="button")
      *
-     *  @access protected
+     * @access protected
      */
-    function _getFormInput_Button($name, $def, $params)
+    protected function _getFormInput_Button($name, $def, $params)
     {
         $r = array();
         $r['type'] = "button";
@@ -274,11 +273,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  フォームタグを取得する(type="file")
+     * フォームタグを取得する(type="file")
      *
-     *  @access protected
+     * @access protected
      */
-    function _getFormInput_File($name, $def, $params)
+    protected function _getFormInput_File($name, $def, $params)
     {
         $r = array();
         $r['type'] = "file";
@@ -289,11 +288,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  フォームタグを取得する(type="hidden")
+     * フォームタグを取得する(type="hidden")
      *
-     *  @access protected
+     * @access protected
      */
-    function _getFormInput_Hidden($name, $def, $params)
+    protected function _getFormInput_Hidden($name, $def, $params)
     {
         $r = array();
         $r['type'] = "hidden";
@@ -304,11 +303,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  フォームタグを取得する(type="password")
+     * フォームタグを取得する(type="password")
      *
-     *  @access protected
+     * @access protected
      */
-    function _getFormInput_Password($name, $def, $params)
+    protected function _getFormInput_Password($name, $def, $params)
     {
         $r = array();
         $r['type'] = "password";
@@ -319,11 +318,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  フォームタグを取得する(type="submit")
+     * フォームタグを取得する(type="submit")
      *
-     *  @access protected
+     * @access protected
      */
-    function _getFormInput_Submit($name, $def, $params)
+    protected function _getFormInput_Submit($name, $def, $params)
     {
         $r = array();
         $r['type'] = "submit";
@@ -333,11 +332,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  フォームタグを取得する(textarea)
+     * フォームタグを取得する(textarea)
      *
-     *  @access protected
+     * @access protected
      */
-    function _getFormInput_Textarea($name, $def, $params)
+    protected function _getFormInput_Textarea($name, $def, $params)
     {
         $r = array();
         $r['name'] = $name;
@@ -346,11 +345,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  フォームタグを取得する(type="text")
+     * フォームタグを取得する(type="text")
      *
-     *  @access protected
+     * @access protected
      */
-    function _getFormInput_Text($name, $def, $params)
+    protected function _getFormInput_Text($name, $def, $params)
     {
         $r = array();
         $r['type'] = "text";
@@ -364,11 +363,11 @@ class Ethna_ViewClass
     }
 
     /**
-     *  HTMLタグを取得する
+     * HTMLタグを取得する
      *
-     *  @access protected
+     * @access protected
      */
-    function _getFormInput_Html($tag, $attr, $user_attr, $element = false)
+    protected function _getFormInput_Html($tag, $attr, $user_attr, $element = false)
     {
         // user defs
         foreach ($user_attr as $key => $value) {
@@ -394,12 +393,12 @@ class Ethna_ViewClass
     }
 
     /**
-     *    Smartyオブジェクトを取得する
+     * Smartyオブジェクトを取得する
      *
-     *    @access    protected
-     *    @return    object    Smarty    Smartyオブジェクト
+     * @access protected
+     * @return object Smarty Smartyオブジェクト
      */
-    function &_getTemplateEngine()
+    protected function _getTemplateEngine()
     {
         $c = $this->backend->getController();
         $smarty = $c->getTemplateEngine();
@@ -423,14 +422,13 @@ class Ethna_ViewClass
     }
 
     /**
-     *    共通値を設定する
+     * 共通値を設定する
      *
-     *    @access    protected
-     *    @param    object    Smarty    Smartyオブジェクト
+     * @access protected
+     * @param object Smarty Smartyオブジェクト
      */
-    function _setDefault(&$smarty)
+    protected function _setDefault(&$smarty)
     {
     }
 }
-// }}}
 

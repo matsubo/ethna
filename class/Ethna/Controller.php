@@ -1,117 +1,117 @@
 <?php
 /**
- *  Ethna_Controller.php
+ * Ethna_Controller.php
  *
- *  @author     Masaki Fujimoto <fujimoto@php.net>
- *  @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
- *  @package    Ethna
- *  @version    $Id$
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @package Ethna
+ * @version $Id$
  */
 /**
- *  コントローラクラス
+ * コントローラクラス
  *
- *  @todo       gatewayでswitchしてるところがダサダサ
+ * @todo gatewayでswitchしてるところがダサダサ
  *
- *  @author     Masaki Fujimoto <fujimoto@php.net>
- *  @access     public
- *  @package    Ethna
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @access public
+ * @package Ethna
  */
 class Ethna_Controller
 {
-    /** @var    string      アプリケーションID */
+    /** @var string アプリケーションID */
     protected $appid = 'ETHNA';
 
-    /** @var    string      アプリケーションベースディレクトリ */
+    /** @var string アプリケーションベースディレクトリ */
     protected $base = '';
 
-    /** @var    string      アプリケーションベースURL */
+    /** @var string アプリケーションベースURL */
     protected $url = '';
 
-    /** @var    array       アプリケーションディレクトリ */
+    /** @var array アプリケーションディレクトリ */
     protected $directory = array(
-        'action'        => 'app/action',
-        'action_cli'    => 'app/action_cli',
-        'app'           => 'app',
-        'bin'           => 'bin',
-        'etc'           => 'etc',
-        'filter'        => 'app/filter',
-        'locale'        => 'locale',
-        'plugins'       => array(),
-        'template'      => 'template',
-        'template_c'    => 'tmp',
-        'tmp'           => 'tmp',
-        'view'          => 'app/view',
+        'action' => 'app/action',
+        'action_cli' => 'app/action_cli',
+        'app' => 'app',
+        'bin' => 'bin',
+        'etc' => 'etc',
+        'filter' => 'app/filter',
+        'locale' => 'locale',
+        'plugins' => array(),
+        'template' => 'template',
+        'template_c' => 'tmp',
+        'tmp' => 'tmp',
+        'view' => 'app/view',
     );
 
-    /** @var    array       拡張子設定 */
+    /** @var array 拡張子設定 */
     protected $ext = array(
-        'php'           => 'php',
-        'tpl'           => 'tpl',
+        'php' => 'php',
+        'tpl' => 'tpl',
     );
 
-    /** @var    array       クラス設定 */
+    /** @var array クラス設定 */
     protected $class = array(
-        'class'         => 'Ethna_ClassFactory',
-        'backend'       => 'Ethna_Backend',
-        'config'        => 'Ethna_Config',
-        'error'         => 'Ethna_ActionError',
-        'form'          => 'Ethna_ActionForm',
-        'session'       => 'Ethna_Session',
-        'sql'           => 'Ethna_AppSQL',
-        'view'          => 'Ethna_ViewClass',
+        'class' => 'Ethna_ClassFactory',
+        'backend' => 'Ethna_Backend',
+        'config' => 'Ethna_Config',
+        'error' => 'Ethna_ActionError',
+        'form' => 'Ethna_ActionForm',
+        'session' => 'Ethna_Session',
+        'sql' => 'Ethna_AppSQL',
+        'view' => 'Ethna_ViewClass',
     );
 
-    /** @var    array       フィルタ設定 */
+    /** @var array フィルタ設定 */
     protected $filter = array(
     );
 
-    /** @var    string      使用言語設定 */
+    /** @var string 使用言語設定 */
     protected $language;
 
-    /** @var    string      システム側エンコーディング */
+    /** @var string システム側エンコーディング */
     protected $system_encoding;
 
-    /** @var    string      クライアント側エンコーディング */
+    /** @var string クライアント側エンコーディング */
     protected $client_encoding;
 
-    /** @var    string  現在実行中のアクション名 */
+    /** @var string 現在実行中のアクション名 */
     protected $action_name;
 
-    /** @var    array   forward定義 */
+    /** @var array forward定義 */
     protected $forward = array();
 
-    /** @var    array   action定義 */
+    /** @var array action定義 */
     protected $action = array();
 
-    /** @var    array   action(CLI)定義 */
+    /** @var array action(CLI)定義 */
     protected $action_cli = array();
 
-    /** @var    array   アプリケーションマネージャ定義 */
+    /** @var array アプリケーションマネージャ定義 */
     protected $manager = array();
 
-    /** @var    array   フィルターチェイン(Ethna_Filterオブジェクトの配列) */
+    /** @var array フィルターチェイン(Ethna_Filterオブジェクトの配列) */
     protected $filter_chain = array();
 
-    /** @var    object  Ethna_ClassFactory  クラスファクトリオブジェクト */
+    /** @var object Ethna_ClassFactory クラスファクトリオブジェクト */
     protected $class_factory = null;
 
-    /** @var    object  Ethna_ActionForm    フォームオブジェクト */
+    /** @var object Ethna_ActionForm フォームオブジェクト */
     protected $action_form = null;
 
-    /** @var    object  Ethna_View          ビューオブジェクト */
+    /** @var object Ethna_View ビューオブジェクト */
     protected $view = null;
 
-    /** @var    object  Ethna_Config        設定オブジェクト */
+    /** @var object Ethna_Config 設定オブジェクト */
     protected $config = null;
 
-    /** @var    string  リクエストのゲートウェイ(www/cli/rest/...) */
+    /** @var string リクエストのゲートウェイ(www/cli/rest/...) */
     protected $gateway = Ethna_Const::GATEWAY_WWW;
 
     /**#@-*/
     /**
-     *  Ethna_Controllerクラスのコンストラクタ
+     * Ethna_Controllerクラスのコンストラクタ
      *
-     *  @access     public
+     * @access public
      */
     public function __construct($gateway = Ethna_Const::GATEWAY_WWW)
     {
@@ -134,7 +134,7 @@ class Ethna_Controller
             if ($key == 'plugins') {
                 // Smartyプラグインディレクトリは配列で指定する
                 $tmp = array(SMARTY_DIR . 'plugins');
-                foreach (to_array($value) as $elt) {
+                foreach (Ethna_Util::to_array($value) as $elt) {
                     if (Ethna_Util::isAbsolute($elt) == false) {
                         $tmp[] = $this->base . (empty($this->base) ? '' : '/') . $elt;
                     }
@@ -155,13 +155,13 @@ class Ethna_Controller
     }
 
     /**
-     *  (現在アクティブな)コントローラのインスタンスを返す
+     * (現在アクティブな)コントローラのインスタンスを返す
      *
-     *  @access public
-     *  @return object  Ethna_Controller    コントローラのインスタンス
-     *  @static
+     * @access public
+     * @return object Ethna_Controller コントローラのインスタンス
+     * @static
      */
-    function getInstance()
+    public function getInstance()
     {
         if (isset($GLOBALS['_Ethna_controller'])) {
             return $GLOBALS['_Ethna_controller'];
@@ -172,24 +172,24 @@ class Ethna_Controller
     }
 
     /**
-     *  アプリケーションIDを返す
+     * アプリケーションIDを返す
      *
-     *  @access public
-     *  @return string  アプリケーションID
+     * @access public
+     * @return string アプリケーションID
      */
-    function getAppId()
+    public function getAppId()
     {
         return ucfirst(strtolower($this->appid));
     }
 
     /**
-     *  アプリケーションIDをチェックする
+     * アプリケーションIDをチェックする
      *
-     *  @access public
-     *  @param  string  $id     アプリケーションID
-     *  @return mixed   true:OK Ethna_Error:NG
+     * @access public
+     * @param string $id アプリケーションID
+     * @return mixed true:OK Ethna_Error:NG
      */
-    function checkAppId($id)
+    public function checkAppId($id)
     {
         if (strcasecmp($id, 'ethna') == 0) {
             return Ethna::raiseError(sprintf("Application Id [%s] is reserved\n", $id));
@@ -202,33 +202,33 @@ class Ethna_Controller
     }
 
     /**
-     *  アプリケーションベースURLを返す
+     * アプリケーションベースURLを返す
      *
-     *  @access public
-     *  @return string  アプリケーションベースURL
+     * @access public
+     * @return string アプリケーションベースURL
      */
-    function getURL()
+    public function getURL()
     {
         return $this->url;
     }
 
     /**
-     *  アプリケーションベースディレクトリを返す
+     * アプリケーションベースディレクトリを返す
      *
-     *  @access public
-     *  @return string  アプリケーションベースディレクトリ
+     * @access public
+     * @return string アプリケーションベースディレクトリ
      */
-    function getBasedir()
+    public function getBasedir()
     {
         return $this->base;
     }
     /**
-     *  アクションディレクトリ名を決定する
+     * アクションディレクトリ名を決定する
      *
-     *  @access public
-     *  @return string  アクションディレクトリ
+     * @access public
+     * @return string アクションディレクトリ
      */
-    function getActiondir($gateway = null)
+    public function getActiondir($gateway = null)
     {
         $key = 'action';
         $gateway = is_null($gateway) ? $this->getGateway() : $gateway;
@@ -245,22 +245,22 @@ class Ethna_Controller
     }
 
     /**
-     *  ビューディレクトリ名を決定する
+     * ビューディレクトリ名を決定する
      *
-     *  @access public
-     *  @return string  アクションディレクトリ
+     * @access public
+     * @return string アクションディレクトリ
      */
-    function getViewdir()
+    public function getViewdir()
     {
         return (empty($this->directory['view']) ? ($this->base . (empty($this->base) ? '' : '/')) : ($this->directory['view'] . "/"));
     }
 
     /**
-     *  アプリケーションディレクトリ設定を返す
+     * アプリケーションディレクトリ設定を返す
      *
-     *  @access public
-     *  @param  string  $key    ディレクトリタイプ("tmp", "template"...)
-     *  @return string  $keyに対応したアプリケーションディレクトリ(設定が無い場合はnull)
+     * @access public
+     * @param string $key ディレクトリタイプ("tmp", "template"...)
+     * @return string $keyに対応したアプリケーションディレクトリ(設定が無い場合はnull)
      */
     public function getDirectory($key)
     {
@@ -276,13 +276,13 @@ class Ethna_Controller
     }
 
     /**
-     *  アプリケーション拡張子設定を返す
+     * アプリケーション拡張子設定を返す
      *
-     *  @access public
-     *  @param  string  $key    拡張子タイプ("php", "tpl"...)
-     *  @return string  $keyに対応した拡張子(設定が無い場合はnull)
+     * @access public
+     * @param string $key 拡張子タイプ("php", "tpl"...)
+     * @return string $keyに対応した拡張子(設定が無い場合はnull)
      */
-    function getExt($key)
+    public function getExt($key)
     {
         if (isset($this->ext[$key]) == false) {
             return null;
@@ -291,156 +291,156 @@ class Ethna_Controller
     }
 
     /**
-     *  クラスファクトリオブジェクトのアクセサ(R)
+     * クラスファクトリオブジェクトのアクセサ(R)
      *
-     *  @access public
-     *  @return object  Ethna_ClassFactory  クラスファクトリオブジェクト
+     * @access public
+     * @return object Ethna_ClassFactory クラスファクトリオブジェクト
      */
-    function getClassFactory()
+    public function getClassFactory()
     {
         return $this->class_factory;
     }
 
     /**
-     *  アクションエラーオブジェクトのアクセサ
+     * アクションエラーオブジェクトのアクセサ
      *
-     *  @access public
-     *  @return object  Ethna_ActionError   アクションエラーオブジェクト
+     * @access public
+     * @return object Ethna_ActionError アクションエラーオブジェクト
      */
-    function getActionError()
+    public function getActionError()
     {
         return $this->class_factory->getObject('error');
     }
 
     /**
-     *  アクションフォームオブジェクトのアクセサ
+     * アクションフォームオブジェクトのアクセサ
      *
-     *  @access public
-     *  @return object  Ethna_ActionForm    アクションフォームオブジェクト
+     * @access public
+     * @return object Ethna_ActionForm アクションフォームオブジェクト
      */
-    function getActionForm()
+    public function getActionForm()
     {
         // 明示的にクラスファクトリを利用していない
         return $this->action_form;
     }
 
     /**
-     *  ビューオブジェクトのアクセサ
+     * ビューオブジェクトのアクセサ
      *
-     *  @access public
-     *  @return object  Ethna_View          ビューオブジェクト
+     * @access public
+     * @return object Ethna_View ビューオブジェクト
      */
-    function getView()
+    public function getView()
     {
         // 明示的にクラスファクトリを利用していない
         return $this->view;
     }
 
     /**
-     *  backendオブジェクトのアクセサ
+     * backendオブジェクトのアクセサ
      *
-     *  @access public
-     *  @return object  Ethna_Backend   backendオブジェクト
+     * @access public
+     * @return object Ethna_Backend backendオブジェクト
      */
-    function getBackend()
+    public function getBackend()
     {
         return $this->class_factory->getObject('backend');
     }
 
     /**
-     *  設定オブジェクトのアクセサ
+     * 設定オブジェクトのアクセサ
      *
-     *  @access public
-     *  @return object  Ethna_Config    設定オブジェクト
+     * @access public
+     * @return object Ethna_Config 設定オブジェクト
      */
-    function getConfig()
+    public function getConfig()
     {
         return $this->class_factory->getObject('config');
     }
 
     /**
-     *  セッションオブジェクトのアクセサ
+     * セッションオブジェクトのアクセサ
      *
-     *  @access public
-     *  @return object  Ethna_Session       セッションオブジェクト
+     * @access public
+     * @return object Ethna_Session セッションオブジェクト
      */
-    function getSession()
+    public function getSession()
     {
         return $this->class_factory->getObject('session');
     }
 
     /**
-     *  SQLオブジェクトのアクセサ
+     * SQLオブジェクトのアクセサ
      *
-     *  @access public
-     *  @return object  Ethna_AppSQL    SQLオブジェクト
+     * @access public
+     * @return object Ethna_AppSQL SQLオブジェクト
      */
-    function getSQL()
+    public function getSQL()
     {
         return $this->class_factory->getObject('sql');
     }
 
     /**
-     *  マネージャ一覧を返す
+     * マネージャ一覧を返す
      *
-     *  @access public
-     *  @return array   マネージャ一覧
+     * @access public
+     * @return array マネージャ一覧
      */
-    function getManagerList()
+    public function getManagerList()
     {
         return $this->manager;
     }
 
     /**
-     *  実行中のアクション名を返す
+     * 実行中のアクション名を返す
      *
-     *  @access public
-     *  @return string  実行中のアクション名
+     * @access public
+     * @return string 実行中のアクション名
      */
-    function getCurrentActionName()
+    public function getCurrentActionName()
     {
         return $this->action_name;
     }
 
     /**
-     *  使用言語を取得する
+     * 使用言語を取得する
      *
-     *  @access public
-     *  @return array   使用言語,システムエンコーディング名,クライアントエンコーディング名
+     * @access public
+     * @return array 使用言語,システムエンコーディング名,クライアントエンコーディング名
      */
-    function getLanguage()
+    public function getLanguage()
     {
         return array($this->language, $this->system_encoding, $this->client_encoding);
     }
 
     /**
-     *  ゲートウェイを取得する
+     * ゲートウェイを取得する
      *
-     *  @access public
+     * @access public
      */
-    function getGateway()
+    public function getGateway()
     {
         return $this->gateway;
     }
 
     /**
-     *  ゲートウェイモードを設定する
+     * ゲートウェイモードを設定する
      *
-     *  @access public
+     * @access public
      */
-    function setGateway($gateway)
+    public function setGateway($gateway)
     {
         $this->gateway = $gateway;
     }
 
     /**
-     *  アプリケーションのエントリポイント
+     * アプリケーションのエントリポイント
      *
-     *  @access public
-     *  @param  string  $class_name     アプリケーションコントローラのクラス名
-     *  @param  mixed   $action_name    指定のアクション名(省略可)
-     *  @param  mixed   $fallback_action_name   アクションが決定できなかった場合に実行されるアクション名(省略可)
-     *  @static
+     * @access public
+     * @param string $class_name アプリケーションコントローラのクラス名
+     * @param mixed $action_name 指定のアクション名(省略可)
+     * @param mixed $fallback_action_name アクションが決定できなかった場合に実行されるアクション名(省略可)
+     * @static
      */
     public function main($class_name, $action_name = "", $fallback_action_name = "")
     {
@@ -449,15 +449,15 @@ class Ethna_Controller
     }
 
     /**
-     *  CLIアプリケーションのエントリポイント
+     * CLIアプリケーションのエントリポイント
      *
-     *  @access public
-     *  @param  string  $class_name     アプリケーションコントローラのクラス名
-     *  @param  string  $action_name    実行するアクション名
-     *  @param  bool    $enable_filter  フィルタチェインを有効にするかどうか
-     *  @static
+     * @access public
+     * @param string $class_name アプリケーションコントローラのクラス名
+     * @param string $action_name 実行するアクション名
+     * @param bool $enable_filter フィルタチェインを有効にするかどうか
+     * @static
      */
-    function main_CLI($class_name, $action_name, $enable_filter = true)
+    public function main_CLI($class_name, $action_name, $enable_filter = true)
     {
         $c = new $class_name(Ethna_Const::GATEWAY_CLI);
         $c->action_cli[$action_name] = array();
@@ -465,15 +465,15 @@ class Ethna_Controller
     }
 
     /**
-     *  フレームワークの処理を開始する
+     * フレームワークの処理を開始する
      *
-     *  @access public
-     *  @param  mixed   $default_action_name    指定のアクション名
-     *  @param  mixed   $fallback_action_name   アクション名が決定できなかった場合に実行されるアクション名
-     *  @param  bool    $enable_filter  フィルタチェインを有効にするかどうか
-     *  @return mixed   0:正常終了 Ethna_Error:エラー
+     * @access public
+     * @param mixed $default_action_name 指定のアクション名
+     * @param mixed $fallback_action_name アクション名が決定できなかった場合に実行されるアクション名
+     * @param bool $enable_filter フィルタチェインを有効にするかどうか
+     * @return mixed 0:正常終了 Ethna_Error:エラー
      */
-    function trigger($default_action_name = "", $fallback_action_name = "", $enable_filter = true)
+    public function trigger($default_action_name = "", $fallback_action_name = "", $enable_filter = true)
     {
         // フィルターの生成
         if ($enable_filter) {
@@ -508,18 +508,18 @@ class Ethna_Controller
     }
 
     /**
-     *  フレームワークの処理を実行する(WWW)
+     * フレームワークの処理を実行する(WWW)
      *
-     *  引数$default_action_nameに配列が指定された場合、その配列で指定された
-     *  アクション以外は受け付けない(指定されていないアクションが指定された
-     *  場合、配列の先頭で指定されたアクションが実行される)
+     * 引数$default_action_nameに配列が指定された場合、その配列で指定された
+     * アクション以外は受け付けない(指定されていないアクションが指定された
+     * 場合、配列の先頭で指定されたアクションが実行される)
      *
-     *  @access private
-     *  @param  mixed   $default_action_name    指定のアクション名
-     *  @param  mixed   $fallback_action_name   アクション名が決定できなかった場合に実行されるアクション名
-     *  @return mixed   0:正常終了 Ethna_Error:エラー
+     * @access private
+     * @param mixed $default_action_name 指定のアクション名
+     * @param mixed $fallback_action_name アクション名が決定できなかった場合に実行されるアクション名
+     * @return mixed 0:正常終了 Ethna_Error:エラー
      */
-    function _trigger_WWW($default_action_name = "", $fallback_action_name = "")
+    private function _trigger_WWW($default_action_name = "", $fallback_action_name = "")
     {
         // アクション名の取得
         $action_name = $this->_getActionName($default_action_name, $fallback_action_name);
@@ -584,29 +584,29 @@ class Ethna_Controller
     }
 
     /**
-     *  フレームワークの処理を実行する(CLI)
+     * フレームワークの処理を実行する(CLI)
      *
-     *  @access private
-     *  @param  mixed   $default_action_name    指定のアクション名
-     *  @return mixed   0:正常終了 Ethna_Error:エラー
+     * @access private
+     * @param mixed $default_action_name 指定のアクション名
+     * @return mixed 0:正常終了 Ethna_Error:エラー
      */
-    function _trigger_CLI($default_action_name = "")
+    private function _trigger_CLI($default_action_name = "")
     {
         return $this->_trigger_WWW($default_action_name);
     }
 
     /**
-     *  エラーハンドラ
+     * エラーハンドラ
      *
-     *  エラー発生時の追加処理を行いたい場合はこのメソッドをオーバーライドする
-     *  (アラートメール送信等−デフォルトではログ出力時にアラートメール
-     *  が送信されるが、エラー発生時に別にアラートメールをここで送信
-     *  させることも可能)
+     * エラー発生時の追加処理を行いたい場合はこのメソッドをオーバーライドする
+     * (アラートメール送信等−デフォルトではログ出力時にアラートメール
+     * が送信されるが、エラー発生時に別にアラートメールをここで送信
+     * させることも可能)
      *
-     *  @access public
-     *  @param  object  Ethna_Error     エラーオブジェクト
+     * @access public
+     * @param object Ethna_Error エラーオブジェクト
      */
-    function handleError(&$error)
+    public function handleError(&$error)
     {
         // ログ出力
         $message = $error->getMessage();
@@ -617,13 +617,13 @@ class Ethna_Controller
     }
 
     /**
-     *  エラーメッセージを取得する
+     * エラーメッセージを取得する
      *
-     *  @access public
-     *  @param  int     $code       エラーコード
-     *  @return string  エラーメッセージ
+     * @access public
+     * @param int $code エラーコード
+     * @return string エラーメッセージ
      */
-    function getErrorMessage($code)
+    public function getErrorMessage($code)
     {
         $message_list = $GLOBALS['_Ethna_error_message_list'];
         for ($i = count($message_list)-1; $i >= 0; $i--) {
@@ -635,13 +635,13 @@ class Ethna_Controller
     }
 
     /**
-     *  実行するアクション名を返す
+     * 実行するアクション名を返す
      *
-     *  @access private
-     *  @param  mixed   $default_action_name    指定のアクション名
-     *  @return string  実行するアクション名
+     * @access private
+     * @param mixed $default_action_name 指定のアクション名
+     * @return string 実行するアクション名
      */
-    function _getActionName($default_action_name, $fallback_action_name)
+    private function _getActionName($default_action_name, $fallback_action_name)
     {
         // フォームから要求されたアクション名を取得する
         $form_action_name = $this->_getActionName_Form();
@@ -650,8 +650,8 @@ class Ethna_Controller
         // Ethnaマネージャへのフォームからのリクエストは拒否
         if ($form_action_name == "__ethna_info__" ||
             $form_action_name == "__ethna_unittest__") {
-            $form_action_name = "";
-        }
+                $form_action_name = "";
+            }
 
         // フォームからの指定が無い場合はエントリポイントに指定されたデフォルト値を利用する
         if ($form_action_name == "" && count($default_action_name) > 0) {
@@ -680,14 +680,14 @@ class Ethna_Controller
     }
 
     /**
-     *  フォームにより要求されたアクション名を返す
+     * フォームにより要求されたアクション名を返す
      *
-     *  アプリケーションの性質に応じてこのメソッドをオーバーライドして下さい。
-     *  デフォルトでは"action_"で始まるフォーム値の"action_"の部分を除いたもの
-     *  ("action_sample"なら"sample")がアクション名として扱われます
+     * アプリケーションの性質に応じてこのメソッドをオーバーライドして下さい。
+     * デフォルトでは"action_"で始まるフォーム値の"action_"の部分を除いたもの
+     * ("action_sample"なら"sample")がアクション名として扱われます
      *
-     *  @access protected
-     *  @return string  フォームにより要求されたアクション名
+     * @access protected
+     * @return string フォームにより要求されたアクション名
      */
     protected function _getActionName_Form()
     {
@@ -730,14 +730,14 @@ class Ethna_Controller
     }
 
     /**
-     *  アクション名を指定するクエリ/HTMLを生成する
+     * アクション名を指定するクエリ/HTMLを生成する
      *
-     *  @access public
-     *  @param  string  $action action to request
-     *  @param  string  $type   hidden, url...
-     *  @todo   consider gateway
+     * @access public
+     * @param string $action action to request
+     * @param string $type hidden, url...
+     * @todo consider gateway
      */
-    function getActionRequest($action, $type = "hidden")
+    public function getActionRequest($action, $type = "hidden")
     {
         $s = null; 
         if ($type == "hidden") {
@@ -749,13 +749,13 @@ class Ethna_Controller
     }
 
     /**
-     *  フォームにより要求されたアクション名に対応する定義を返す
+     * フォームにより要求されたアクション名に対応する定義を返す
      *
-     *  @access private
-     *  @param  string  $action_name    アクション名
-     *  @return array   アクション定義
+     * @access private
+     * @param string $action_name アクション名
+     * @return array アクション定義
      */
-    function _getAction($action_name, $gateway = null)
+    private function _getAction($action_name, $gateway = null)
     {
         $action = array();
         $gateway = is_null($gateway) ? $this->getGateway() : $gateway;
@@ -805,24 +805,24 @@ class Ethna_Controller
     }
 
     /**
-     *  アクション名とアクションクラスからの戻り値に基づいて遷移先を決定する
+     * アクション名とアクションクラスからの戻り値に基づいて遷移先を決定する
      *
-     *  @access protected
-     *  @param  string  $action_name    アクション名
-     *  @param  string  $retval         アクションクラスからの戻り値
-     *  @return string  遷移先
+     * @access protected
+     * @param string $action_name アクション名
+     * @param string $retval アクションクラスからの戻り値
+     * @return string 遷移先
      */
-    function _sortForward($action_name, $retval)
+    protected function _sortForward($action_name, $retval)
     {
         return $retval;
     }
 
     /**
-     *  フィルタチェインを生成する
+     * フィルタチェインを生成する
      *
-     *  @access private
+     * @access private
      */
-    function _createFilterChain()
+    private function _createFilterChain()
     {
         $this->filter_chain = array();
         foreach ($this->filter as $filter) {
@@ -837,16 +837,16 @@ class Ethna_Controller
     }
 
     /**
-     *  アクション名が実行許可されているものかどうかを返す
+     * アクション名が実行許可されているものかどうかを返す
      *
-     *  @access private
-     *  @param  string  $action_name            リクエストされたアクション名
-     *  @param  array   $default_action_name    許可されているアクション名
-     *  @return bool    true:許可 false:不許可
+     * @access private
+     * @param string $action_name リクエストされたアクション名
+     * @param array $default_action_name 許可されているアクション名
+     * @return bool true:許可 false:不許可
      */
-    function _isAcceptableActionName($action_name, $default_action_name)
+    private function _isAcceptableActionName($action_name, $default_action_name)
     {
-        foreach (to_array($default_action_name) as $name) {
+        foreach (Ethna_Util::to_array($default_action_name) as $name) {
             if ($action_name == $name) {
                 return true;
             } else if ($name{strlen($name)-1} == '*') {
@@ -859,13 +859,13 @@ class Ethna_Controller
     }
 
     /**
-     *  指定されたアクションのフォームクラス名を返す(オブジェクトの生成は行わない)
+     * 指定されたアクションのフォームクラス名を返す(オブジェクトの生成は行わない)
      *
-     *  @access public
-     *  @param  string  $action_name    アクション名
-     *  @return string  アクションのフォームクラス名
+     * @access public
+     * @param string $action_name アクション名
+     * @return string アクションのフォームクラス名
      */
-    function getActionFormName($action_name)
+    public function getActionFormName($action_name)
     {
         $action_obj = $this->_getAction($action_name);
         if (is_null($action_obj)) {
@@ -876,15 +876,15 @@ class Ethna_Controller
     }
 
     /**
-     *  アクションに対応するフォームクラス名が省略された場合のデフォルトクラス名を返す
+     * アクションに対応するフォームクラス名が省略された場合のデフォルトクラス名を返す
      *
-     *  デフォルトでは[プロジェクトID]_Form_[アクション名]となるので好み応じてオーバライドする
+     * デフォルトでは[プロジェクトID]_Form_[アクション名]となるので好み応じてオーバライドする
      *
-     *  @access public
-     *  @param  string  $action_name    アクション名
-     *  @return string  アクションフォーム名
+     * @access public
+     * @param string $action_name アクション名
+     * @return string アクションフォーム名
      */
-    function getDefaultFormClass($action_name, $gateway = null)
+    public function getDefaultFormClass($action_name, $gateway = null)
     {
         $gateway_prefix = $this->_getGatewayPrefix($gateway);
 
@@ -895,16 +895,16 @@ class Ethna_Controller
     }
 
     /**
-     *  getDefaultFormClass()で取得したクラス名からアクション名を取得する
+     * getDefaultFormClass()で取得したクラス名からアクション名を取得する
      *
-     *  getDefaultFormClass()をオーバーライドした場合、こちらも合わせてオーバーライド
-     *  することを推奨(必須ではない)
+     * getDefaultFormClass()をオーバーライドした場合、こちらも合わせてオーバーライド
+     * することを推奨(必須ではない)
      *
-     *  @access public
-     *  @param  string  $class_name     フォームクラス名
-     *  @return string  アクション名
+     * @access public
+     * @param string $class_name フォームクラス名
+     * @return string アクション名
      */
-    function actionFormToName($class_name)
+    public function actionFormToName($class_name)
     {
         $prefix = sprintf("%s_Form_", $this->getAppId());
         if (preg_match("/$prefix(.*)/", $class_name, $match) == 0) {
@@ -919,29 +919,29 @@ class Ethna_Controller
     }
 
     /**
-     *  アクションに対応するフォームパス名が省略された場合のデフォルトパス名を返す
+     * アクションに対応するフォームパス名が省略された場合のデフォルトパス名を返す
      *
-     *  デフォルトでは_getDefaultActionPath()と同じ結果を返す(1ファイルに
-     *  アクションクラスとフォームクラスが記述される)ので、好みに応じて
-     *  オーバーライドする
+     * デフォルトでは_getDefaultActionPath()と同じ結果を返す(1ファイルに
+     * アクションクラスとフォームクラスが記述される)ので、好みに応じて
+     * オーバーライドする
      *
-     *  @access public
-     *  @param  string  $action_name    アクション名
-     *  @return string  form classが定義されるスクリプトのパス名
+     * @access public
+     * @param string $action_name アクション名
+     * @return string form classが定義されるスクリプトのパス名
      */
-    function getDefaultFormPath($action_name)
+    public function getDefaultFormPath($action_name)
     {
         return $this->getDefaultActionPath($action_name);
     }
 
     /**
-     *  指定されたアクションのクラス名を返す(オブジェクトの生成は行わない)
+     * 指定されたアクションのクラス名を返す(オブジェクトの生成は行わない)
      *
-     *  @access public
-     *  @param  string  $action_name    アクションの名称
-     *  @return string  アクションのクラス名
+     * @access public
+     * @param string $action_name アクションの名称
+     * @return string アクションのクラス名
      */
-    function getActionClassName($action_name)
+    public function getActionClassName($action_name)
     {
         $action_obj = $this->_getAction($action_name);
         if ($action_obj == null) {
@@ -952,15 +952,15 @@ class Ethna_Controller
     }
 
     /**
-     *  アクションに対応するアクションクラス名が省略された場合のデフォルトクラス名を返す
+     * アクションに対応するアクションクラス名が省略された場合のデフォルトクラス名を返す
      *
-     *  デフォルトでは[プロジェクトID]_Action_[アクション名]となるので好み応じてオーバライドする
+     * デフォルトでは[プロジェクトID]_Action_[アクション名]となるので好み応じてオーバライドする
      *
-     *  @access public
-     *  @param  string  $action_name    アクション名
-     *  @return string  アクションクラス名
+     * @access public
+     * @param string $action_name アクション名
+     * @return string アクションクラス名
      */
-    function getDefaultActionClass($action_name, $gateway = null)
+    public function getDefaultActionClass($action_name, $gateway = null)
     {
         $gateway_prefix = $this->_getGatewayPrefix($gateway);
 
@@ -971,16 +971,16 @@ class Ethna_Controller
     }
 
     /**
-     *  getDefaultActionClass()で取得したクラス名からアクション名を取得する
+     * getDefaultActionClass()で取得したクラス名からアクション名を取得する
      *
-     *  getDefaultActionClass()をオーバーライドした場合、こちらも合わせてオーバーライド
-     *  することを推奨(必須ではない)
+     * getDefaultActionClass()をオーバーライドした場合、こちらも合わせてオーバーライド
+     * することを推奨(必須ではない)
      *
-     *  @access public
-     *  @param  string  $class_name     アクションクラス名
-     *  @return string  アクション名
+     * @access public
+     * @param string $class_name アクションクラス名
+     * @return string アクション名
      */
-    function actionClassToName($class_name)
+    public function actionClassToName($class_name)
     {
         $prefix = sprintf("%s_Action_", $this->getAppId());
         if (preg_match("/$prefix(.*)/", $class_name, $match) == 0) {
@@ -993,27 +993,27 @@ class Ethna_Controller
     }
 
     /**
-     *  アクションに対応するアクションパス名が省略された場合のデフォルトパス名を返す
+     * アクションに対応するアクションパス名が省略された場合のデフォルトパス名を返す
      *
-     *  デフォルトでは"foo_bar" -> "/Foo/Bar.php"となるので好み応じてオーバーライドする
+     * デフォルトでは"foo_bar" -> "/Foo/Bar.php"となるので好み応じてオーバーライドする
      *
-     *  @access public
-     *  @param  string  $action_name    アクション名
-     *  @return string  アクションクラスが定義されるスクリプトのパス名
+     * @access public
+     * @param string $action_name アクション名
+     * @return string アクションクラスが定義されるスクリプトのパス名
      */
-    function getDefaultActionPath($action_name)
+    public function getDefaultActionPath($action_name)
     {
         return preg_replace('/_(.)/e', "'/' . strtoupper('\$1')", ucfirst($action_name)) . '.' . $this->getExt('php');
     }
 
     /**
-     *  指定された遷移名に対応するビュークラス名を返す(オブジェクトの生成は行わない)
+     * 指定された遷移名に対応するビュークラス名を返す(オブジェクトの生成は行わない)
      *
-     *  @access public
-     *  @param  string  $forward_name   遷移先の名称
-     *  @return string  view classのクラス名
+     * @access public
+     * @param string $forward_name 遷移先の名称
+     * @return string view classのクラス名
      */
-    function getViewClassName($forward_name)
+    public function getViewClassName($forward_name)
     {
         if ($forward_name == null) {
             return null;
@@ -1052,62 +1052,62 @@ class Ethna_Controller
     }
 
     /**
-     *  遷移名に対応するビュークラス名が省略された場合のデフォルトクラス名を返す
+     * 遷移名に対応するビュークラス名が省略された場合のデフォルトクラス名を返す
      *
-     *  デフォルトでは[プロジェクトID]_View_[遷移名]となるので好み応じてオーバライドする
+     * デフォルトでは[プロジェクトID]_View_[遷移名]となるので好み応じてオーバライドする
      *
-     *  @access public
-     *  @param  string  $forward_name   forward名
-     *  @return string  view classクラス名
+     * @access public
+     * @param string $forward_name forward名
+     * @return string view classクラス名
      */
-    function getDefaultViewClass($forward_name, $gateway = null)
+    public function getDefaultViewClass($forward_name, $gateway = null)
     {
         $gateway_prefix = $this->_getGatewayPrefix($gateway);
 
         $postfix = preg_replace('/_(.)/e', "strtoupper('\$1')", ucfirst($forward_name));
-        return  sprintf("%s_%sView_%s", $this->getAppId(), $gateway_prefix ? $gateway_prefix . "_" : "", $postfix);
+        return sprintf("%s_%sView_%s", $this->getAppId(), $gateway_prefix ? $gateway_prefix . "_" : "", $postfix);
     }
 
     /**
-     *  遷移名に対応するビューパス名が省略された場合のデフォルトパス名を返す
+     * 遷移名に対応するビューパス名が省略された場合のデフォルトパス名を返す
      *
-     *  デフォルトでは"foo_bar" -> "/Foo/Bar.php"となるので好み応じてオーバーライドする
+     * デフォルトでは"foo_bar" -> "/Foo/Bar.php"となるので好み応じてオーバーライドする
      *
-     *  @access public
-     *  @param  string  $forward_name   forward名
-     *  @return string  view classが定義されるスクリプトのパス名
+     * @access public
+     * @param string $forward_name forward名
+     * @return string view classが定義されるスクリプトのパス名
      */
-    function getDefaultViewPath($forward_name)
+    public function getDefaultViewPath($forward_name)
     {
         return preg_replace('/_(.)/e', "'/' . strtoupper('\$1')", ucfirst($forward_name)) . '.' . $this->getExt('php');
     }
 
     /**
-     *  遷移名に対応するテンプレートパス名が省略された場合のデフォルトパス名を返す
+     * 遷移名に対応するテンプレートパス名が省略された場合のデフォルトパス名を返す
      *
-     *  デフォルトでは"foo_bar"というforward名が"foo/bar" + テンプレート拡張子となる
-     *  ので好み応じてオーバライドする
+     * デフォルトでは"foo_bar"というforward名が"foo/bar" + テンプレート拡張子となる
+     * ので好み応じてオーバライドする
      *
-     *  @access public
-     *  @param  string  $forward_name   forward名
-     *  @return string  forwardパス名
+     * @access public
+     * @param string $forward_name forward名
+     * @return string forwardパス名
      */
-    function getDefaultForwardPath($forward_name)
+    public function getDefaultForwardPath($forward_name)
     {
         return str_replace('_', '/', $forward_name) . '.' . $this->ext['tpl'];
     }
 
     /**
-     *  テンプレートパス名から遷移名を取得する
+     * テンプレートパス名から遷移名を取得する
      *
-     *  getDefaultForwardPath()をオーバーライドした場合、こちらも合わせてオーバーライド
-     *  することを推奨(必須ではない)
+     * getDefaultForwardPath()をオーバーライドした場合、こちらも合わせてオーバーライド
+     * することを推奨(必須ではない)
      *
-     *  @access public
-     *  @param  string  $forward_path   テンプレートパス名
-     *  @return string  遷移名
+     * @access public
+     * @param string $forward_path テンプレートパス名
+     * @return string 遷移名
      */
-    function forwardPathToName($forward_path)
+    public function forwardPathToName($forward_path)
     {
         $forward_path = preg_replace('/^\/+/', '', $forward_path);
         $forward_path = preg_replace(sprintf('/\.%s$/', $this->getExt('tpl')), '', $forward_path);
@@ -1116,13 +1116,13 @@ class Ethna_Controller
     }
 
     /**
-     *  遷移名からテンプレートファイルのパス名を取得する
+     * 遷移名からテンプレートファイルのパス名を取得する
      *
-     *  @access private
-     *  @param  string  $forward_name   forward名
-     *  @return string  テンプレートファイルのパス名
+     * @access private
+     * @param string $forward_name forward名
+     * @return string テンプレートファイルのパス名
      */
-    function _getForwardPath($forward_name)
+    private function _getForwardPath($forward_name)
     {
         $forward_obj = null;
 
@@ -1140,10 +1140,10 @@ class Ethna_Controller
     }
 
     /**
-     *  テンプレートエンジン取得する(現在はsmartyのみ対応)
+     * テンプレートエンジン取得する(現在はsmartyのみ対応)
      *
-     *  @access public
-     *  @return object  Smarty  テンプレートエンジンオブジェクト
+     * @access public
+     * @return object Smarty テンプレートエンジンオブジェクト
      */
     public function getTemplateEngine()
     {
@@ -1160,16 +1160,16 @@ class Ethna_Controller
         return $smarty;
     }
     /**
-     *  使用言語を設定する
+     * 使用言語を設定する
      *
-     *  将来への拡張のためのみに存在しています。現在は特にオーバーライドの必要はありません。
+     * 将来への拡張のためのみに存在しています。現在は特にオーバーライドの必要はありません。
      *
-     *  @access protected
-     *  @param  string  $language           言語定義(Ethna_Const::LANG_JA, Ethna_Const::LANG_EN...)
-     *  @param  string  $system_encoding    システムエンコーディング名
-     *  @param  string  $client_encoding    クライアントエンコーディング
+     * @access protected
+     * @param string $language 言語定義(Ethna_Const::LANG_JA, Ethna_Const::LANG_EN...)
+     * @param string $system_encoding システムエンコーディング名
+     * @param string $client_encoding クライアントエンコーディング
      */
-    function _setLanguage($language, $system_encoding = null, $client_encoding = null)
+    protected function _setLanguage($language, $system_encoding = null, $client_encoding = null)
     {
         $this->language = $language;
         $this->system_encoding = $system_encoding;
@@ -1177,23 +1177,23 @@ class Ethna_Controller
     }
 
     /**
-     *  デフォルト状態での使用言語を取得する
+     * デフォルト状態での使用言語を取得する
      *
-     *  @access protected
-     *  @return array   使用言語,システムエンコーディング名,クライアントエンコーディング名
+     * @access protected
+     * @return array 使用言語,システムエンコーディング名,クライアントエンコーディング名
      */
-    public function _getDefaultLanguage()
+    protected function _getDefaultLanguage()
     {
         return array(Ethna_Const::LANG_JA, null, null);
     }
 
     /**
-     *  デフォルト状態でのゲートウェイを取得する
+     * デフォルト状態でのゲートウェイを取得する
      *
-     *  @access protected
-     *  @return int     ゲートウェイ定義(Ethna_Const::GATEWAY_WWW, Ethna_Const::GATEWAY_CLI...)
+     * @access protected
+     * @return int ゲートウェイ定義(Ethna_Const::GATEWAY_WWW, Ethna_Const::GATEWAY_CLI...)
      */
-    function _getDefaultGateway($gateway)
+    protected function _getDefaultGateway($gateway)
     {
         if (is_null($GLOBALS['_Ethna_gateway']) == false) {
             return $GLOBALS['_Ethna_gateway'];
@@ -1202,13 +1202,13 @@ class Ethna_Controller
     }
 
     /**
-     *  ゲートウェイに対応したクラス名のプレフィクスを取得する
+     * ゲートウェイに対応したクラス名のプレフィクスを取得する
      *
-     *  @access public
-     *  @param  string  $gateway    ゲートウェイ
-     *  @return string  ゲートウェイクラスプレフィクス
+     * @access public
+     * @param string $gateway ゲートウェイ
+     * @return string ゲートウェイクラスプレフィクス
      */
-    function _getGatewayPrefix($gateway = null)
+    public function _getGatewayPrefix($gateway = null)
     {
         $gateway = is_null($gateway) ? $this->getGateway() : $gateway;
         switch ($gateway) {
@@ -1227,27 +1227,27 @@ class Ethna_Controller
     }
 
     /**
-     *  マネージャクラス名を取得する
+     * マネージャクラス名を取得する
      *
-     *  @access public
-     *  @param  string  $name   マネージャ名
-     *  @return string  マネージャクラス名
+     * @access public
+     * @param string $name マネージャ名
+     * @return string マネージャクラス名
      */
-    function getManagerClassName($name)
+    public function getManagerClassName($name)
     {
         return sprintf('%s_%sManager', $this->getAppId(), ucfirst($name));
     }
 
     /**
-     *  アクションスクリプトをインクルードする
+     * アクションスクリプトをインクルードする
      *
-     *  ただし、インクルードしたファイルにクラスが正しく定義されているかどうかは保証しない
+     * ただし、インクルードしたファイルにクラスが正しく定義されているかどうかは保証しない
      *
-     *  @access private
-     *  @param  array   $action_obj     アクション定義
-     *  @param  string  $action_name    アクション名
+     * @access private
+     * @param array $action_obj アクション定義
+     * @param string $action_name アクション名
      */
-    function _includeActionScript($action_obj, $action_name)
+    private function _includeActionScript($action_obj, $action_name)
     {
         $class_path = $form_path = null;
 
@@ -1314,15 +1314,15 @@ class Ethna_Controller
     }
 
     /**
-     *  ビュースクリプトをインクルードする
+     * ビュースクリプトをインクルードする
      *
-     *  ただし、インクルードしたファイルにクラスが正しく定義されているかどうかは保証しない
+     * ただし、インクルードしたファイルにクラスが正しく定義されているかどうかは保証しない
      *
-     *  @access private
-     *  @param  array   $forward_obj    遷移定義
-     *  @param  string  $forward_name   遷移名
+     * @access private
+     * @param array $forward_obj 遷移定義
+     * @param string $forward_name 遷移名
      */
-    function _includeViewScript($forward_obj, $forward_name)
+    private function _includeViewScript($forward_obj, $forward_name)
     {
         $view_dir = $this->getViewdir();
 
@@ -1351,11 +1351,11 @@ class Ethna_Controller
     }
 
     /**
-     *  ディレクトリ以下の全てのスクリプトをインクルードする
+     * ディレクトリ以下の全てのスクリプトをインクルードする
      *
-     *  @access private
+     * @access private
      */
-    function _includeDirectory($dir)
+    private function _includeDirectory($dir)
     {
         $ext = "." . $this->ext['php'];
         $ext_len = strlen($ext);
@@ -1379,25 +1379,25 @@ class Ethna_Controller
         closedir($dh);
     }
     /**
-     *  CLI実行中フラグを取得する
+     * CLI実行中フラグを取得する
      *
-     *  @access public
-     *  @return bool    CLI実行中フラグ
-     *  @obsolete
+     * @access public
+     * @return bool CLI実行中フラグ
+     * @obsolete
      */
-    function getCLI()
+    public function getCLI()
     {
         return $this->gateway == Ethna_Const::GATEWAY_CLI ? true : false;
     }
 
     /**
-     *  CLI実行中フラグを設定する
+     * CLI実行中フラグを設定する
      *
-     *  @access public
-     *  @param  bool    CLI実行中フラグ
-     *  @obsolete
+     * @access public
+     * @param bool CLI実行中フラグ
+     * @obsolete
      */
-    function setCLI($cli)
+    public function setCLI($cli)
     {
         $this->gateway = $cli ? Ethna_Const::GATEWAY_CLI : $this->_getDefaultGateway();
     }

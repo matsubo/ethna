@@ -9,7 +9,6 @@
  *    @version    $Id$
  */
 
-// {{{ Ethna_Config
 /**
  *    設定クラス
  *
@@ -193,5 +192,4 @@ class Ethna_Config
         return $this->controller->getDirectory('etc') . '/' . strtolower($this->controller->getAppId()) . '-ini.php';
     }
 }
-// }}}
 

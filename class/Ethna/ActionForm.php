@@ -1,66 +1,58 @@
 <?php
 // vim: foldmethod=marker
 /**
- *  Ethna_ActionForm.php
+ * Ethna_ActionForm.php
  *
- *  @author     Masaki Fujimoto <fujimoto@php.net>
- *  @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
- *  @package    Ethna
- *  @version    $Id$
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @package Ethna
+ * @version $Id$
  */
 
-/** 定型フィルタ: 半角入力 */
-define('FILTER_HW', 'numeric_zentohan,alphabet_zentohan,ltrim,rtrim,ntrim');
-
-/** 定型フィルタ: 全角入力 */
-define('FILTER_FW', 'kana_hantozen,ntrim');
-
-
-// {{{ Ethna_ActionForm
 /**
- *  アクションフォームクラス
+ * アクションフォームクラス
  *
- *  @author     Masaki Fujimoto <fujimoto@php.net>
- *  @access     public
- *  @package    Ethna
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @access public
+ * @package Ethna
  */
 class Ethna_ActionForm
 {
     /**#@+
-     *  @access private
+     * @access private
      */
 
-    /** @var    array   フォーム値定義(デフォルト) */
+    /** @var array フォーム値定義(デフォルト) */
     protected $form_template = array();
 
-    /** @var    array   フォーム値定義 */
+    /** @var array フォーム値定義 */
     protected $form = array();
 
-    /** @var    array   フォーム値 */
+    /** @var array フォーム値 */
     protected $form_vars = array();
 
-    /** @var    array   アプリケーション設定値 */
+    /** @var array アプリケーション設定値 */
     protected $app_vars = array();
 
-    /** @var    array   アプリケーション設定値(自動エスケープなし) */
+    /** @var array アプリケーション設定値(自動エスケープなし) */
     protected $app_ne_vars = array();
 
-    /** @var    object  Ethna_ActionError   アクションエラーオブジェクト */
+    /** @var object Ethna_ActionError アクションエラーオブジェクト */
     protected $action_error;
 
-    /** @var    object  Ethna_ActionError   アクションエラーオブジェクト(省略形) */
+    /** @var object Ethna_ActionError アクションエラーオブジェクト(省略形) */
     protected $ae;
 
-    /** @var    array   フォーム定義要素 */
+    /** @var array フォーム定義要素 */
     protected $def = array('name', 'required', 'max', 'min', 'regexp', 'custom', 'filter', 'form_type', 'type');
 
     /**
-     *  Ethna_ActionFormクラスのコンストラクタ
+     * Ethna_ActionFormクラスのコンストラクタ
      *
-     *  @access public
-     *  @param  object  Ethna_Controller    &$controller    controllerオブジェクト
+     * @access public
+     * @param object Ethna_Controller &$controller controllerオブジェクト
      */
-    function Ethna_ActionForm(&$controller)
+    public function __construct($controller)
     {
         $this->action_error = $controller->getActionError();
         $this->ae = $this->action_error;
@@ -86,13 +78,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値のアクセサ(R)
+     * フォーム値のアクセサ(R)
      *
-     *  @access public
-     *  @param  string  $name   フォーム値の名称
-     *  @return mixed   フォーム値
+     * @access public
+     * @param string $name フォーム値の名称
+     * @return mixed フォーム値
      */
-    function get($name)
+    public function get($name)
     {
         if (isset($this->form_vars[$name])) {
             return $this->form_vars[$name];
@@ -101,13 +93,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値定義を取得する
+     * フォーム値定義を取得する
      *
-     *  @access public
-     *  @param  string  $name   取得するフォーム名(省略可:nullなら全ての定義を取得する)
-     *  @return array   フォーム値定義
+     * @access public
+     * @param string $name 取得するフォーム名(省略可:nullなら全ての定義を取得する)
+     * @return array フォーム値定義
      */
-    function getDef($name = null)
+    public function getDef($name = null)
     {
         if (is_null($name)) {
             return $this->form;
@@ -121,13 +113,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム項目表示名を取得する
+     * フォーム項目表示名を取得する
      *
-     *  @access public
-     *  @param  string  $name   フォーム値の名称
-     *  @return mixed   フォーム値の表示名
+     * @access public
+     * @param string $name フォーム値の名称
+     * @return mixed フォーム値の表示名
      */
-    function getName($name)
+    public function getName($name)
     {
         if (isset($this->form[$name]) == false) {
             return null;
@@ -139,11 +131,11 @@ class Ethna_ActionForm
     }
 
     /**
-     *  ユーザから送信されたフォーム値をフォーム値定義に従ってインポートする
+     * ユーザから送信されたフォーム値をフォーム値定義に従ってインポートする
      *
-     *  @access public
+     * @access public
      */
-    function setFormVars()
+    public function setFormVars()
     {
         $http_vars = $_REQUEST;
 
@@ -229,26 +221,26 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値へのアクセサ(W)
+     * フォーム値へのアクセサ(W)
      *
-     *  @access public
-     *  @param  string  $name   フォーム値の名称
-     *  @param  string  $value  設定する値
+     * @access public
+     * @param string $name フォーム値の名称
+     * @param string $value 設定する値
      */
-    function set($name, $value)
+    public function set($name, $value)
     {
         $this->form_vars[$name] = $value;
     }
 
     /**
-     *  フォーム値定義を設定する
+     * フォーム値定義を設定する
      *
-     *  @access public
-     *  @param  string  $name   設定するフォーム名(省略可:nullなら全ての定義を設定する)
-     *  @param  array   $value  設定するフォーム値定義
-     *  @return array   フォーム値定義
+     * @access public
+     * @param string $name 設定するフォーム名(省略可:nullなら全ての定義を設定する)
+     * @param array $value 設定するフォーム値定義
+     * @return array フォーム値定義
      */
-    function setDef($name, $value)
+    public function setDef($name, $value)
     {
         if (is_null($name)) {
             $this->form = $value;
@@ -258,13 +250,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値を配列にして返す
+     * フォーム値を配列にして返す
      *
-     *  @access public
-     *  @param  bool    $escape HTMLエスケープフラグ(true:エスケープする)
-     *  @return array   フォーム値を格納した配列
+     * @access public
+     * @param bool $escape HTMLエスケープフラグ(true:エスケープする)
+     * @return array フォーム値を格納した配列
      */
-    function getArray($escape = true)
+    public function getArray($escape = true)
     {
         $retval = array();
 
@@ -274,13 +266,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  アプリケーション設定値のアクセサ(R)
+     * アプリケーション設定値のアクセサ(R)
      *
-     *  @access public
-     *  @param  string  $name   キー
-     *  @return mixed   アプリケーション設定値
+     * @access public
+     * @param string $name キー
+     * @return mixed アプリケーション設定値
      */
-    function getApp($name)
+    public function getApp($name)
     {
         if (isset($this->app_vars[$name]) == false) {
             return null;
@@ -289,25 +281,25 @@ class Ethna_ActionForm
     }
 
     /**
-     *  アプリケーション設定値のアクセサ(W)
+     * アプリケーション設定値のアクセサ(W)
      *
-     *  @access public
-     *  @param  string  $name   キー
-     *  @param  mixed   $value  値
+     * @access public
+     * @param string $name キー
+     * @param mixed $value 値
      */
-    function setApp($name, $value)
+    public function setApp($name, $value)
     {
         $this->app_vars[$name] = $value;
     }
 
     /**
-     *  アプリケーション設定値を配列にして返す
+     * アプリケーション設定値を配列にして返す
      *
-     *  @access public
-     *  @param  boolean $escape HTMLエスケープフラグ(true:エスケープする)
-     *  @return array   フォーム値を格納した配列
+     * @access public
+     * @param boolean $escape HTMLエスケープフラグ(true:エスケープする)
+     * @return array フォーム値を格納した配列
      */
-    function getAppArray($escape = true)
+    public function getAppArray($escape = true)
     {
         $retval = array();
 
@@ -317,13 +309,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  アプリケーション設定値(自動エスケープなし)のアクセサ(R)
+     * アプリケーション設定値(自動エスケープなし)のアクセサ(R)
      *
-     *  @access public
-     *  @param  string  $name   キー
-     *  @return mixed   アプリケーション設定値
+     * @access public
+     * @param string $name キー
+     * @return mixed アプリケーション設定値
      */
-    function getAppNE($name)
+    public function getAppNE($name)
     {
         if (isset($this->app_ne_vars[$name]) == false) {
             return null;
@@ -332,25 +324,25 @@ class Ethna_ActionForm
     }
 
     /**
-     *  アプリケーション設定値(自動エスケープなし)のアクセサ(W)
+     * アプリケーション設定値(自動エスケープなし)のアクセサ(W)
      *
-     *  @access public
-     *  @param  string  $name   キー
-     *  @param  mixed   $value  値
+     * @access public
+     * @param string $name キー
+     * @param mixed $value 値
      */
-    function setAppNE($name, $value)
+    public function setAppNE($name, $value)
     {
         $this->app_ne_vars[$name] = $value;
     }
 
     /**
-     *  アプリケーション設定値(自動エスケープなし)を配列にして返す
+     * アプリケーション設定値(自動エスケープなし)を配列にして返す
      *
-     *  @access public
-     *  @param  boolean $escape HTMLエスケープフラグ(true:エスケープする)
-     *  @return array   フォーム値を格納した配列
+     * @access public
+     * @param boolean $escape HTMLエスケープフラグ(true:エスケープする)
+     * @return array フォーム値を格納した配列
      */
-    function getAppNEArray($escape = false)
+    public function getAppNEArray($escape = false)
     {
         $retval = array();
 
@@ -360,14 +352,14 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォームを配列にして返す(内部処理)
+     * フォームを配列にして返す(内部処理)
      *
-     *  @access private
-     *  @param  array   &$vars      フォーム(等)の配列
-     *  @param  array   &$retval    配列への変換結果
-     *  @param  bool    $escape     HTMLエスケープフラグ(true:エスケープする)
+     * @access private
+     * @param array &$vars フォーム(等)の配列
+     * @param array &$retval 配列への変換結果
+     * @param bool $escape HTMLエスケープフラグ(true:エスケープする)
      */
-    function _getArray(&$vars, &$retval, $escape)
+    private function _getArray(&$vars, &$retval, $escape)
     {
         foreach (array_keys($vars) as $name) {
             if (is_array($vars[$name])) {
@@ -380,12 +372,12 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値検証メソッド
+     * フォーム値検証メソッド
      *
-     *  @access public
-     *  @return int     発生したエラーの数
+     * @access public
+     * @return int 発生したエラーの数
      */
-    function validate()
+    public function validate()
     {
         foreach ($this->form as $name => $def) {
             // 配列でラップする
@@ -415,13 +407,13 @@ class Ethna_ActionForm
                 if ($type == Ethna_Const::VAR_TYPE_FILE) {
                     if ($form_vars[$key]['size'] == 0
                         || is_uploaded_file($form_vars[$key]['tmp_name']) == false) {
-                        continue;
-                    }
+                            continue;
+                        }
                 } else {
                     if (is_scalar($form_vars[$key]) == false
                         || strlen($form_vars[$key]) == 0) {
-                        continue;
-                    }
+                            continue;
+                        }
                 }
 
                 // valid_keys に追加
@@ -449,13 +441,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  チェックメソッド(基底クラス)
+     * チェックメソッド(基底クラス)
      *
-     *  @access public
-     *  @param  string  $name   フォーム項目名
-     *  @return array   チェック対象のフォーム値(エラーが無い場合はnull)
+     * @access public
+     * @param string $name フォーム項目名
+     * @return array チェック対象のフォーム値(エラーが無い場合はnull)
      */
-    function check($name)
+    public function check($name)
     {
         if (is_null($this->form_vars[$name]) || $this->form_vars[$name] === "") {
             return null;
@@ -469,13 +461,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  チェックメソッド: 機種依存文字
+     * チェックメソッド: 機種依存文字
      *
-     *  @access public
-     *  @param  string  $name   フォーム項目名
-     *  @return object  Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
+     * @access public
+     * @param string $name フォーム項目名
+     * @return object Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
-    function checkVendorChar($name)
+    public function checkVendorChar($name)
     {
         $null = null;
         $string = $this->form_vars[$name];
@@ -503,13 +495,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  チェックメソッド: bool値
+     * チェックメソッド: bool値
      *
-     *  @access public
-     *  @param  string  $name   フォーム項目名
-     *  @return object  Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
+     * @access public
+     * @param string $name フォーム項目名
+     * @return object Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
-    function checkBoolean($name)
+    public function checkBoolean($name)
     {
         $null = null;
         $form_vars = $this->check($name);
@@ -531,13 +523,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  チェックメソッド: メールアドレス
+     * チェックメソッド: メールアドレス
      *
-     *  @access public
-     *  @param  string  $name   フォーム項目名
-     *  @return object  Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
+     * @access public
+     * @param string $name フォーム項目名
+     * @return object Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
-    function checkMailaddress($name)
+    public function checkMailaddress($name)
     {
         $null = null;
         $form_vars = $this->check($name);
@@ -559,13 +551,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  チェックメソッド: URL
+     * チェックメソッド: URL
      *
-     *  @access public
-     *  @param  string  $name   フォーム項目名
-     *  @return object  Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
+     * @access public
+     * @param string $name フォーム項目名
+     * @return object Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
-    function checkURL($name)
+    public function checkURL($name)
     {
         $null = null;
         $form_vars = $this->check($name);
@@ -587,14 +579,14 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値をhiddenタグとして返す
+     * フォーム値をhiddenタグとして返す
      *
-     *  @access public
-     *  @param  array   $include_list   配列が指定された場合、その配列に含まれるフォーム項目のみが対象となる
-     *  @param  array   $exclude_list   配列が指定された場合、その配列に含まれないフォーム項目のみが対象となる
-     *  @return string  hiddenタグとして記述されたHTML
+     * @access public
+     * @param array $include_list 配列が指定された場合、その配列に含まれるフォーム項目のみが対象となる
+     * @param array $exclude_list 配列が指定された場合、その配列に含まれないフォーム項目のみが対象となる
+     * @return string hiddenタグとして記述されたHTML
      */
-    function getHiddenVars($include_list = null, $exclude_list = null)
+    public function getHiddenVars($include_list = null, $exclude_list = null)
     {
         $hidden_vars = "";
         foreach ($this->form as $key => $value) {
@@ -626,36 +618,36 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値検証のエラー処理を行う
+     * フォーム値検証のエラー処理を行う
      *
-     *  @access public
-     *  @param  string      $name   フォーム項目名
-     *  @param  int         $code   エラーコード
+     * @access public
+     * @param string $name フォーム項目名
+     * @param int  $code エラーコード
      */
-    function handleError($name, $code)
+    public function handleError($name, $code)
     {
         $def = $this->getDef($name);
 
         // ユーザ定義エラーメッセージ
         $code_map = array(
-            Ethna_Const::E_FORM_REQUIRED     => 'required_error',
+            Ethna_Const::E_FORM_REQUIRED => 'required_error',
             Ethna_Const::E_FORM_WRONGTYPE_SCALAR => 'type_error',
-            Ethna_Const::E_FORM_WRONGTYPE_ARRAY  => 'type_error',
-            Ethna_Const::E_FORM_WRONGTYPE_INT    => 'type_error',
-            Ethna_Const::E_FORM_WRONGTYPE_FLOAT  => 'type_error',
-            Ethna_Const::E_FORM_WRONGTYPE_DATETIME   => 'type_error',
-            Ethna_Const::E_FORM_WRONGTYPE_BOOLEAN    => 'type_error',
-            Ethna_Const::E_FORM_MIN_INT      => 'min_error',
-            Ethna_Const::E_FORM_MIN_FLOAT    => 'min_error',
+            Ethna_Const::E_FORM_WRONGTYPE_ARRAY => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_INT => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_FLOAT => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_DATETIME => 'type_error',
+            Ethna_Const::E_FORM_WRONGTYPE_BOOLEAN => 'type_error',
+            Ethna_Const::E_FORM_MIN_INT => 'min_error',
+            Ethna_Const::E_FORM_MIN_FLOAT => 'min_error',
             Ethna_Const::E_FORM_MIN_DATETIME => 'min_error',
-            Ethna_Const::E_FORM_MIN_FILE     => 'min_error',
-            Ethna_Const::E_FORM_MIN_STRING   => 'min_error',
-            Ethna_Const::E_FORM_MAX_INT      => 'max_error',
-            Ethna_Const::E_FORM_MAX_FLOAT    => 'max_error',
+            Ethna_Const::E_FORM_MIN_FILE => 'min_error',
+            Ethna_Const::E_FORM_MIN_STRING => 'min_error',
+            Ethna_Const::E_FORM_MAX_INT => 'max_error',
+            Ethna_Const::E_FORM_MAX_FLOAT => 'max_error',
             Ethna_Const::E_FORM_MAX_DATETIME => 'max_error',
-            Ethna_Const::E_FORM_MAX_FILE     => 'max_error',
-            Ethna_Const::E_FORM_MAX_STRING   => 'max_error',
-            Ethna_Const::E_FORM_REGEXP       => 'regexp_error',
+            Ethna_Const::E_FORM_MAX_FILE => 'max_error',
+            Ethna_Const::E_FORM_MAX_STRING => 'max_error',
+            Ethna_Const::E_FORM_REGEXP => 'regexp_error',
         );
         if (array_key_exists($code_map[$code], $def)) {
             $this->ae->add($name, $def[$code_map[$code]], $code);
@@ -729,16 +721,16 @@ class Ethna_ActionForm
         $this->ae->add($name, $message, $code);
     }
     /**
-     *  フォーム値検証メソッド(実体)
+     * フォーム値検証メソッド(実体)
      *
-     *  @access private
-     *  @param  string  $name       フォーム項目名
-     *  @param  mixed   $var        フォーム値(配列であれば個々の中身)
-     *  @param  array   $def        フォーム値定義
-     *  @param  bool    $test       エラーオブジェクト登録フラグ(true:登録しない)
-     *  @return bool    true:正常終了 false:エラー
+     * @access private
+     * @param string $name フォーム項目名
+     * @param mixed $var フォーム値(配列であれば個々の中身)
+     * @param array $def フォーム値定義
+     * @param bool $test エラーオブジェクト登録フラグ(true:登録しない)
+     * @return bool true:正常終了 false:エラー
      */
-    function _validate($name, $var, $def, $test = false)
+    private function _validate($name, $var, $def, $test = false)
     {
         $type = is_array($def['type']) ? $def['type'][0] : $def['type'];
 
@@ -871,11 +863,11 @@ class Ethna_ActionForm
         // regexp
         if ($type != Ethna_Const::VAR_TYPE_FILE && $def['regexp'] != null && strlen($var) > 0
             && preg_match($def['regexp'], $var) == 0) {
-            if ($test == false) {
-                $this->handleError($name, Ethna_Const::E_FORM_REGEXP);
+                if ($test == false) {
+                    $this->handleError($name, Ethna_Const::E_FORM_REGEXP);
+                }
+                return false;
             }
-            return false;
-        }
 
         // custom (TODO: respect $test flag)
         if ($def['custom'] != null) {
@@ -890,13 +882,13 @@ class Ethna_ActionForm
     }
 
     /**
-     *  カスタムチェックメソッドを実行する
+     * カスタムチェックメソッドを実行する
      *
-     *  @access protected
-     *  @param  string  $method_list    カスタムメソッド名(カンマ区切り)
-     *  @param  string  $name           フォーム項目名
+     * @access protected
+     * @param string $method_list カスタムメソッド名(カンマ区切り)
+     * @param string $name  フォーム項目名
      */
-    function _validateCustom($method_list, $name)
+    protected function _validateCustom($method_list, $name)
     {
         $method_list = preg_split('/\s*,\s*/', $method_list, -1, PREG_SPLIT_NO_EMPTY);
         if (is_array($method_list) == false) {
@@ -908,14 +900,14 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値に変換フィルタを適用する
+     * フォーム値に変換フィルタを適用する
      *
-     *  @access private
-     *  @param  mixed   $value  フォーム値
-     *  @param  int     $filter フィルタ定義
-     *  @return mixed   変換結果
+     * @access private
+     * @param mixed $value フォーム値
+     * @param int $filter フィルタ定義
+     * @return mixed 変換結果
      */
-    function _filter($value, $filter)
+    private function _filter($value, $filter)
     {
         if (is_null($filter)) {
             return $value;
@@ -933,107 +925,107 @@ class Ethna_ActionForm
     }
 
     /**
-     *  フォーム値変換フィルタ: 全角英数字->半角英数字
+     * フォーム値変換フィルタ: 全角英数字->半角英数字
      *
-     *  @access protected
-     *  @param  mixed   $value  フォーム値
-     *  @return mixed   変換結果
+     * @access protected
+     * @param mixed $value フォーム値
+     * @return mixed 変換結果
      */
-    function _filter_alnum_zentohan($value)
+    protected function _filter_alnum_zentohan($value)
     {
         return mb_convert_kana($value, "a");
     }
 
     /**
-     *  フォーム値変換フィルタ: 全角数字->半角数字
+     * フォーム値変換フィルタ: 全角数字->半角数字
      *
-     *  @access protected
-     *  @param  mixed   $value  フォーム値
-     *  @return mixed   変換結果
+     * @access protected
+     * @param mixed $value フォーム値
+     * @return mixed 変換結果
      */
-    function _filter_numeric_zentohan($value)
+    protected function _filter_numeric_zentohan($value)
     {
         return mb_convert_kana($value, "n");
     }
 
     /**
-     *  フォーム値変換フィルタ: 全角英字->半角英字
+     * フォーム値変換フィルタ: 全角英字->半角英字
      *
-     *  @access protected
-     *  @param  mixed   $value  フォーム値
-     *  @return mixed   変換結果
+     * @access protected
+     * @param mixed $value フォーム値
+     * @return mixed 変換結果
      */
-    function _filter_alphabet_zentohan($value)
+    protected function _filter_alphabet_zentohan($value)
     {
         return mb_convert_kana($value, "r");
     }
 
     /**
-     *  フォーム値変換フィルタ: 左空白削除
+     * フォーム値変換フィルタ: 左空白削除
      *
-     *  @access protected
-     *  @param  mixed   $value  フォーム値
-     *  @return mixed   変換結果
+     * @access protected
+     * @param mixed $value フォーム値
+     * @return mixed 変換結果
      */
-    function _filter_ltrim($value)
+    protected function _filter_ltrim($value)
     {
         return ltrim($value);
     }
 
     /**
-     *  フォーム値変換フィルタ: 右空白削除
+     * フォーム値変換フィルタ: 右空白削除
      *
-     *  @access protected
-     *  @param  mixed   $value  フォーム値
-     *  @return mixed   変換結果
+     * @access protected
+     * @param mixed $value フォーム値
+     * @return mixed 変換結果
      */
-    function _filter_rtrim($value)
+    protected function _filter_rtrim($value)
     {
         return rtrim($value);
     }
 
     /**
-     *  フォーム値変換フィルタ: NULL(0x00)削除
+     * フォーム値変換フィルタ: NULL(0x00)削除
      *
-     *  @access protected
-     *  @param  mixed   $value  フォーム値
-     *  @return mixed   変換結果
+     * @access protected
+     * @param mixed $value フォーム値
+     * @return mixed 変換結果
      */
-    function _filter_ntrim($value)
+    protected function _filter_ntrim($value)
     {
         return str_replace("\x00", "", $value);
     }
 
     /**
-     *  フォーム値変換フィルタ: 半角カナ->全角カナ
+     * フォーム値変換フィルタ: 半角カナ->全角カナ
      *
-     *  @access protected
-     *  @param  mixed   $value  フォーム値
-     *  @return mixed   変換結果
+     * @access protected
+     * @param mixed $value フォーム値
+     * @return mixed 変換結果
      */
-    function _filter_kana_hantozen($value)
+    protected function _filter_kana_hantozen($value)
     {
         return mb_convert_kana($value, "K");
     }
 
     /**
-     *  フォーム値定義テンプレートを設定する
+     * フォーム値定義テンプレートを設定する
      *
-     *  @access protected
-     *  @param  array   $form_template  フォーム値テンプレート
-     *  @return array   フォーム値テンプレート
+     * @access protected
+     * @param array $form_template フォーム値テンプレート
+     * @return array フォーム値テンプレート
      */
-    function _setFormTemplate($form_template)
+    protected function _setFormTemplate($form_template)
     {
         return $form_template;
     }
 
     /**
-     *  フォーム値定義を設定する
+     * フォーム値定義を設定する
      *
-     *  @access protected
+     * @access protected
      */
-    function _setFormDef()
+    protected function _setFormDef()
     {
         foreach ($this->form as $key => $value) {
             if (array_key_exists($key, $this->form_template) && is_array($this->form_template)) {
@@ -1046,5 +1038,4 @@ class Ethna_ActionForm
         }
     }
 }
-// }}}
 

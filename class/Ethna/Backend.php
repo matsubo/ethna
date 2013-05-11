@@ -112,7 +112,7 @@ class Ethna_Backend
      * @access public
      * @return object Ethna_Config 設定オブジェクト
      */
-    function getConfig()
+    public function getConfig()
     {
         return $this->config;
     }
@@ -123,7 +123,7 @@ class Ethna_Backend
      * @access public
      * @return string アプリケーションID
      */
-    function getAppId()
+    public function getAppId()
     {
         return $this->controller->getAppId();
     }
@@ -134,7 +134,7 @@ class Ethna_Backend
      * @access public
      * @return object Ethna_ActionError アクションエラーオブジェクト
      */
-    function getActionError()
+    public function getActionError()
     {
         return $this->action_error;
     }
@@ -145,7 +145,7 @@ class Ethna_Backend
      * @access public
      * @return object Ethna_ActionForm アクションフォームオブジェクト
      */
-    function getActionForm()
+    public function getActionForm()
     {
         return $this->action_form;
     }
@@ -155,7 +155,7 @@ class Ethna_Backend
      *
      * @access public
      */
-    function setActionForm(&$action_form)
+    public function setActionForm(&$action_form)
     {
         $this->action_form = $action_form;
         $this->af = $action_form;
@@ -167,7 +167,7 @@ class Ethna_Backend
      * @access public
      * @return mixed Ethna_ActionClass:アクションクラス null:アクションクラス未定
      */
-    function getActionClass()
+    public function getActionClass()
     {
         return $this->action_class;
     }
@@ -177,7 +177,7 @@ class Ethna_Backend
      *
      * @access public
      */
-    function setActionClass(&$action_class)
+    public function setActionClass(&$action_class)
     {
         $this->action_class = $action_class;
         $this->ac = $action_class;
@@ -189,7 +189,7 @@ class Ethna_Backend
      * @access public
      * @return object Ethna_Session セッションオブジェクト
      */
-    function getSession()
+    public function getSession()
     {
         return $this->session;
     }
@@ -200,7 +200,7 @@ class Ethna_Backend
      * @access public
      * @return object Ethna_AppManager マネージャオブジェクト
      */
-    function getManager($type)
+    public function getManager($type)
     {
         if (isset($this->manager[$type])) {
             return $this->manager[$type];
@@ -214,7 +214,7 @@ class Ethna_Backend
      * @access public
      * @return string ベースディレクトリのパス名
      */
-    function getBasedir()
+    public function getBasedir()
     {
         return $this->controller->getBasedir();
     }
@@ -225,7 +225,7 @@ class Ethna_Backend
      * @access public
      * @return string テンプレートディレクトリのパス名
      */
-    function getTemplatedir()
+    public function getTemplatedir()
     {
         return $this->controller->getTemplatedir();
     }
@@ -236,7 +236,7 @@ class Ethna_Backend
      * @access public
      * @return string 設定ディレクトリのパス名
      */
-    function getEtcdir()
+    public function getEtcdir()
     {
         return $this->controller->getDirectory('etc');
     }
@@ -247,20 +247,9 @@ class Ethna_Backend
      * @access public
      * @return string テンポラリディレクトリのパス名
      */
-    function getTmpdir()
+    public function getTmpdir()
     {
         return $this->controller->getDirectory('tmp');
-    }
-
-    /**
-     * アプリケーションのテンプレートファイル拡張子を取得する
-     *
-     * @access public
-     * @return string テンプレートファイルの拡張子
-     */
-    function getTemplateext()
-    {
-        return $this->controller->getExt('tpl');
     }
 
     /**
@@ -270,7 +259,7 @@ class Ethna_Backend
      * @param string $action_name 実行するアクションの名称
      * @return mixed (string):Forward名(nullならforwardしない) Ethna_Error:エラー
      */
-    function perform($action_name)
+    public function perform($action_name)
     {
         $forward_name = null;
 

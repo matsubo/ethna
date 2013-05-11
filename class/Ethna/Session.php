@@ -1,50 +1,49 @@
 <?php
 // vim: foldmethod=marker
 /**
- *    Ethna_Session.php
+ * Ethna_Session.php
  *
- *    @author        Masaki Fujimoto <fujimoto@php.net>
- *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
- *    @package    Ethna
- *    @version    $Id$
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @package Ethna
+ * @version $Id$
  */
 
-// {{{ Ethna_Session
 /**
- *    セッションクラス
+ * セッションクラス
  *
- *    @author        Masaki Fujimoto <fujimoto@php.net>
- *    @access        public
- *    @package    Ethna
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @access public
+ * @package Ethna
  */
 class Ethna_Session
 {
     /**#@+
-     *    @access    private
+     * @access private
      */
 
-    /**    @var    string    セッション名 */
+    /** @var string セッション名 */
     protected $session_name;
 
-    /**    @var    string    セッションデータ保存ディレクトリ */
-    protected    $session_save_dir;
+    /** @var string セッションデータ保存ディレクトリ */
+    protected $session_save_dir;
 
-    /**    @var    bool    セッション開始フラグ */
+    /** @var bool セッション開始フラグ */
     protected $session_start = false;
 
-    /**    @var    bool    匿名セッションフラグ */
+    /** @var bool 匿名セッションフラグ */
     protected $anonymous = false;
 
     /**#@-*/
 
     /**
-     *    Ethna_Sessionクラスのコンストラクタ
+     * Ethna_Sessionクラスのコンストラクタ
      *
-     *    @access    public
-     *    @param    string    $appid        アプリケーションID(セッション名として使用)
-     *    @param    string    $save_dir    セッションデータを保存するディレクトリ
+     * @access public
+     * @param string $appid アプリケーションID(セッション名として使用)
+     * @param string $save_dir セッションデータを保存するディレクトリ
      */
-    function Ethna_Session($appid, $save_dir)
+    public function __construct($appid, $save_dir)
     {
         $this->session_name = "${appid}SESSID";
         $this->session_save_dir = $save_dir;
@@ -72,11 +71,11 @@ class Ethna_Session
     }
 
     /**
-     *    セッションを復帰する
+     * セッションを復帰する
      *
-     *    @access    public
+     * @access public
      */
-    function restore()
+    public function restore()
     {
         if (!empty($_COOKIE[$this->session_name]) || session_id() != "") {
             session_start();
@@ -96,12 +95,12 @@ class Ethna_Session
     }
 
     /**
-     *    セッションの正当性チェック
+     * セッションの正当性チェック
      *
-     *    @access    public
-     *    @return    bool    true:正当なセッション false:不当なセッション
+     * @access public
+     * @return bool true:正当なセッション false:不当なセッション
      */
-    function isValid()
+    public function isValid()
     {
         if (!$this->session_start) {
             if (!empty($_COOKIE[$this->session_name]) || session_id() != null) {
@@ -113,13 +112,13 @@ class Ethna_Session
     }
 
     /**
-     *    セッションを開始する
+     * セッションを開始する
      *
-     *    @access    public
-     *    @param    int        $lifetime    セッション有効期間(秒単位, 0ならセッションクッキー)
-     *    @return    bool    true:正常終了 false:エラー
+     * @access public
+     * @param int $lifetime セッション有効期間(秒単位, 0ならセッションクッキー)
+     * @return bool true:正常終了 false:エラー
      */
-    function start($lifetime = 0, $anonymous = false)
+    public function start($lifetime = 0, $anonymous = false)
     {
         if ($this->session_start) {
             // we need this?
@@ -145,12 +144,12 @@ class Ethna_Session
     }
 
     /**
-     *    セッションを破棄する
+     * セッションを破棄する
      *
-     *    @access    public
-     *    @return    bool    true:正常終了 false:エラー
+     * @access public
+     * @return bool true:正常終了 false:エラー
      */
-    function destroy()
+    public function destroy()
     {
         if (!$this->session_start) {
             return true;
@@ -164,13 +163,13 @@ class Ethna_Session
     }
 
     /**
-     *    セッション値へのアクセサ(R)
+     * セッション値へのアクセサ(R)
      *
-     *    @access    public
-     *    @param    string    $name    キー
-     *    @return    mixed    取得した値(null:セッションが開始されていない)
+     * @access public
+     * @param string $name キー
+     * @return mixed 取得した値(null:セッションが開始されていない)
      */
-    function get($name)
+    public function get($name)
     {
         if (!$this->session_start) {
             return null;
@@ -183,14 +182,14 @@ class Ethna_Session
     }
 
     /**
-     *    セッション値へのアクセサ(W)
+     * セッション値へのアクセサ(W)
      *
-     *    @access    public
-     *    @param    string    $name    キー
-     *    @param    string    $value    値
-     *    @return    bool    true:正常終了 false:エラー(セッションが開始されていない)
+     * @access public
+     * @param string $name キー
+     * @param string $value 値
+     * @return bool true:正常終了 false:エラー(セッションが開始されていない)
      */
-    function set($name, $value)
+    public function set($name, $value)
     {
         if (!$this->session_start) {
             // no way
@@ -203,13 +202,13 @@ class Ethna_Session
     }
 
     /**
-     *    セッションの値を破棄する
+     * セッションの値を破棄する
      *
-     *    @access    public
-     *    @param    string    $name    キー
-     *    @return    bool    true:正常終了 false:エラー(セッションが開始されていない)
+     * @access public
+     * @param string $name キー
+     * @return bool true:正常終了 false:エラー(セッションが開始されていない)
      */
-    function remove($name)
+    public function remove($name)
     {
         if (!$this->session_start) {
             return false;
@@ -221,13 +220,13 @@ class Ethna_Session
     }
 
     /**
-     *    セッションが開始されているかどうかを返す
+     * セッションが開始されているかどうかを返す
      *
-     *    @access    public
-     *    @param    string    $anonymous    匿名セッションを「開始」とみなすかどうか(default: false)
-     *    @return    bool    true:開始済み false:開始されていない
+     * @access public
+     * @param string $anonymous 匿名セッションを「開始」とみなすかどうか(default: false)
+     * @return bool true:開始済み false:開始されていない
      */
-    function isStart($anonymous = false)
+    public function isStart($anonymous = false)
     {
         if ($anonymous) {
             return $this->session_start;
@@ -241,15 +240,14 @@ class Ethna_Session
     }
 
     /**
-     *    匿名セッションかどうかを返す
+     * 匿名セッションかどうかを返す
      *
-     *    @access    public
-     *    @return    bool    true:匿名セッション false:非匿名セッション/セッション開始されていない
+     * @access public
+     * @return bool true:匿名セッション false:非匿名セッション/セッション開始されていない
      */
-    function isAnonymous()
+    public function isAnonymous()
     {
         return $this->anonymous;
     }
 }
-// }}}
 

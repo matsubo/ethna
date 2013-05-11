@@ -1,120 +1,28 @@
 <?php
-// vim: foldmethod=marker
 /**
- *    Ethna_Util.php
+ * Ethna_Util.php
  *
- *    @author        Masaki Fujimoto <fujimoto@php.net>
- *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
- *    @package    Ethna
- *    @version    $Id$
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @package Ethna
+ * @version $Id$
  */
-
-// {{{ to_array
 /**
- *    グローバルユーティリティ関数: スカラー値を要素数1の配列として返す
+ * ユーティリティクラス
  *
- *    @param    mixed    $v    配列として扱う値
- *    @return    array    配列に変換された値
- */
-function to_array($v)
-{
-    if (is_array($v)) {
-        return $v;
-    } else {
-        return array($v);
-    }
-}
-// }}}
-
-// {{{ is_error
-/**
- *    グローバルユーティリティ関数: 指定されたフォーム項目にエラーがあるかどうかを返す
- *
- *    @param    string    $name    フォーム項目名
- *    @return    bool    true:エラー有り false:エラー無し
- */
-function is_error($name)
-{
-    $c = Ethna_Controller::getInstance();
-
-    $action_error = $c->getActionError();
-
-    return $action_error->isError($name);
-}
-// }}}
-
-// {{{ file_exists_ex
-/**
- *    グローバルユーティリティ関数: include_pathを検索しつつfile_exists()する
- *
- *    @param    string    $path               ファイル名
- *    @param    bool    $use_include_path   include_pathをチェックするかどうか
- *    @return    bool    true:有り false:無し
- */
-function file_exists_ex($path, $use_include_path = true)
-{
-    if ($use_include_path == false) {
-        return file_exists($path);
-    }
-
-    // check if absolute
-    if (is_absolute_path($path)) {
-        return file_exists($path);
-    }
-
-    $include_path_list = explode(PATH_SEPARATOR, get_include_path());
-    if (is_array($include_path_list) == false) {
-        return file_exists($path);
-    }
-
-    foreach ($include_path_list as $include_path) {
-        if (file_exists($include_path . DIRECTORY_SEPARATOR . $path)) {
-            return true;
-        }
-    }
-    return false;
-}
-// }}}
-
-// {{{ is_absolute_path
-/**
- *    グローバルユーティリティ関数: 絶対パスかどうかを返す
- *
- *    @param    string    $path               ファイル名
- *    @return    bool    true:絶対 false:相対
- */
-function is_absolute_path($path)
-{
-    if (OS_WINDOWS) {
-        if (preg_match('/^[a-z]:/i', $path) && $path{2} == DIRECTORY_SEPARATOR) {
-            return true;
-        }
-    } else {
-        if ($path{0} == DIRECTORY_SEPARATOR) {
-            return true;
-        }
-    }
-    return false;
-}
-// }}}
-
-// {{{ Ethna_Util
-/**
- *    ユーティリティクラス
- *
- *    @author        Masaki Fujimoto <fujimoto@php.net>
- *    @access        public
- *    @package    Ethna
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @access public
+ * @package Ethna
  */
 class Ethna_Util
 {
     /**
-     *    POSTのユニークチェックを行う
+     * POSTのユニークチェックを行う
      *
-     *    @access    public
-     *    @return    bool    true:2回目以降のPOST false:1回目のPOST
+     * @access public
+     * @return bool true:2回目以降のPOST false:1回目のPOST
      */
-    function isDuplicatePost()
+    public static function isDuplicatePost()
     {
         $c = Ethna_Controller::getInstance();
 
@@ -146,12 +54,12 @@ class Ethna_Util
     }
 
     /**
-     *    POSTのユニークチェックフラグをクリアする
+     * POSTのユニークチェックフラグをクリアする
      *
-     *    @access    public
-     *    @return    mixed    0:正常終了 Ethna_Error:エラー
+     * @access public
+     * @return mixed 0:正常終了 Ethna_Error:エラー
      */
-    function clearDuplicatePost()
+    public static function clearDuplicatePost()
     {
         $c = Ethna_Controller::getInstance();
 
@@ -173,13 +81,13 @@ class Ethna_Util
     }
 
     /**
-     *    メールアドレスが正しいかどうかをチェックする
+     * メールアドレスが正しいかどうかをチェックする
      *
-     *    @access    public
-     *    @param    string    $mailaddress    チェックするメールアドレス
-     *    @return    bool    true: 正しいメールアドレス false: 不正な形式
+     * @access public
+     * @param string $mailaddress チェックするメールアドレス
+     * @return bool true: 正しいメールアドレス false: 不正な形式
      */
-    function checkMailAddress($mailaddress)
+    public static function checkMailAddress($mailaddress)
     {
         if (preg_match('/^([a-z0-9_]|\-|\.|\+)+@(([a-z0-9_]|\-)+\.)+[a-z]{2,6}$/i', $mailaddress)) {
             return true;
@@ -188,14 +96,14 @@ class Ethna_Util
     }
 
     /**
-     *    CSV形式の文字列を配列に分割する
+     * CSV形式の文字列を配列に分割する
      *
-     *    @access    public
-     *    @param    string    $csv        CSV形式の文字列(1行分)
-     *     @param    string    $delimiter    フィールドの区切り文字
-     *    @return    mixed    (array):分割結果 Ethna_Error:エラー(行継続)
+     * @access public
+     * @param string $csv CSV形式の文字列(1行分)
+     * @param string $delimiter フィールドの区切り文字
+     * @return mixed (array):分割結果 Ethna_Error:エラー(行継続)
      */
-    function explodeCSV($csv, $delimiter = ",")
+    public static function explodeCSV($csv, $delimiter = ",")
     {
         $space_list = '';
         foreach (array(" ", "\t", "\r", "\n") as $c) {
@@ -282,14 +190,14 @@ class Ethna_Util
     }
 
     /**
-     *    CSVエスケープ処理を行う
+     * CSVエスケープ処理を行う
      *
-     *    @access    public
-     *    @param    string    $csv        エスケープ対象の文字列(CSVの各要素)
-     *    @param    bool    $escape_nl    改行文字(\r/\n)のエスケープフラグ
-     *    @return    string    CSVエスケープされた文字列
+     * @access public
+     * @param string $csv エスケープ対象の文字列(CSVの各要素)
+     * @param bool $escape_nl 改行文字(\r/\n)のエスケープフラグ
+     * @return string CSVエスケープされた文字列
      */
-    function escapeCSV($csv, $escape_nl = false)
+    public static function escapeCSV($csv, $escape_nl = false)
     {
         if (preg_match('/[,"\r\n]/', $csv)) {
             if ($escape_nl) {
@@ -304,13 +212,13 @@ class Ethna_Util
     }
 
     /**
-     *    配列の要素を全てHTMLエスケープして返す
+     * 配列の要素を全てHTMLエスケープして返す
      *
-     *    @access    public
-     *    @param    array    $target        HTMLエスケープ対象となる配列
-     *    @return    array    エスケープされた配列
+     * @access public
+     * @param array $target HTMLエスケープ対象となる配列
+     * @return array エスケープされた配列
      */
-    function escapeHtml($target)
+    public static function escapeHtml($target)
     {
         $r = array();
         Ethna_Util::_escapeHtml($target, $r);
@@ -318,13 +226,13 @@ class Ethna_Util
     }
 
     /**
-     *    配列の要素を全てHTMLエスケープして返す
+     * 配列の要素を全てHTMLエスケープして返す
      *
-     *    @access    public
-     *    @param    mixed    $vars    HTMLエスケープ対象となる配列
-     *    @param    mixed    $retval    HTMLエスケープ対象となる子要素
+     * @access public
+     * @param mixed $vars HTMLエスケープ対象となる配列
+     * @param mixed $retval HTMLエスケープ対象となる子要素
      */
-    function _escapeHtml(&$vars, &$retval)
+    public static function _escapeHtml(&$vars, &$retval)
     {
         foreach (array_keys($vars) as $name) {
             if (is_array($vars[$name])) {
@@ -337,13 +245,13 @@ class Ethna_Util
     }
 
     /**
-     *    文字列をMIMEエンコードする
+     * 文字列をMIMEエンコードする
      *
-     *    @access    public
-     *    @param    string    $string        MIMEエンコードする文字列
-     *    @return    エンコード済みの文字列
+     * @access public
+     * @param string $string MIMEエンコードする文字列
+     * @return エンコード済みの文字列
      */
-    function encode_MIME($string)
+    public static function encode_MIME($string)
     {
         $pos = 0;
         $split = 36;
@@ -358,15 +266,15 @@ class Ethna_Util
     }
 
     /**
-     *    Google風リンクリストを返す
+     * Google風リンクリストを返す
      *
-     *    @access    public
-     *    @param    int        $total        検索総件数
-     *    @param    int        $offset        表示オフセット
-     *    @param    int        $count        表示件数
-     *    @return    array    リンク情報を格納した配列
+     * @access public
+     * @param int $total 検索総件数
+     * @param int $offset 表示オフセット
+     * @param int $count 表示件数
+     * @return array リンク情報を格納した配列
      */
-    function getDirectLinkList($total, $offset, $count)
+    public static function getDirectLinkList($total, $offset, $count)
     {
         $direct_link_list = array();
 
@@ -420,13 +328,13 @@ class Ethna_Util
     }
 
     /**
-     *    元号制での年を返す
+     * 元号制での年を返す
      *
-     *    @access    public
-     *    @param    int        $t        unix time
-     *    @return    string    元号(不明な場合はnull)
+     * @access public
+     * @param int $t unix time
+     * @return string 元号(不明な場合はnull)
      */
-    function getEra($t)
+    public static function getEra($t)
     {
         $tm = localtime($t, true);
         $year = $tm['tm_year'] + 1900;
@@ -441,46 +349,46 @@ class Ethna_Util
     }
 
     /**
-     *    getimagesize()の返すイメージタイプに対応する拡張子を返す
+     * getimagesize()の返すイメージタイプに対応する拡張子を返す
      *
-     *    @access    public
-     *    @param    int        $type    getimagesize()関数の返すイメージタイプ
-     *    @return    string    $typeに対応する拡張子
+     * @access public
+     * @param int $type getimagesize()関数の返すイメージタイプ
+     * @return string $typeに対応する拡張子
      */
-    function getImageExtName($type)
+    public static function getImageExtName($type)
     {
         $ext_list = array(
-            1    => 'gif',
-            2    => 'jpg',
-            3    => 'png',
-            4    => 'swf',
-            5    => 'psd',
-            6    => 'bmp',
-            7    => 'tiff',
-            8    => 'tiff',
-            9    => 'jpc',
-            10    => 'jp2',
-            11    => 'jpx',
-            12    => 'jb2',
-            13    => 'swc',
-            14    => 'iff',
-            15    => 'wbmp',
-            16    => 'xbm',
+            1 => 'gif',
+            2 => 'jpg',
+            3 => 'png',
+            4 => 'swf',
+            5 => 'psd',
+            6 => 'bmp',
+            7 => 'tiff',
+            8 => 'tiff',
+            9 => 'jpc',
+            10 => 'jp2',
+            11 => 'jpx',
+            12 => 'jb2',
+            13 => 'swc',
+            14 => 'iff',
+            15 => 'wbmp',
+            16 => 'xbm',
         );
 
         return @$ext_list[$type];
     }
 
     /**
-     *    ランダムなハッシュ値を生成する
+     * ランダムなハッシュ値を生成する
      *
-     *    決して高速ではないので乱用は避けること
+     * 決して高速ではないので乱用は避けること
      *
-     *    @access    public
-     *    @param    int        $length    ハッシュ値の長さ(〜64)
-     *    @return    string    ハッシュ値
+     * @access public
+     * @param int $length ハッシュ値の長さ(〜64)
+     * @return string ハッシュ値
      */
-    function getRandom($length = 64)
+    public static function getRandom($length = 64)
     {
         static $srand = false;
 
@@ -528,15 +436,15 @@ class Ethna_Util
     }
 
     /**
-     *    1次元配列をm x nに再構成する
+     * 1次元配列をm x nに再構成する
      *
-     *    @access    public
-     *    @param    array    $array    処理対象の1次元配列
-     *    @param    int        $m        軸の要素数
-     *    @param    int        $order    $mをX軸と見做すかY軸と見做すか(0:X軸 1:Y軸)
-     *    @return    array    m x nに再構成された配列
+     * @access public
+     * @param array $array 処理対象の1次元配列
+     * @param int $m 軸の要素数
+     * @param int $order $mをX軸と見做すかY軸と見做すか(0:X軸 1:Y軸)
+     * @return array m x nに再構成された配列
      */
-    function get2dArray($array, $m, $order)
+    public static function get2dArray($array, $m, $order)
     {
         $r = array();
 
@@ -566,15 +474,15 @@ class Ethna_Util
     }
 
     /**
-     *    パス名が絶対パスかどうかを返す
+     * パス名が絶対パスかどうかを返す
      *
-     *    port from File in PEAR (for BC)
+     * port from File in PEAR (for BC)
      *
-     *    @access    public
-     *    @param    string    $path
-     *    @return    bool    true:絶対パス false:相対パス
+     * @access public
+     * @param string $path
+     * @return bool true:絶対パス false:相対パス
      */
-    function isAbsolute($path)
+    public static function isAbsolute($path)
     {
         if (preg_match("/\.\./", $path)) {
             return false;
@@ -590,13 +498,13 @@ class Ethna_Util
     }
 
     /**
-     *    テンポラリディレクトリのファイルを削除する
+     * テンポラリディレクトリのファイルを削除する
      *
-     *    @access    public
-     *    @param    string    $prefix        ファイルのプレフィクス
-     *    @param    int        $timeout    削除対象閾値(秒−60*60*1なら1時間)
+     * @access public
+     * @param string $prefix ファイルのプレフィクス
+     * @param int $timeout 削除対象閾値(秒−60*60*1なら1時間)
      */
-    function purgeTmp($prefix, $timeout)
+    public static function purgeTmp($prefix, $timeout)
     {
         $c = Ethna_Controller::getInstance();
 
@@ -616,15 +524,15 @@ class Ethna_Util
     }
 
     /**
-     *    ファイルをロックする
+     * ファイルをロックする
      *
-     *    @access    public
-     *    @param    string    $file        ロックするファイル名
-     *    @param    int        $mode        ロックモード('r', 'rw')
-     *    @param    int        $timeout    ロック待ちタイムアウト(秒−0なら無限)
-     *    @return    int        ロックハンドル(falseならエラー)
+     * @access public
+     * @param string $file ロックするファイル名
+     * @param int $mode ロックモード('r', 'rw')
+     * @param int $timeout ロック待ちタイムアウト(秒−0なら無限)
+     * @return int ロックハンドル(falseならエラー)
      */
-    function lockFile($file, $mode, $timeout = 0)
+    public static function lockFile($file, $mode, $timeout = 0)
     {
         $lh = @fopen($file, 'r');
         if ($lh == null) {
@@ -649,29 +557,29 @@ class Ethna_Util
     }
 
     /**
-     *    ファイルのロックを解除する
+     * ファイルのロックを解除する
      *
-     *    @access    public
-     *    @param    int        $lh        ロックハンドル
+     * @access public
+     * @param int $lh ロックハンドル
      */
-    function unlockFile($lh)
+    public static function unlockFile($lh)
     {
         fclose($lh);
     }
 
     /**
-     *    バックトレースをフォーマットして返す
+     * バックトレースをフォーマットして返す
      *
-     *    @access    public
-     *    @param    array    $bt        debug_backtrace()関数で取得したバックトレース
-     *    @return    string    文字列にフォーマットされたバックトレース
+     * @access public
+     * @param array $bt debug_backtrace()関数で取得したバックトレース
+     * @return string 文字列にフォーマットされたバックトレース
      */
-    function formatBacktrace($bt) 
+    public static function formatBacktrace($bt) 
     {
         $r = "";
         $i = 0;
         foreach ($bt as $elt) {
-            $r .= sprintf("[%02d] %s:%d:%s.%s\n", $i, $elt['file'], $elt['line'], isset($elt['class']) ? $elt['class'] : 'global', $elt['function']);
+            $r .= sprintf("[%02d] %s:%d:%s.%s\n", $i, $elt['file'], $elt['line'], isset($elt['class']) ? $elt['class'] : 'global', $elt['public static function']);
             $i++;
 
             if (isset($elt['args']) == false || is_array($elt['args']) == false) {
@@ -688,21 +596,21 @@ class Ethna_Util
     }
 
     /**
-     *    バックトレース引数をフォーマットして返す
+     * バックトレース引数をフォーマットして返す
      *
-     *    @access    private
-     *    @param    string    $arg    バックトレースの引数
-     *    @param    int        $level    バックトレースのネストレベル
-     *    @param    int        $wrap    改行フラグ
-     *    @return    string    文字列にフォーマットされたバックトレース
+     * @access private
+     * @param string $arg バックトレースの引数
+     * @param int $level バックトレースのネストレベル
+     * @param int $wrap 改行フラグ
+     * @return string 文字列にフォーマットされたバックトレース
      */
-    function _formatBacktrace($arg, $level = 0, $wrap = true)
+    public static function _formatBacktrace($arg, $level = 0, $wrap = true)
     {
-        $pad = str_repeat("  ", $level);
+        $pad = str_repeat(" ", $level);
         if (is_array($arg)) {
-            $r = sprintf("     %s[array] => (\n", $pad);
+            $r = sprintf(" %s[array] => (\n", $pad);
             if ($level+1 > 4) {
-                $r .= sprintf("     %s  *too deep*\n", $pad);
+                $r .= sprintf(" %s *too deep*\n", $pad);
             } else {
                 foreach ($arg as $key => $elt) {
                     $r .= Ethna_Util::_formatBacktrace($key, $level, false);
@@ -710,15 +618,99 @@ class Ethna_Util
                     $r .= Ethna_Util::_formatBacktrace($elt, $level+1);
                 }
             }
-            $r .= sprintf("     %s)\n", $pad);
+            $r .= sprintf(" %s)\n", $pad);
         } else if (is_object($arg)) {
-            $r = sprintf("     %s[object]%s%s", $pad, get_class($arg), $wrap ? "\n" : "");
+            $r = sprintf(" %s[object]%s%s", $pad, get_class($arg), $wrap ? "\n" : "");
         } else {
-            $r = sprintf("     %s[%s]%s%s", $pad, gettype($arg), $arg, $wrap ? "\n" : "");
+            $r = sprintf(" %s[%s]%s%s", $pad, gettype($arg), $arg, $wrap ? "\n" : "");
         }
 
         return $r;
     }
+
+
+    /**
+     * グローバルユーティリティ関数: スカラー値を要素数1の配列として返す
+     *
+     * @param mixed $v 配列として扱う値
+     * @return array 配列に変換された値
+     */
+    public static function to_array($v)
+    {
+        if (is_array($v)) {
+            return $v;
+        } else {
+            return array($v);
+        }
+    }
+
+    /**
+     * グローバルユーティリティ関数: 指定されたフォーム項目にエラーがあるかどうかを返す
+     *
+     * @param string $name フォーム項目名
+     * @return bool true:エラー有り false:エラー無し
+     */
+    public static function is_error($name)
+    {
+        $c = Ethna_Controller::getInstance();
+
+        $action_error = $c->getActionError();
+
+        return $action_error->isError($name);
+    }
+
+    /**
+     * グローバルユーティリティ関数: include_pathを検索しつつfile_exists()する
+     *
+     * @param string $path ファイル名
+     * @param bool $use_include_path include_pathをチェックするかどうか
+     * @return bool true:有り false:無し
+     */
+    public static function file_exists_ex($path, $use_include_path = true)
+    {
+        if ($use_include_path == false) {
+            return file_exists($path);
+        }
+
+        // check if absolute
+        if (is_absolute_path($path)) {
+            return file_exists($path);
+        }
+
+        $include_path_list = explode(PATH_SEPARATOR, get_include_path());
+        if (is_array($include_path_list) == false) {
+            return file_exists($path);
+        }
+
+        foreach ($include_path_list as $include_path) {
+            if (file_exists($include_path . DIRECTORY_SEPARATOR . $path)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * グローバルユーティリティ関数: 絶対パスかどうかを返す
+     *
+     * @param string $path ファイル名
+     * @return bool true:絶対 false:相対
+     */
+    public static function is_absolute_path($path)
+    {
+        if (OS_WINDOWS) {
+            if (preg_match('/^[a-z]:/i', $path) && $path{2} == DIRECTORY_SEPARATOR) {
+                return true;
+            }
+        } else {
+            if ($path{0} == DIRECTORY_SEPARATOR) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 }
-// }}}
 

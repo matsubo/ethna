@@ -9,7 +9,6 @@
  *    @version    $Id$
  */
 
-// {{{ Ethna_Filter
 /**
  *    フレームワークのフィルタ基底クラス
  *
@@ -98,5 +97,4 @@ class Ethna_Filter
     {
     }
 }
-// }}}
 

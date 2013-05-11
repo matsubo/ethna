@@ -1,46 +1,42 @@
 <?php
 /**
- *    Ethna_ActionClass.php
+ * Ethna_ActionClass.php
  *
- *    @author        Masaki Fujimoto <fujimoto@php.net>
- *    @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
- *    @package    Ethna
- *    @version    $Id$
+ * @author Masaki Fujimoto <fujimoto@php.net>
+ * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @package Ethna
+ * @version $Id$
  */
 class Ethna_ActionClass
 {
-    /**#@+
-     *    @access    private
-     */
-
-    /**    @var    object    Ethna_Backend        backendオブジェクト */
+    /** @var object Ethna_Backend backendオブジェクト */
     protected $backend;
 
-    /**    @var    object    Ethna_Config        設定オブジェクト    */
+    /** @var object Ethna_Config 設定オブジェクト */
     protected $config;
 
-    /**    @var    object    Ethna_ActionError    アクションエラーオブジェクト */
+    /** @var object Ethna_ActionError アクションエラーオブジェクト */
     protected $action_error;
 
-    /**    @var    object    Ethna_ActionError    アクションエラーオブジェクト(省略形) */
+    /** @var object Ethna_ActionError アクションエラーオブジェクト(省略形) */
     protected $ae;
 
-    /**    @var    object    Ethna_ActionForm    アクションフォームオブジェクト */
+    /** @var object Ethna_ActionForm アクションフォームオブジェクト */
     protected $action_form;
 
-    /**    @var    object    Ethna_ActionForm    アクションフォームオブジェクト(省略形) */
+    /** @var object Ethna_ActionForm アクションフォームオブジェクト(省略形) */
     protected $af;
 
-    /**    @var    object    Ethna_Session        セッションオブジェクト */
+    /** @var object Ethna_Session セッションオブジェクト */
     protected $session;
 
     /**#@-*/
 
     /**
-     *    Ethna_ActionClassのコンストラクタ
+     * Ethna_ActionClassのコンストラクタ
      *
-     *    @access    public
-     *    @param    object    Ethna_Backend    $backend    backendオブジェクト
+     * @access public
+     * @param object Ethna_Backend $backend backendオブジェクト
      */
     public function __construct($backend)
     {
@@ -64,10 +60,10 @@ class Ethna_ActionClass
     }
 
     /**
-     *    アクション実行前の認証処理を行う
+     * アクション実行前の認証処理を行う
      *
-     *    @access    public
-     *    @return    string    遷移名(nullなら正常終了, falseなら処理終了)
+     * @access public
+     * @return string 遷移名(nullなら正常終了, falseなら処理終了)
      */
     public function authenticate()
     {
@@ -75,10 +71,10 @@ class Ethna_ActionClass
     }
 
     /**
-     *    アクション実行前の処理(フォーム値チェック等)を行う
+     * アクション実行前の処理(フォーム値チェック等)を行う
      *
-     *    @access    public
-     *    @return    string    遷移名(nullなら正常終了, falseなら処理終了)
+     * @access public
+     * @return string 遷移名(nullなら正常終了, falseなら処理終了)
      */
     public function prepare()
     {
@@ -86,10 +82,10 @@ class Ethna_ActionClass
     }
 
     /**
-     *    アクション実行
+     * アクション実行
      *
-     *    @access    public
-     *    @return    string    遷移名(nullなら遷移は行わない)
+     * @access public
+     * @return string 遷移名(nullなら遷移は行わない)
      */
     public function perform()
     {
