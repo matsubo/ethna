@@ -30,12 +30,6 @@ class Ethna_Const
     /** ゲートウェイ: CLI */
     const GATEWAY_CLI =  2;
 
-    /** ゲートウェイ: XMLRPC */
-    const GATEWAY_XMLRPC =  3;
-
-    /** ゲートウェイ: SOAP */
-    const GATEWAY_SOAP =  4;
-
 
     /** DB種別定義: R/W */
     const DB_TYPE_RW =  1;

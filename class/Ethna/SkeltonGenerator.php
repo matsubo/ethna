@@ -33,7 +33,6 @@ class Ethna_SkeltonGenerator
 			array("app", 0755),
 			array("app/action", 0755),
 			array("app/action_cli", 0755),
-			array("app/action_xmlrpc", 0755),
 			array("app/filter", 0755),
 			array("app/view", 0755),
 			array("bin", 0755),
@@ -112,7 +111,6 @@ class Ethna_SkeltonGenerator
 		if ($this->_generateFile("www.index.php", "$basedir/www/index.php", $macro) == false ||
 			$this->_generateFile("www.info.php", "$basedir/www/info.php", $macro) == false ||
 			$this->_generateFile("www.unittest.php", "$basedir/www/unittest.php", $macro) == false ||
-			$this->_generateFile("www.xmlrpc.php", "$basedir/www/xmlrpc.php", $macro) == false ||
 			$this->_generateFile("www.css.ethna.css", "$basedir/www/css/ethna.css", $macro) == false ||
 			$this->_generateFile("dot.ethna", "$basedir/.ethna", $macro) == false ||
 			$this->_generateFile("app.controller.php", sprintf("$basedir/app/%s_Controller.php", $macro['project_id']), $macro) == false ||
@@ -180,9 +178,6 @@ class Ethna_SkeltonGenerator
             break;
         case Ethna_Const::GATEWAY_CLI:
             $skelton = "skel.action_cli.php";
-            break;
-        case Ethna_Const::GATEWAY_XMLRPC:
-            $skelton = "skel.action_xmlrpc.php";
             break;
         }
 
