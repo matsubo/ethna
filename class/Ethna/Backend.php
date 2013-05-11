@@ -31,9 +31,6 @@ class Ethna_Backend
 	/**	@var	object	Ethna_Config		設定オブジェクト */
 	var	$config;
 
-	/**	@var	object	Ethna_I18N			i18nオブジェクト */
-	var $i18n;
-
 	/**	@var	object	Ethna_ActionError	アクションエラーオブジェクト */
 	var $action_error;
 
@@ -74,7 +71,6 @@ class Ethna_Backend
 		$this->ctl = $this->controller;
 
 		$this->config = $controller->getConfig();
-		$this->i18n = $controller->getI18N();
 
 		$this->action_error = $controller->getActionError();
 		$this->ae = $this->action_error;
@@ -109,7 +105,7 @@ class Ethna_Backend
 	 *	@access	public
 	 *	@return	object	Ethna_Controller	controllerオブジェクト
 	 */
-	function &getController()
+	function getController()
 	{
 		return $this->controller;
 	}
@@ -120,7 +116,7 @@ class Ethna_Backend
 	 *	@access	public
 	 *	@return	object	Ethna_Config		設定オブジェクト
 	 */
-	function &getConfig()
+	function getConfig()
 	{
 		return $this->config;
 	}
@@ -137,23 +133,12 @@ class Ethna_Backend
 	}
 
 	/**
-	 *	I18Nオブジェクトのアクセサ(R)
-	 *
-	 *	@access	public
-	 *	@return	object	Ethna_I18N	i18nオブジェクト
-	 */
-	function &getI18N()
-	{
-		return $this->i18n;
-	}
-
-	/**
 	 *	アクションエラーオブジェクトのアクセサ(R)
 	 *
 	 *	@access	public
 	 *	@return	object	Ethna_ActionError	アクションエラーオブジェクト
 	 */
-	function &getActionError()
+	function getActionError()
 	{
 		return $this->action_error;
 	}
@@ -164,7 +149,7 @@ class Ethna_Backend
 	 *	@access	public
 	 *	@return	object	Ethna_ActionForm	アクションフォームオブジェクト
 	 */
-	function &getActionForm()
+	function getActionForm()
 	{
 		return $this->action_form;
 	}
@@ -186,7 +171,7 @@ class Ethna_Backend
 	 *	@access	public
 	 *	@return	mixed	Ethna_ActionClass:アクションクラス null:アクションクラス未定
 	 */
-	function &getActionClass()
+	function getActionClass()
 	{
 		return $this->action_class;
 	}
@@ -208,7 +193,7 @@ class Ethna_Backend
 	 *	@access	public
 	 *	@return	object	Ethna_Session	セッションオブジェクト
 	 */
-	function &getSession()
+	function getSession()
 	{
 		return $this->session;
 	}
@@ -219,7 +204,7 @@ class Ethna_Backend
 	 *	@access	public
 	 *	@return	object	Ethna_AppManager	マネージャオブジェクト
 	 */
-	function &getManager($type)
+	function getManager($type)
 	{
 		if (isset($this->manager[$type])) {
 			return $this->manager[$type];

@@ -51,16 +51,8 @@ class Ethna_ActionForm
     /** @var    object  Ethna_ActionError   アクションエラーオブジェクト(省略形) */
     var $ae;
 
-    /** @var    object  Ethna_I18N  i18nオブジェクト */
-    var $i18n;
-
     /** @var    array   フォーム定義要素 */
     var $def = array('name', 'required', 'max', 'min', 'regexp', 'custom', 'filter', 'form_type', 'type');
-
-    /** @var    bool    追加検証強制フラグ */
-    var $force_validate_plus = false;
-
-    /**#@-*/
 
     /**
      *  Ethna_ActionFormクラスのコンストラクタ
@@ -72,7 +64,6 @@ class Ethna_ActionForm
     {
         $this->action_error = $controller->getActionError();
         $this->ae = $this->action_error;
-        $this->i18n = $controller->getI18N();
 
         if (isset($_SERVER['REQUEST_METHOD']) == false) {
             return;
@@ -145,8 +136,6 @@ class Ethna_ActionForm
             return $this->form[$name]['name'];
         }
 
-        // try message catalog
-        return $this->i18n->get($name);
     }
 
     /**
@@ -275,7 +264,7 @@ class Ethna_ActionForm
      *  @param  bool    $escape HTMLエスケープフラグ(true:エスケープする)
      *  @return array   フォーム値を格納した配列
      */
-    function &getArray($escape = true)
+    function getArray($escape = true)
     {
         $retval = array();
 
@@ -318,7 +307,7 @@ class Ethna_ActionForm
      *  @param  boolean $escape HTMLエスケープフラグ(true:エスケープする)
      *  @return array   フォーム値を格納した配列
      */
-    function &getAppArray($escape = true)
+    function getAppArray($escape = true)
     {
         $retval = array();
 
@@ -361,7 +350,7 @@ class Ethna_ActionForm
      *  @param  boolean $escape HTMLエスケープフラグ(true:エスケープする)
      *  @return array   フォーム値を格納した配列
      */
-    function &getAppNEArray($escape = false)
+    function getAppNEArray($escape = false)
     {
         $retval = array();
 
@@ -388,28 +377,6 @@ class Ethna_ActionForm
                 $retval[$name] = $escape ? htmlspecialchars($vars[$name], ENT_QUOTES) : $vars[$name];
             }
         }
-    }
-
-    /**
-     *  追加検証強制フラグを取得する
-     *
-     *  @access public
-     *  @return bool    true:追加検証強制(通常検証でエラーが発生した場合でも_validatePlus()が呼び出される) false:追加検証非強制
-     */
-    function isForceValidatePlus()
-    {
-        return $this->force_validate_plus;
-    }
-
-    /**
-     *  追加検証強制フラグを設定する
-     *
-     *  @access public
-     *  @param  $force_validate_plus    追加検証強制フラグ
-     */
-    function setForceValidatePlus($force_validate_plus)
-    {
-        $this->force_validate_plus = $force_validate_plus;
     }
 
     /**
@@ -477,10 +444,6 @@ class Ethna_ActionForm
             }
         }
 
-        if ($this->ae->count() == 0 || $this->isForceValidatePlus()) {
-            // 追加検証メソッド
-            $this->_validatePlus();
-        }
 
         return $this->ae->count();
     }
@@ -512,7 +475,7 @@ class Ethna_ActionForm
      *  @param  string  $name   フォーム項目名
      *  @return object  Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
-    function &checkVendorChar($name)
+    function checkVendorChar($name)
     {
         $null = null;
         $string = $this->form_vars[$name];
@@ -546,7 +509,7 @@ class Ethna_ActionForm
      *  @param  string  $name   フォーム項目名
      *  @return object  Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
-    function &checkBoolean($name)
+    function checkBoolean($name)
     {
         $null = null;
         $form_vars = $this->check($name);
@@ -574,7 +537,7 @@ class Ethna_ActionForm
      *  @param  string  $name   フォーム項目名
      *  @return object  Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
-    function &checkMailaddress($name)
+    function checkMailaddress($name)
     {
         $null = null;
         $form_vars = $this->check($name);
@@ -602,7 +565,7 @@ class Ethna_ActionForm
      *  @param  string  $name   フォーム項目名
      *  @return object  Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
-    function &checkURL($name)
+    function checkURL($name)
     {
         $null = null;
         $form_vars = $this->check($name);
@@ -765,16 +728,6 @@ class Ethna_ActionForm
 
         $this->ae->add($name, $message, $code);
     }
-
-    /**
-     *  ユーザ定義検証メソッド(フォーム値間の連携チェック等)
-     *
-     *  @access protected
-     */
-    function _validatePlus()
-    {
-    }
-
     /**
      *  フォーム値検証メソッド(実体)
      *

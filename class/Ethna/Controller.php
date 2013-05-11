@@ -60,7 +60,6 @@ class Ethna_Controller
         'config'        => 'Ethna_Config',
         'error'         => 'Ethna_ActionError',
         'form'          => 'Ethna_ActionForm',
-        'i18n'          => 'Ethna_I18N',
         'session'       => 'Ethna_Session',
         'sql'           => 'Ethna_AppSQL',
         'view'          => 'Ethna_ViewClass',
@@ -93,24 +92,6 @@ class Ethna_Controller
 
     /** @var    array   アプリケーションマネージャ定義 */
     var $manager = array();
-
-    /** @var    array   smarty modifier定義 */
-    var $smarty_modifier_plugin = array();
-
-    /** @var    array   smarty function定義 */
-    var $smarty_function_plugin = array();
-
-    /** @var    array   smarty block定義 */
-    var $smarty_block_plugin = array();
-
-    /** @var    array   smarty prefilter定義 */
-    var $smarty_prefilter_plugin = array();
-
-    /** @var    array   smarty postfilter定義 */
-    var $smarty_postfilter_plugin = array();
-
-    /** @var    array   smarty outputfilter定義 */
-    var $smarty_outputfilter_plugin = array();
 
     /** @var    array   フィルターチェイン(Ethna_Filterオブジェクトの配列) */
     var $filter_chain = array();
@@ -177,9 +158,6 @@ class Ethna_Controller
 
         $this->config = $this->getConfig();
         $this->url = $this->config->get('url');
-
-        // Ethnaマネージャ設定
-        $this->_activateEthnaManager();
     }
 
     /**
@@ -384,17 +362,6 @@ class Ethna_Controller
     function getConfig()
     {
         return $this->class_factory->getObject('config');
-    }
-
-    /**
-     *  i18nオブジェクトのアクセサ(R)
-     *
-     *  @access public
-     *  @return object  Ethna_I18N  i18nオブジェクト
-     */
-    function getI18N()
-    {
-        return $this->class_factory->getObject('i18n');
     }
 
     /**
@@ -1194,97 +1161,12 @@ class Ethna_Controller
         $smarty->compile_id = md5($smarty->template_dir);
 
         // 一応がんばってみる
-        if (@is_dir($smarty->compile_dir) == false) {
+        if (!is_dir($smarty->compile_dir)) {
             mkdir($smarty->compile_dir, 0755);
         }
 
-        // default modifiers
-        $smarty->register_modifier('number_format', 'smarty_modifier_number_format');
-        $smarty->register_modifier('strftime', 'smarty_modifier_strftime');
-        $smarty->register_modifier('count', 'smarty_modifier_count');
-        $smarty->register_modifier('join', 'smarty_modifier_join');
-        $smarty->register_modifier('filter', 'smarty_modifier_filter');
-        $smarty->register_modifier('unique', 'smarty_modifier_unique');
-        $smarty->register_modifier('wordwrap_i18n', 'smarty_modifier_wordwrap_i18n');
-        $smarty->register_modifier('truncate_i18n', 'smarty_modifier_truncate_i18n');
-        $smarty->register_modifier('i18n', 'smarty_modifier_i18n');
-        $smarty->register_modifier('checkbox', 'smarty_modifier_checkbox');
-        $smarty->register_modifier('select', 'smarty_modifier_select');
-        $smarty->register_modifier('form_value', 'smarty_modifier_form_value');
-
-        // user defined modifiers
-        foreach ($this->smarty_modifier_plugin as $modifier) {
-            $name = str_replace('smarty_modifier_', '', $modifier);
-            $smarty->register_modifier($name, $modifier);
-        }
-
-        // default functions
-        $smarty->register_function('is_error', 'smarty_function_is_error');
-        $smarty->register_function('message', 'smarty_function_message');
-        $smarty->register_function('uniqid', 'smarty_function_uniqid');
-        $smarty->register_function('select', 'smarty_function_select');
-        $smarty->register_function('checkbox_list', 'smarty_function_checkbox_list');
-        $smarty->register_function('form_name', 'smarty_function_form_name');
-        $smarty->register_function('form_input', 'smarty_function_form_input');
-
-        // user defined functions
-        foreach ($this->smarty_function_plugin as $function) {
-
-            if (!is_array($function)) {
-                $name = str_replace('smarty_function_', '', $function);
-                $smarty->register_function($name, $function);
-            } else {
-                $smarty->register_function($function[1], $function);
-            }
-
-        }
-
-        // default blocks
-        $smarty->register_block('form', 'smarty_block_form');
-
-        // user defined blocks
-        foreach ($this->smarty_block_plugin as $block) {
-
-            if (!is_array($block)) {
-                $name = str_replace('smarty_block_', '', $block);
-                $smarty->register_block($name, $block);
-            } else {
-                $smarty->register_block($block[1], $block);
-            }
-
-        }
-
-        // user defined prefilters
-        foreach ($this->smarty_prefilter_plugin as $prefilter) {
-            $smarty->register_prefilter($prefilter);
-        }
-
-        // user defined postfilters
-        foreach ($this->smarty_postfilter_plugin as $postfilter) {
-            $smarty->register_postfilter($postfilter);
-        }
-
-        // user defined outputfilters
-        foreach ($this->smarty_outputfilter_plugin as $outputfilter) {
-            $smarty->register_outputfilter($outputfilter);
-        }
-
-        $this->_setDefaultTemplateEngine($smarty);
-
         return $smarty;
     }
-
-    /**
-     *  テンプレートエンジンのデフォルト状態を設定する
-     *
-     * @deprecated override getTemplateEngine and call parent method.
-     *  @access protected
-     *  @param  object  Smarty  $smarty テンプレートエンジンオブジェクト
-     */
-    function _setDefaultTemplateEngine(&$smarty)
-    {
-    }
-
     /**
      *  使用言語を設定する
      *
@@ -1300,9 +1182,6 @@ class Ethna_Controller
         $this->language = $language;
         $this->system_encoding = $system_encoding;
         $this->client_encoding = $client_encoding;
-
-        $i18n = $this->getI18N();
-        $i18n->setLanguage($language, $system_encoding, $client_encoding);
     }
 
     /**
@@ -1507,60 +1386,6 @@ class Ethna_Controller
         }
         closedir($dh);
     }
-
-    /**
-     *  Ethnaマネージャを設定する
-     *
-     *  不要な場合は空のメソッドとしてオーバーライドしてもよい
-     *
-     *  @access protected
-     */
-    function _activateEthnaManager()
-    {
-        if ($this->config->get('debug') == false) {
-            return;
-        }
-
-        include_once(ETHNA_BASE . '/class/Ethna_InfoManager.php');
-        
-        // see if we have simpletest
-        if (file_exists_ex('simpletest/unit_tester.php', true)) {
-            include_once(ETHNA_BASE . '/class/Ethna_UnitTestManager.php');
-        }
-
-        // action設定
-        $this->action['__ethna_info__'] = array(
-            'form_name' =>  'Ethna_Form_Info',
-            'form_path' =>  sprintf('%s/class/Action/Ethna_Action_Info.php', ETHNA_BASE),
-            'class_name' => 'Ethna_Action_Info',
-            'class_path' => sprintf('%s/class/Action/Ethna_Action_Info.php', ETHNA_BASE),
-        );
-
-        // forward設定
-        $this->forward['__ethna_info__'] = array(
-            'forward_path'  => sprintf('%s/tpl/info.tpl', ETHNA_BASE),
-            'view_name'     => 'Ethna_View_Info',
-            'view_path'     => sprintf('%s/class/View/Ethna_View_Info.php', ETHNA_BASE),
-        );
-        
-        
-        // action設定
-        $this->action['__ethna_unittest__'] = array(
-            'form_name' =>  'Ethna_Form_UnitTest',
-            'form_path' =>  sprintf('%s/class/Action/Ethna_Action_UnitTest.php', ETHNA_BASE),
-            'class_name' => 'Ethna_Action_UnitTest',
-            'class_path' => sprintf('%s/class/Action/Ethna_Action_UnitTest.php', ETHNA_BASE),
-        );
-
-        // forward設定
-        $this->forward['__ethna_unittest__'] = array(
-            'forward_path'  => sprintf('%s/tpl/unittest.tpl', ETHNA_BASE),
-            'view_name'     => 'Ethna_View_UnitTest',
-            'view_path'     => sprintf('%s/class/View/Ethna_View_UnitTest.php', ETHNA_BASE),
-        );
-
-    }
-
     /**
      *  CLI実行中フラグを取得する
      *
