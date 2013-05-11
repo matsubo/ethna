@@ -1,5 +1,5 @@
 {
-    "name": "gree/ethna",
+    "name": "ethna/ethna",
     "description": "Ethna 2.1.2 autoload support version",
     "keywords" : ["Web", "Ethna", "Framework", "Application", "MVC"],
     "type": "project",
