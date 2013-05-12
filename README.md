@@ -1,4 +1,4 @@
-Ethna
+Yet Another version of Ethna
 ====================================
 
 Abstract
@@ -12,5 +12,10 @@ This project deversed version aims following
 - PSR-2 support.
 
 
+Features to be implemented
+-------------------------------------
+- Fully namespace support
+- PSR-2 support
+- Component management by DIContainer using Aura.DI
 
 

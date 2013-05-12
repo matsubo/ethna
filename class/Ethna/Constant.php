@@ -1,16 +1,17 @@
 <?php
+namespace Ethna;
 /**
- * Ethna_Const
+ * \Ethna\Constant
  * - preserves class static variable
  *
  * @author Yuki Matsukura <matsubokkuri@gmail.com>
  * @version 1.0
  */
 /**
- * Ethna_Const
+ * \Ethna\Constant
  * 
  */
-class Ethna_Const
+class Constant
 {
     /** ゲートウェイ: WWW */
     const GATEWAY_WWW =  1;

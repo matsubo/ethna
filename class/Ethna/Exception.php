@@ -1,9 +1,10 @@
 <?php
+namespace Ethna;
 /**
  * Exception for ethna
  *
  */
-class Ethna_Exception extends Exception
+class Exception extends \Exception
 {
 }
 

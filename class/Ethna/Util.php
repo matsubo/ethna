@@ -1,4 +1,5 @@
 <?php
+namespace Ethna;
 /**
  * Ethna_Util.php
  *
@@ -14,7 +15,7 @@
  * @access public
  * @package Ethna
  */
-class Ethna_Util
+class Util
 {
     /**
      * POSTのユニークチェックを行う
@@ -165,7 +166,7 @@ class Ethna_Util
                             $field .= $line_end;
 
                             // request one more line
-                            return Ethna::raiseNotice(Ethna_Const::E_UTIL_CSV_CONTINUE);
+                            return Ethna::raiseNotice(\Ethna\Constant::E_UTIL_CSV_CONTINUE);
                         }
                     }
                 }

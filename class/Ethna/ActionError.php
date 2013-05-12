@@ -1,4 +1,5 @@
 <?php
+namespace Ethna;
 /**
  * Ethna_ActionError.php
  *
@@ -15,7 +16,7 @@
  * @author Masaki Fujimoto <fujimoto@php.net>
  * @package Ethna
  */
-class Ethna_ActionError
+class ActionError
 {
     /**#@+
      * @access private
