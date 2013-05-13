@@ -65,22 +65,6 @@ abstract class Controller
     }
 
     /**
-     * (現在アクティブな)コントローラのインスタンスを返す
-     *
-     * @access public
-     * @return object Ethna_Controller コントローラのインスタンス
-     * @static
-     */
-    public function getInstance()
-    {
-        if (isset($GLOBALS['_Ethna_controller'])) {
-            return $GLOBALS['_Ethna_controller'];
-        } else {
-            $_ret_object = null;
-            return $_ret_object;
-        }
-    }
-    /**
      * アクションディレクトリ名を決定する
      *
      * @access public
@@ -340,13 +324,4 @@ abstract class Controller
         return $this->namespace .'\\Form\\'.$this->_snailCaseToCamelCase($this->action_name);
     }
 
-    /**
-     * テンプレートエンジン取得する(現在はsmartyのみ対応)
-     *
-     * @access public
-     * @return object Smarty テンプレートエンジンオブジェクト
-     */
-    public function getTemplateEngine()
-    {
-    }
 }
