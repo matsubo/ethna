@@ -2,6 +2,37 @@
 namespace Ethna;
 class ActionForm
 {
+    /** フォーム型: text */
+    const TEXT =  1;
+
+    /** フォーム型: password */
+    const PASSWORD =  2;
+
+    /** フォーム型: textarea */
+    const TEXTAREA =  3;
+
+    /** フォーム型: select */
+    const SELECT =  4;
+
+    /** フォーム型: radio */
+    const RADIO =  5;
+
+    /** フォーム型: checkbox */
+    const CHECKBOX =  6;
+
+    /** フォーム型: button */
+    const SUBMIT =  7;
+
+    /** フォーム型: file */
+    const FILE =  8;
+
+    /** フォーム型: button */
+    const BUTTON =  9;
+
+    /** フォーム型: hidden */
+    const HIDDEN =  10;
+
+
     /** @var array フォーム値定義(デフォルト) */
     protected $form_template = array();
 

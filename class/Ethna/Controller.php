@@ -127,7 +127,7 @@ abstract class Controller
         // trigger
         // @todo use router to determine 
         if (!$action_name) {
-            $action_name = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'index';
+            $this->action_name = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'index';
         }
         $this->_trigger($action_name);
 
@@ -146,9 +146,6 @@ abstract class Controller
      */
     private function _trigger($action_name)
     {
-        // アクション名の取得
-        $this->action_name = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'index';
-
         // アクション定義の取得
         $action_class_name = $this->_getActionName();
 
@@ -180,9 +177,9 @@ abstract class Controller
             $this->filter_chain[$i]->postActionFilter($action_name, $forward_name);
         }
 
-        // pass the
+        // pass the view id.
         $view = DIContainerFactory::getContainer()->get('view');
-        $view->execute($forward_name);
+        $view->defaultOutput($forward_name);
     }
     /**
      * エラーメッセージを取得する
