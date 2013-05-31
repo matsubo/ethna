@@ -1,6 +1,9 @@
 Yet Another version of Ethna
 ====================================
 
+[![endorse](https://api.coderwall.com/matsubo/endorsecount.png)](https://coderwall.com/matsubo)
+  
+
 Abstract
 -------------------------------------
 This version of Ethna is deversed from 2.1.2 of original Ethna.
