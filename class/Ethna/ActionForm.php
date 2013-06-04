@@ -32,7 +32,6 @@ class ActionForm
     /** フォーム型: hidden */
     const HIDDEN =  10;
 
-
     /** @var array フォーム値定義(デフォルト) */
     protected $form_template = array();
 
@@ -79,14 +78,15 @@ class ActionForm
      * フォーム値のアクセサ(R)
      *
      * @access public
-     * @param string $name フォーム値の名称
-     * @return mixed フォーム値
+     * @param  string $name フォーム値の名称
+     * @return mixed  フォーム値
      */
     public function get($name)
     {
         if (isset($this->form_vars[$name])) {
             return $this->form_vars[$name];
         }
+
         return null;
     }
 
@@ -94,8 +94,8 @@ class ActionForm
      * フォーム値定義を取得する
      *
      * @access public
-     * @param string $name 取得するフォーム名(省略可:nullなら全ての定義を取得する)
-     * @return array フォーム値定義
+     * @param  string $name 取得するフォーム名(省略可:nullなら全ての定義を取得する)
+     * @return array  フォーム値定義
      */
     public function getDef($name = null)
     {
@@ -114,8 +114,8 @@ class ActionForm
      * フォーム項目表示名を取得する
      *
      * @access public
-     * @param string $name フォーム値の名称
-     * @return mixed フォーム値の表示名
+     * @param  string $name フォーム値の名称
+     * @return mixed  フォーム値の表示名
      */
     public function getName($name)
     {
@@ -222,7 +222,7 @@ class ActionForm
      * フォーム値へのアクセサ(W)
      *
      * @access public
-     * @param string $name フォーム値の名称
+     * @param string $name  フォーム値の名称
      * @param string $value 設定する値
      */
     public function set($name, $value)
@@ -234,9 +234,9 @@ class ActionForm
      * フォーム値定義を設定する
      *
      * @access public
-     * @param string $name 設定するフォーム名(省略可:nullなら全ての定義を設定する)
-     * @param array $value 設定するフォーム値定義
-     * @return array フォーム値定義
+     * @param  string $name  設定するフォーム名(省略可:nullなら全ての定義を設定する)
+     * @param  array  $value 設定するフォーム値定義
+     * @return array  フォーム値定義
      */
     public function setDef($name, $value)
     {
@@ -251,7 +251,7 @@ class ActionForm
      * フォーム値を配列にして返す
      *
      * @access public
-     * @param bool $escape HTMLエスケープフラグ(true:エスケープする)
+     * @param  bool  $escape HTMLエスケープフラグ(true:エスケープする)
      * @return array フォーム値を格納した配列
      */
     public function getArray($escape = true)
@@ -267,14 +267,15 @@ class ActionForm
      * アプリケーション設定値のアクセサ(R)
      *
      * @access public
-     * @param string $name キー
-     * @return mixed アプリケーション設定値
+     * @param  string $name キー
+     * @return mixed  アプリケーション設定値
      */
     public function getApp($name)
     {
         if (isset($this->app_vars[$name]) == false) {
             return null;
         }
+
         return $this->app_vars[$name];
     }
 
@@ -282,8 +283,8 @@ class ActionForm
      * アプリケーション設定値のアクセサ(W)
      *
      * @access public
-     * @param string $name キー
-     * @param mixed $value 値
+     * @param string $name  キー
+     * @param mixed  $value 値
      */
     public function setApp($name, $value)
     {
@@ -294,8 +295,8 @@ class ActionForm
      * アプリケーション設定値を配列にして返す
      *
      * @access public
-     * @param boolean $escape HTMLエスケープフラグ(true:エスケープする)
-     * @return array フォーム値を格納した配列
+     * @param  boolean $escape HTMLエスケープフラグ(true:エスケープする)
+     * @return array   フォーム値を格納した配列
      */
     public function getAppArray($escape = true)
     {
@@ -310,14 +311,15 @@ class ActionForm
      * アプリケーション設定値(自動エスケープなし)のアクセサ(R)
      *
      * @access public
-     * @param string $name キー
-     * @return mixed アプリケーション設定値
+     * @param  string $name キー
+     * @return mixed  アプリケーション設定値
      */
     public function getAppNE($name)
     {
         if (isset($this->app_ne_vars[$name]) == false) {
             return null;
         }
+
         return $this->app_ne_vars[$name];
     }
 
@@ -325,8 +327,8 @@ class ActionForm
      * アプリケーション設定値(自動エスケープなし)のアクセサ(W)
      *
      * @access public
-     * @param string $name キー
-     * @param mixed $value 値
+     * @param string $name  キー
+     * @param mixed  $value 値
      */
     public function setAppNE($name, $value)
     {
@@ -337,8 +339,8 @@ class ActionForm
      * アプリケーション設定値(自動エスケープなし)を配列にして返す
      *
      * @access public
-     * @param boolean $escape HTMLエスケープフラグ(true:エスケープする)
-     * @return array フォーム値を格納した配列
+     * @param  boolean $escape HTMLエスケープフラグ(true:エスケープする)
+     * @return array   フォーム値を格納した配列
      */
     public function getAppNEArray($escape = false)
     {
@@ -353,9 +355,9 @@ class ActionForm
      * フォームを配列にして返す(内部処理)
      *
      * @access private
-     * @param array $vars フォーム(等)の配列
+     * @param array $vars   フォーム(等)の配列
      * @param array $retval 配列への変換結果
-     * @param bool $escape HTMLエスケープフラグ(true:エスケープする)
+     * @param bool  $escape HTMLエスケープフラグ(true:エスケープする)
      */
     private function _getArray(&$vars, &$retval, $escape)
     {
@@ -382,7 +384,7 @@ class ActionForm
             unset($form_vars);
             if (is_null($this->form_vars[$name])) {
                 $form_vars = array();
-            } else if (is_array($def['type'])) {
+            } elseif (is_array($def['type'])) {
                 $form_vars = $this->form_vars[$name];
             } else {
                 $form_vars = array(& $this->form_vars[$name]);
@@ -434,7 +436,6 @@ class ActionForm
             }
         }
 
-
         return $this->ae->count();
     }
 
@@ -442,8 +443,8 @@ class ActionForm
      * チェックメソッド(基底クラス)
      *
      * @access public
-     * @param string $name フォーム項目名
-     * @return array チェック対象のフォーム値(エラーが無い場合はnull)
+     * @param  string $name フォーム項目名
+     * @return array  チェック対象のフォーム値(エラーが無い場合はnull)
      */
     public function check($name)
     {
@@ -462,7 +463,7 @@ class ActionForm
      * チェックメソッド: bool値
      *
      * @access public
-     * @param string $name フォーム項目名
+     * @param  string $name フォーム項目名
      * @return object Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
     public function checkBoolean($name)
@@ -490,7 +491,7 @@ class ActionForm
      * チェックメソッド: メールアドレス
      *
      * @access public
-     * @param string $name フォーム項目名
+     * @param  string $name フォーム項目名
      * @return object Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
     public function checkMailaddress($name)
@@ -518,7 +519,7 @@ class ActionForm
      * チェックメソッド: URL
      *
      * @access public
-     * @param string $name フォーム項目名
+     * @param  string $name フォーム項目名
      * @return object Ethna_Error エラーオブジェクト(エラーが無い場合はnull)
      */
     public function checkURL($name)
@@ -546,8 +547,8 @@ class ActionForm
      * フォーム値をhiddenタグとして返す
      *
      * @access public
-     * @param array $include_list 配列が指定された場合、その配列に含まれるフォーム項目のみが対象となる
-     * @param array $exclude_list 配列が指定された場合、その配列に含まれないフォーム項目のみが対象となる
+     * @param  array  $include_list 配列が指定された場合、その配列に含まれるフォーム項目のみが対象となる
+     * @param  array  $exclude_list 配列が指定された場合、その配列に含まれないフォーム項目のみが対象となる
      * @return string hiddenタグとして記述されたHTML
      */
     public function getHiddenVars($include_list = null, $exclude_list = null)
@@ -578,6 +579,7 @@ class ActionForm
                     $form_name, htmlspecialchars($v, ENT_QUOTES));
             }
         }
+
         return $hidden_vars;
     }
 
@@ -586,7 +588,7 @@ class ActionForm
      *
      * @access public
      * @param string $name フォーム項目名
-     * @param int  $code エラーコード
+     * @param int    $code エラーコード
      */
     public function handleError($name, $code)
     {
@@ -615,6 +617,7 @@ class ActionForm
         );
         if (array_key_exists($code_map[$code], $def)) {
             $this->ae->add($name, $def[$code_map[$code]], $code);
+
             return;
         }
 
@@ -636,49 +639,59 @@ class ActionForm
                 $message = "{form}を入力して下さい";
                 break;
             }
-        } else if ($code == \Ethna\Constant::E_FORM_WRONGTYPE_SCALAR) {
+        } elseif ($code == \Ethna\Constant::E_FORM_WRONGTYPE_SCALAR) {
             $message = "{form}にはスカラー値を入力して下さい";
-        } else if ($code == \Ethna\Constant::E_FORM_WRONGTYPE_ARRAY) {
+        } elseif ($code == \Ethna\Constant::E_FORM_WRONGTYPE_ARRAY) {
             $message = "{form}には配列を入力して下さい";
-        } else if ($code == \Ethna\Constant::E_FORM_WRONGTYPE_INT) {
+        } elseif ($code == \Ethna\Constant::E_FORM_WRONGTYPE_INT) {
             $message = "{form}には数字(整数)を入力して下さい";
-        } else if ($code == \Ethna\Constant::E_FORM_WRONGTYPE_FLOAT) {
+        } elseif ($code == \Ethna\Constant::E_FORM_WRONGTYPE_FLOAT) {
             $message = "{form}には数字(小数)を入力して下さい";
-        } else if ($code == \Ethna\Constant::E_FORM_WRONGTYPE_DATETIME) {
+        } elseif ($code == \Ethna\Constant::E_FORM_WRONGTYPE_DATETIME) {
             $message = "{form}には日付を入力して下さい";
-        } else if ($code == \Ethna\Constant::E_FORM_WRONGTYPE_BOOLEAN) {
+        } elseif ($code == \Ethna\Constant::E_FORM_WRONGTYPE_BOOLEAN) {
             $message = "{form}には1または0のみ入力できます";
-        } else if ($code == \Ethna\Constant::E_FORM_MIN_INT) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MIN_INT) {
             $this->ae->add($name, "{form}には%d以上の数字(整数)を入力して下さい", $code, $def['min']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MIN_FLOAT) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MIN_FLOAT) {
             $this->ae->add($name, "{form}には%f以上の数字(小数)を入力して下さい", $code, $def['min']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MIN_DATETIME) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MIN_DATETIME) {
             $this->ae->add($name, "{form}には%s以降の日付を入力して下さい", $code, $def['min']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MIN_FILE) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MIN_FILE) {
             $this->ae->add($name, "{form}には%dKB以上のファイルを指定して下さい", $code, $def['min']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MIN_STRING) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MIN_STRING) {
             $this->ae->add($name, "{form}には全角%d文字以上(半角%d文字以上)入力して下さい", $code, intval($def['min']/2), $def['min']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MAX_INT) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MAX_INT) {
             $this->ae->add($name, "{form}には%d以下の数字(整数)を入力して下さい", $code, $def['max']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MAX_FLOAT) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MAX_FLOAT) {
             $this->ae->add($name, "{form}には%f以下の数字(小数)を入力して下さい", $code, $def['max']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MAX_DATETIME) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MAX_DATETIME) {
             $this->ae->add($name, "{form}には%s以前の日付を入力して下さい", $code, $def['max']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MAX_FILE) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MAX_FILE) {
             $this->ae->add($name, "{form}には%dKB以下のファイルを指定して下さい", $code, $def['max']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_MAX_STRING) {
+        } elseif ($code == \Ethna\Constant::E_FORM_MAX_STRING) {
             $this->ae->add($name, "{form}は全角%d文字以下(半角%d文字以下)で入力して下さい", $code, intval($def['max']/2), $def['max']);
+
             return;
-        } else if ($code == \Ethna\Constant::E_FORM_REGEXP) {
+        } elseif ($code == \Ethna\Constant::E_FORM_REGEXP) {
             $message = "{form}を正しく入力してください";
         }
 
@@ -688,11 +701,11 @@ class ActionForm
      * フォーム値検証メソッド(実体)
      *
      * @access private
-     * @param string $name フォーム項目名
-     * @param mixed $var フォーム値(配列であれば個々の中身)
-     * @param array $def フォーム値定義
-     * @param bool $test エラーオブジェクト登録フラグ(true:登録しない)
-     * @return bool true:正常終了 false:エラー
+     * @param  string $name フォーム項目名
+     * @param  mixed  $var  フォーム値(配列であれば個々の中身)
+     * @param  array  $def  フォーム値定義
+     * @param  bool   $test エラーオブジェクト登録フラグ(true:登録しない)
+     * @return bool   true:正常終了 false:エラー
      */
     private function _validate($name, $var, $def, $test = false)
     {
@@ -704,33 +717,37 @@ class ActionForm
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_WRONGTYPE_INT);
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_FLOAT) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_FLOAT) {
             if (!preg_match('/^-?\d+$/', $var) && !preg_match('/^-?\d+\.\d+$/', $var)) {
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_WRONGTYPE_FLOAT);
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_DATETIME) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_DATETIME) {
             $r = strtotime($var);
             if ($r == -1 || $r === false) {
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_WRONGTYPE_DATETIME);
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_BOOLEAN) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_BOOLEAN) {
             if ($var != "1" && $var != "0") {
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_WRONGTYPE_BOOLEAN);
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_STRING) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_STRING) {
             // nothing to do
-        } else if ($type == \Ethna\Constant::VAR_TYPE_FILE) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_FILE) {
             // nothing to do
         }
 
@@ -740,16 +757,18 @@ class ActionForm
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_MIN_INT);
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_FLOAT) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_FLOAT) {
             if (!is_null($def['min']) && $var < $def['min']) {
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_MIN_FLOAT);
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_DATETIME) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_DATETIME) {
             if (!is_null($def['min'])) {
                 $t_min = strtotime($def['min']);
                 $t_var = strtotime($var);
@@ -758,15 +777,17 @@ class ActionForm
                         $this->handleError($name, \Ethna\Constant::E_FORM_MIN_DATETIME);
                     }
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_FILE) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_FILE) {
             if (!is_null($def['min'])) {
                 $st = @stat($var['tmp_name']);
                 if ($st[7] < $def['min'] * 1024) {
                     if ($test == false) {
                         $this->handleError($name, \Ethna\Constant::E_FORM_MIN_FILE);
                     }
+
                     return false;
                 }
             }
@@ -775,6 +796,7 @@ class ActionForm
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_MIN_STRING);
                 }
+
                 return false;
             }
         }
@@ -785,16 +807,18 @@ class ActionForm
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_MAX_INT);
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_FLOAT) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_FLOAT) {
             if (!is_null($def['max']) && $var > $def['max']) {
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_MAX_FLOAT);
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_DATETIME) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_DATETIME) {
             if (!is_null($def['max'])) {
                 $t_min = strtotime($def['max']);
                 $t_var = strtotime($var);
@@ -803,15 +827,17 @@ class ActionForm
                         $this->handleError($name, \Ethna\Constant::E_FORM_MAX_DATETIME);
                     }
                 }
+
                 return false;
             }
-        } else if ($type == \Ethna\Constant::VAR_TYPE_FILE) {
+        } elseif ($type == \Ethna\Constant::VAR_TYPE_FILE) {
             if (!is_null($def['max'])) {
                 $st = @stat($var['tmp_name']);
                 if ($st[7] > $def['max'] * 1024) {
                     if ($test == false) {
                         $this->handleError($name, \Ethna\Constant::E_FORM_MAX_FILE);
                     }
+
                     return false;
                 }
             }
@@ -820,6 +846,7 @@ class ActionForm
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_MAX_STRING);
                 }
+
                 return false;
             }
         }
@@ -830,6 +857,7 @@ class ActionForm
                 if ($test == false) {
                     $this->handleError($name, \Ethna\Constant::E_FORM_REGEXP);
                 }
+
                 return false;
             }
 
@@ -850,7 +878,7 @@ class ActionForm
      *
      * @access protected
      * @param string $method_list カスタムメソッド名(カンマ区切り)
-     * @param string $name  フォーム項目名
+     * @param string $name        フォーム項目名
      */
     protected function _validateCustom($method_list, $name)
     {
@@ -867,8 +895,8 @@ class ActionForm
      * フォーム値に変換フィルタを適用する
      *
      * @access private
-     * @param mixed $value フォーム値
-     * @param int $filter フィルタ定義
+     * @param  mixed $value  フォーム値
+     * @param  int   $filter フィルタ定義
      * @return mixed 変換結果
      */
     private function _filter($value, $filter)
@@ -892,7 +920,7 @@ class ActionForm
      * フォーム値変換フィルタ: 全角英数字->半角英数字
      *
      * @access protected
-     * @param mixed $value フォーム値
+     * @param  mixed $value フォーム値
      * @return mixed 変換結果
      */
     protected function _filter_alnum_zentohan($value)
@@ -904,7 +932,7 @@ class ActionForm
      * フォーム値変換フィルタ: 全角数字->半角数字
      *
      * @access protected
-     * @param mixed $value フォーム値
+     * @param  mixed $value フォーム値
      * @return mixed 変換結果
      */
     protected function _filter_numeric_zentohan($value)
@@ -916,7 +944,7 @@ class ActionForm
      * フォーム値変換フィルタ: 全角英字->半角英字
      *
      * @access protected
-     * @param mixed $value フォーム値
+     * @param  mixed $value フォーム値
      * @return mixed 変換結果
      */
     protected function _filter_alphabet_zentohan($value)
@@ -928,7 +956,7 @@ class ActionForm
      * フォーム値変換フィルタ: 左空白削除
      *
      * @access protected
-     * @param mixed $value フォーム値
+     * @param  mixed $value フォーム値
      * @return mixed 変換結果
      */
     protected function _filter_ltrim($value)
@@ -940,7 +968,7 @@ class ActionForm
      * フォーム値変換フィルタ: 右空白削除
      *
      * @access protected
-     * @param mixed $value フォーム値
+     * @param  mixed $value フォーム値
      * @return mixed 変換結果
      */
     protected function _filter_rtrim($value)
@@ -952,7 +980,7 @@ class ActionForm
      * フォーム値変換フィルタ: NULL(0x00)削除
      *
      * @access protected
-     * @param mixed $value フォーム値
+     * @param  mixed $value フォーム値
      * @return mixed 変換結果
      */
     protected function _filter_ntrim($value)
@@ -964,7 +992,7 @@ class ActionForm
      * フォーム値変換フィルタ: 半角カナ->全角カナ
      *
      * @access protected
-     * @param mixed $value フォーム値
+     * @param  mixed $value フォーム値
      * @return mixed 変換結果
      */
     protected function _filter_kana_hantozen($value)
@@ -976,7 +1004,7 @@ class ActionForm
      * フォーム値定義テンプレートを設定する
      *
      * @access protected
-     * @param array $form_template フォーム値テンプレート
+     * @param  array $form_template フォーム値テンプレート
      * @return array フォーム値テンプレート
      */
     protected function _setFormTemplate($form_template)
@@ -1002,4 +1030,3 @@ class ActionForm
         }
     }
 }
-

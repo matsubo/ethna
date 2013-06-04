@@ -7,5 +7,3 @@ namespace Ethna;
 class Exception extends \Exception
 {
 }
-
-

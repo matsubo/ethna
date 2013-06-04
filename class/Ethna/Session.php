@@ -37,8 +37,8 @@ class Session
      * セッション値へのアクセサ(R)
      *
      * @access public
-     * @param string $name キー
-     * @return mixed 取得した値(null:セッションが開始されていない)
+     * @param  string $name キー
+     * @return mixed  取得した値(null:セッションが開始されていない)
      */
     public function get($name)
     {
@@ -51,9 +51,9 @@ class Session
      * セッション値へのアクセサ(W)
      *
      * @access public
-     * @param string $name キー
-     * @param string $value 値
-     * @return bool true:正常終了 false:エラー(セッションが開始されていない)
+     * @param  string $name  キー
+     * @param  string $value 値
+     * @return bool   true:正常終了 false:エラー(セッションが開始されていない)
      */
     public function set($name, $value)
     {
@@ -64,12 +64,11 @@ class Session
      * セッションの値を破棄する
      *
      * @access public
-     * @param string $name キー
-     * @return bool true:正常終了 false:エラー(セッションが開始されていない)
+     * @param  string $name キー
+     * @return bool   true:正常終了 false:エラー(セッションが開始されていない)
      */
     public function remove($name)
     {
         unset($_SESSION[$name]);
     }
 }
-

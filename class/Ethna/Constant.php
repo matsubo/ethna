@@ -9,7 +9,7 @@ namespace Ethna;
  */
 /**
  * \Ethna\Constant
- * 
+ *
  */
 class Constant
 {
@@ -31,10 +31,8 @@ class Constant
     /** 要素型: ファイル */
     const VAR_TYPE_FILE =  6;
 
-
     /** エラーコード: 一般エラー */
     const E_GENERAL =  1;
-
 
     /** エラーコード: セッションエラー(有効期限切れ) */
     const E_SESSION_EXPIRE =  16;
@@ -139,4 +137,3 @@ class Constant
     const E_CACHE_GENERAL =  259;
 
 }
-

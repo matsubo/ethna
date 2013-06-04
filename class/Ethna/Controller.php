@@ -73,6 +73,7 @@ abstract class Controller
     public function getActiondir()
     {
         $key = 'action';
+
         return $this->directory[$key];
     }
 
@@ -80,7 +81,7 @@ abstract class Controller
      * アプリケーションディレクトリ設定を返す
      *
      * @access public
-     * @param string $key ディレクトリタイプ("tmp", "template"...)
+     * @param  string $key ディレクトリタイプ("tmp", "template"...)
      * @return string $keyに対応したアプリケーションディレクトリ(設定が無い場合はnull)
      */
     public function getDirectory($key)
@@ -93,9 +94,9 @@ abstract class Controller
         if (isset($this->directory[$key]) == false) {
             return null;
         }
+
         return $this->directory[$key];
     }
-
 
     /**
      * 実行中のアクション名を返す
@@ -125,7 +126,7 @@ abstract class Controller
         }
 
         // trigger
-        // @todo use router to determine 
+        // @todo use router to determine
         if (!$action_name) {
             $this->action_name = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'index';
         }
@@ -161,7 +162,6 @@ abstract class Controller
             return new $form_name();
         });
 
-
         $action = new $action_class_name($this);
 
         // アクションの実行
@@ -185,7 +185,7 @@ abstract class Controller
      * エラーメッセージを取得する
      *
      * @access public
-     * @param int $code エラーコード
+     * @param  int    $code エラーコード
      * @return string エラーメッセージ
      */
     public function getErrorMessage($code)
@@ -196,6 +196,7 @@ abstract class Controller
                 return $message_list[$i][$code];
             }
         }
+
         return null;
     }
     /**
@@ -253,16 +254,17 @@ abstract class Controller
      *
      * @access public
      * @param string $action action to request
-     * @param string $type hidden, url...
+     * @param string $type   hidden, url...
      */
     public function getActionRequest($action, $type = "hidden")
     {
-        $s = null; 
+        $s = null;
         if ($type == "hidden") {
             $s = sprintf('<input type="hidden" name="action_%s" value="true">', htmlspecialchars($action, ENT_QUOTES));
-        } else if ($type == "url") {
+        } elseif ($type == "url") {
             $s = sprintf('action_%s=true', urlencode($action));
         }
+
         return $s;
     }
 
@@ -270,8 +272,8 @@ abstract class Controller
      * フォームにより要求されたアクション名に対応する定義を返す
      *
      * @access private
-     * @param string $action_name アクション名
-     * @return array アクション定義
+     * @param  string $action_name アクション名
+     * @return array  アクション定義
      */
     private function _getActionName()
     {
@@ -288,9 +290,9 @@ abstract class Controller
         } else {
             $after= ucfirst($before);
         }
+
         return $after;
     }
-
 
     /**
      * フィルタチェインを生成する

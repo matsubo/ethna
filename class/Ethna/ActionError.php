@@ -31,9 +31,9 @@ class ActionError
      * エラーオブジェクトを生成/追加する
      *
      * @access public
-     * @param string $name エラーの発生したフォーム項目名(不要ならnull)
+     * @param string $name    エラーの発生したフォーム項目名(不要ならnull)
      * @param string $message エラーメッセージ
-     * @param int $code エラーコード
+     * @param int    $code    エラーコード
      */
     public function add($name, $message, $code = null)
     {
@@ -56,7 +56,7 @@ class ActionError
      * Ethna_Errorオブジェクトを追加する
      *
      * @access public
-     * @param string  $name エラーに対応するフォーム項目名(不要ならnull)
+     * @param string             $name  エラーに対応するフォーム項目名(不要ならnull)
      * @param object Ethna_Error $error エラーオブジェクト
      */
     public function addObject($name, $error)
@@ -103,8 +103,8 @@ class ActionError
      * 指定されたフォーム項目にエラーが発生しているかどうかを返す
      *
      * @access public
-     * @param string $name フォーム項目名
-     * @return bool true:エラーが発生している false:エラーが発生していない
+     * @param  string $name フォーム項目名
+     * @return bool   true:エラーが発生している false:エラーが発生していない
      */
     public function isError($name)
     {
@@ -113,6 +113,7 @@ class ActionError
                 return true;
             }
         }
+
         return false;
     }
 
@@ -120,7 +121,7 @@ class ActionError
      * 指定されたフォーム項目に対応するエラーメッセージを返す
      *
      * @access public
-     * @param string $name フォーム項目名
+     * @param  string $name フォーム項目名
      * @return string エラーメッセージ(エラーが無い場合はnull)
      */
     public function getMessage($name)
@@ -130,6 +131,7 @@ class ActionError
                 return $this->_getMessage($error);
             }
         }
+
         return null;
     }
 
@@ -157,6 +159,7 @@ class ActionError
         foreach ($this->error_list as $error) {
             $message_list[] = $this->_getMessage($error);
         }
+
         return $message_list;
     }
 
@@ -171,6 +174,7 @@ class ActionError
     {
         $af = $this->_getActionForm();
         $form_name = $af->getName($error['name']);
+
         return str_replace("{form}", $form_name, $error['object']->getMessage());
     }
 
@@ -186,7 +190,7 @@ class ActionError
             $controller = Ethna_Controller::getInstance();
             $this->action_form = $controller->getActionForm();
         }
+
         return $this->action_form;
     }
 }
-
