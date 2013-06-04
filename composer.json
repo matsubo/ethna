@@ -21,7 +21,9 @@
         "psr-0": {"Ethna": "class/"}
     },
     "require-dev": {
-      "smarty/smarty": "v3.1.13"
+      "smarty/smarty": "v3.1.13",
+      "fabpot/php-cs-fixer": "0.3.*@dev",
+      "sebastian/diff": "1.0.*@dev"
     },
     "require": {
       "aura/di": "1.1.*"
