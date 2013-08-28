@@ -10,7 +10,7 @@ class DIContainerFactory
 {
   public static function getContainer()
   {
-    public static $di;
+    static $di;
     if ($di) {
       return $di;
     }
