@@ -3,6 +3,8 @@ namespace Ethna;
 /**
  * Ethna_Util.php
  *
+ * @todo 利用していないメソッドを消す
+ * 
  * @author Masaki Fujimoto <fujimoto@php.net>
  * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
  * @package Ethna
