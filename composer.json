@@ -21,11 +21,11 @@
         "psr-0": {"Ethna": "class/"}
     },
     "require-dev": {
-      "smarty/smarty": "v3.1.13",
       "fabpot/php-cs-fixer": "0.3.*@dev",
       "sebastian/diff": "1.0.*@dev"
     },
     "require": {
+      "smarty/smarty": "v3.1.13",
       "aura/di": "1.1.*"
     },
     "license": "BSD-3-Clause"
