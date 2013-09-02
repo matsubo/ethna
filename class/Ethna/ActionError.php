@@ -37,19 +37,10 @@ class ActionError
      */
     public function add($name, $message, $code = null)
     {
-        if (func_num_args() > 3) {
-            $userinfo = array_slice(func_get_args(), 3);
-            $error = Ethna::raiseNotice($message, $code, $userinfo);
-        } else {
-            $error = Ethna::raiseNotice($message, $code);
-        }
-        $elt = array();
-        $elt['name'] = $name;
-        $elt['object'] = $error;
-        $this->error_list[] = $elt;
-
-        // ログ出力(補足)
-        $af = $this->_getActionForm();
+        $this->error_list[] = array(
+            'name' => $name,
+            'object' => new Exception($message, $code),
+        );
     }
 
     /**
