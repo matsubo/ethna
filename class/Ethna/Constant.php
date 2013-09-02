@@ -31,6 +31,36 @@ class Constant
     /** 要素型: ファイル */
     const VAR_TYPE_FILE =  6;
 
+    /** フォーム型: text */
+    const FORM_TYPE_TEXT = 1;
+
+    /** フォーム型: password */
+    const FORM_TYPE_PASSWORD = 2;
+
+    /** フォーム型: textarea */
+    const FORM_TYPE_TEXTAREA = 3;
+
+    /** フォーム型: select */
+    const FORM_TYPE_SELECT = 4;
+
+    /** フォーム型: radio */
+    const FORM_TYPE_RADIO = 5;
+
+    /** フォーム型: checkbox */
+    const FORM_TYPE_CHECKBOX = 6;
+
+    /** フォーム型: button */
+    const FORM_TYPE_SUBMIT = 7;
+
+    /** フォーム型: file */
+    const FORM_TYPE_FILE = 8;
+
+    /** フォーム型: button */
+    const FORM_TYPE_BUTTON = 9;
+
+    /** フォーム型: hidden */
+    const FORM_TYPE_HIDDEN = 10;
+
     /** エラーコード: 一般エラー */
     const E_GENERAL =  1;
 
