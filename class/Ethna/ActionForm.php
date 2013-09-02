@@ -64,6 +64,9 @@ class ActionForm
       // フォーム値定義の設定
       $this->_setFormDef();
 
+      // Action Error
+      $this->ae = DIContainerFactory::getContainer()->get('error');
+
       // 省略値補正
       foreach ($this->form as $name => $value) {
         foreach ($this->def as $k) {

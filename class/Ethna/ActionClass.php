@@ -16,7 +16,7 @@ class ActionClass
      * @access public
      * @param object Ethna_Backend $backend backendオブジェクト
      */
-    public function __construct()
+    public function __construct($controller)
     {
     }
 

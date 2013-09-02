@@ -149,6 +149,7 @@ abstract class Controller
     {
         // アクション定義の取得
         $action_class_name = $this->_getActionName();
+        $form_class_name = $this->getActionFormName();
 
         // アクション実行前フィルタ
         foreach ($this->filter_chain as $filter) {
@@ -156,13 +157,10 @@ abstract class Controller
         }
 
         // オブジェクト生成
-        $form_name = $this->getActionFormName();
-
-        DIContainerFactory::getContainer()->set('form', function() use ($form_name) {
-            return new $form_name();
-        });
-
         $action = new $action_class_name($this);
+        $form = new $form_class_name();
+        $form->setFormVars();
+        DIContainerFactory::getContainer()->set('form', $form);
 
         // アクションの実行
         $result = $action->authenticate();
